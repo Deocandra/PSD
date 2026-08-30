@@ -1,0 +1,10 @@
+title: Website PSD
+author: Deo Candra Saputra
+
+logo: logo.png
+
+execute:
+  execute_notebooks: auto
+
+html:
+  favicon: logo.png
