@@ -1,0 +1,1166 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>&lt;no title&gt; &#8212; Website PSD</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'tes';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="icon" href="_static/logo.png"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="_static/searchtools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Website PSD - Home"/>
+    <img src="_static/logo.png" class="logo__image only-dark pst-js-only" alt="Website PSD - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="index.html">
+                    Profile
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="pages/polutan/polutan.html">Polutan di Kabupaten Ngawi</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="pages/polutan/bussiness-understanding.html">Business Understanding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/polutan/data-understanding.html">Data Understanding</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/tes.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1><no title></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="simple pst-show_toc_level nav section-nav flex-column">
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">pip</span> install openeo
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting openeo
+  Using cached openeo-0.51.0-py3-none-any.whl.metadata (8.9 kB)
+Collecting requests&gt;=2.26.0 (from openeo)
+  Downloading requests-2.34.2-py3-none-any.whl.metadata (4.8 kB)
+Collecting urllib3&gt;=1.9.0 (from openeo)
+  Downloading urllib3-2.7.0-py3-none-any.whl.metadata (6.9 kB)
+Collecting shapely&gt;=1.6.4 (from openeo)
+  Using cached shapely-2.1.2-cp312-cp312-win_amd64.whl.metadata (7.1 kB)
+Requirement already satisfied: numpy&gt;=1.17.0 in d:\tugas psd\.venv\lib\site-packages (from openeo) (2.5.2)
+Collecting xarray&lt;2025.01.2,&gt;=0.12.3 (from openeo)
+  Using cached xarray-2025.1.1-py3-none-any.whl.metadata (11 kB)
+Collecting pandas&lt;3.0.0,&gt;0.20.0 (from openeo)
+  Using cached pandas-2.3.3-cp312-cp312-win_amd64.whl.metadata (19 kB)
+Collecting pystac&gt;=1.5.0 (from openeo)
+  Using cached pystac-1.15.2-py3-none-any.whl.metadata (6.3 kB)
+Collecting deprecated&gt;=1.2.12 (from openeo)
+  Using cached deprecated-1.3.1-py2.py3-none-any.whl.metadata (5.9 kB)
+Collecting oschmod&gt;=0.3.12 (from openeo)
+  Using cached oschmod-0.3.12-py2.py3-none-any.whl.metadata (10.0 kB)
+Collecting geopandas&gt;=0.14 (from openeo)
+  Using cached geopandas-1.1.4-py3-none-any.whl.metadata (2.3 kB)
+Collecting wrapt&lt;3,&gt;=1.10 (from deprecated&gt;=1.2.12-&gt;openeo)
+  Using cached wrapt-2.4.0-cp312-cp312-win_amd64.whl.metadata (7.6 kB)
+Collecting pyogrio&gt;=0.7.2 (from geopandas&gt;=0.14-&gt;openeo)
+  Using cached pyogrio-0.13.0-cp311-abi3-win_amd64.whl.metadata (6.0 kB)
+Requirement already satisfied: packaging in d:\tugas psd\.venv\lib\site-packages (from geopandas&gt;=0.14-&gt;openeo) (26.3)
+Collecting pyproj&gt;=3.5.0 (from geopandas&gt;=0.14-&gt;openeo)
+  Using cached pyproj-3.7.2-cp312-cp312-win_amd64.whl.metadata (31 kB)
+Collecting pywin32 (from oschmod&gt;=0.3.12-&gt;openeo)
+  Downloading pywin32-312-cp312-cp312-win_amd64.whl.metadata (11 kB)
+Requirement already satisfied: python-dateutil&gt;=2.8.2 in d:\tugas psd\.venv\lib\site-packages (from pandas&lt;3.0.0,&gt;0.20.0-&gt;openeo) (2.9.0.post0)
+Collecting pytz&gt;=2020.1 (from pandas&lt;3.0.0,&gt;0.20.0-&gt;openeo)
+  Using cached pytz-2026.3.post1-py2.py3-none-any.whl.metadata (22 kB)
+Requirement already satisfied: tzdata&gt;=2022.7 in d:\tugas psd\.venv\lib\site-packages (from pandas&lt;3.0.0,&gt;0.20.0-&gt;openeo) (2026.3)
+Collecting pystac-core&lt;2,&gt;=1.15.0 (from pystac&gt;=1.5.0-&gt;openeo)
+  Using cached pystac_core-1.15.2-py3-none-any.whl.metadata (1.3 kB)
+Collecting pystac-ext-classification (from pystac&gt;=1.5.0-&gt;openeo)
+  Using cached pystac_ext_classification-2.0.1-py3-none-any.whl.metadata (2.1 kB)
+Collecting pystac-ext-datacube (from pystac&gt;=1.5.0-&gt;openeo)
+  Using cached pystac_ext_datacube-2.2.1-py3-none-any.whl.metadata (1.8 kB)
+Collecting pystac-ext-eo (from pystac&gt;=1.5.0-&gt;openeo)
+  Using cached pystac_ext_eo-1.1.1-py3-none-any.whl.metadata (1.9 kB)
+Collecting pystac-ext-file (from pystac&gt;=1.5.0-&gt;openeo)
+  Using cached pystac_ext_file-2.1.1-py3-none-any.whl.metadata (1.8 kB)
+Collecting pystac-ext-grid (from pystac&gt;=1.5.0-&gt;openeo)
+  Using cached pystac_ext_grid-1.1.1-py3-none-any.whl.metadata (1.9 kB)
+Collecting pystac-ext-item-assets (from pystac&gt;=1.5.0-&gt;openeo)
+  Using cached pystac_ext_item_assets-1.0.1-py3-none-any.whl.metadata (1.9 kB)
+Collecting pystac-ext-label (from pystac&gt;=1.5.0-&gt;openeo)
+  Using cached pystac_ext_label-1.0.2-py3-none-any.whl.metadata (1.9 kB)
+Collecting pystac-ext-mgrs (from pystac&gt;=1.5.0-&gt;openeo)
+  Using cached pystac_ext_mgrs-1.0.1-py3-none-any.whl.metadata (1.8 kB)
+Collecting pystac-ext-mlm (from pystac&gt;=1.5.0-&gt;openeo)
+  Using cached pystac_ext_mlm-1.4.1-py3-none-any.whl.metadata (2.2 kB)
+Collecting pystac-ext-pointcloud (from pystac&gt;=1.5.0-&gt;openeo)
+  Using cached pystac_ext_pointcloud-1.0.1-py3-none-any.whl.metadata (1.8 kB)
+Collecting pystac-ext-projection (from pystac&gt;=1.5.0-&gt;openeo)
+  Using cached pystac_ext_projection-2.0.1-py3-none-any.whl.metadata (2.1 kB)
+Collecting pystac-ext-raster (from pystac&gt;=1.5.0-&gt;openeo)
+  Using cached pystac_ext_raster-1.1.1-py3-none-any.whl.metadata (1.9 kB)
+Collecting pystac-ext-render (from pystac&gt;=1.5.0-&gt;openeo)
+  Using cached pystac_ext_render-2.0.0-py3-none-any.whl.metadata (1.8 kB)
+Collecting pystac-ext-sar (from pystac&gt;=1.5.0-&gt;openeo)
+  Using cached pystac_ext_sar-1.0.1-py3-none-any.whl.metadata (1.8 kB)
+Collecting pystac-ext-sat (from pystac&gt;=1.5.0-&gt;openeo)
+  Using cached pystac_ext_sat-1.0.1-py3-none-any.whl.metadata (1.8 kB)
+Collecting pystac-ext-scientific (from pystac&gt;=1.5.0-&gt;openeo)
+  Using cached pystac_ext_scientific-1.0.1-py3-none-any.whl.metadata (1.8 kB)
+Collecting pystac-ext-storage (from pystac&gt;=1.5.0-&gt;openeo)
+  Using cached pystac_ext_storage-2.0.1-py3-none-any.whl.metadata (1.9 kB)
+Collecting pystac-ext-table (from pystac&gt;=1.5.0-&gt;openeo)
+  Using cached pystac_ext_table-1.2.1-py3-none-any.whl.metadata (1.8 kB)
+Collecting pystac-ext-timestamps (from pystac&gt;=1.5.0-&gt;openeo)
+  Using cached pystac_ext_timestamps-1.1.1-py3-none-any.whl.metadata (1.8 kB)
+Collecting pystac-ext-version (from pystac&gt;=1.5.0-&gt;openeo)
+  Using cached pystac_ext_version-1.2.1-py3-none-any.whl.metadata (1.9 kB)
+Collecting pystac-ext-view (from pystac&gt;=1.5.0-&gt;openeo)
+  Using cached pystac_ext_view-1.0.1-py3-none-any.whl.metadata (1.8 kB)
+Collecting pystac-ext-xarray-assets (from pystac&gt;=1.5.0-&gt;openeo)
+  Using cached pystac_ext_xarray_assets-1.0.1-py3-none-any.whl.metadata (1.9 kB)
+Collecting charset_normalizer&lt;4,&gt;=2 (from requests&gt;=2.26.0-&gt;openeo)
+  Downloading charset_normalizer-3.5.1-cp312-cp312-win_amd64.whl.metadata (46 kB)
+Requirement already satisfied: idna&lt;4,&gt;=2.5 in d:\tugas psd\.venv\lib\site-packages (from requests&gt;=2.26.0-&gt;openeo) (3.19)
+Collecting certifi&gt;=2023.5.7 (from requests&gt;=2.26.0-&gt;openeo)
+  Downloading certifi-2026.7.22-py3-none-any.whl.metadata (2.5 kB)
+Requirement already satisfied: six&gt;=1.5 in d:\tugas psd\.venv\lib\site-packages (from python-dateutil&gt;=2.8.2-&gt;pandas&lt;3.0.0,&gt;0.20.0-&gt;openeo) (1.17.0)
+Using cached openeo-0.51.0-py3-none-any.whl (349 kB)
+Using cached deprecated-1.3.1-py2.py3-none-any.whl (11 kB)
+Using cached geopandas-1.1.4-py3-none-any.whl (343 kB)
+Using cached oschmod-0.3.12-py2.py3-none-any.whl (14 kB)
+Using cached pandas-2.3.3-cp312-cp312-win_amd64.whl (11.0 MB)
+Using cached pystac-1.15.2-py3-none-any.whl (5.7 kB)
+Downloading requests-2.34.2-py3-none-any.whl (73 kB)
+Using cached shapely-2.1.2-cp312-cp312-win_amd64.whl (1.7 MB)
+Downloading urllib3-2.7.0-py3-none-any.whl (131 kB)
+Using cached xarray-2025.1.1-py3-none-any.whl (1.2 MB)
+Downloading certifi-2026.7.22-py3-none-any.whl (136 kB)
+Downloading charset_normalizer-3.5.1-cp312-cp312-win_amd64.whl (200 kB)
+Using cached pyogrio-0.13.0-cp311-abi3-win_amd64.whl (23.8 MB)
+Using cached pyproj-3.7.2-cp312-cp312-win_amd64.whl (6.3 MB)
+Using cached pystac_core-1.15.2-py3-none-any.whl (117 kB)
+Using cached pytz-2026.3.post1-py2.py3-none-any.whl (508 kB)
+Using cached wrapt-2.4.0-cp312-cp312-win_amd64.whl (96 kB)
+Using cached pystac_ext_classification-2.0.1-py3-none-any.whl (7.4 kB)
+Using cached pystac_ext_datacube-2.2.1-py3-none-any.whl (7.1 kB)
+Using cached pystac_ext_eo-1.1.1-py3-none-any.whl (7.7 kB)
+Using cached pystac_ext_file-2.1.1-py3-none-any.whl (5.8 kB)
+Using cached pystac_ext_grid-1.1.1-py3-none-any.whl (3.6 kB)
+Using cached pystac_ext_item_assets-1.0.1-py3-none-any.whl (3.7 kB)
+Using cached pystac_ext_label-1.0.2-py3-none-any.whl (8.2 kB)
+Using cached pystac_ext_mgrs-1.0.1-py3-none-any.whl (4.1 kB)
+Using cached pystac_ext_mlm-1.4.1-py3-none-any.whl (13 kB)
+Using cached pystac_ext_pointcloud-1.0.1-py3-none-any.whl (6.5 kB)
+Using cached pystac_ext_projection-2.0.1-py3-none-any.whl (7.4 kB)
+Using cached pystac_ext_raster-1.1.1-py3-none-any.whl (6.8 kB)
+Using cached pystac_ext_render-2.0.0-py3-none-any.whl (5.0 kB)
+Using cached pystac_ext_sar-1.0.1-py3-none-any.whl (6.5 kB)
+Using cached pystac_ext_sat-1.0.1-py3-none-any.whl (4.9 kB)
+Using cached pystac_ext_scientific-1.0.1-py3-none-any.whl (5.5 kB)
+Using cached pystac_ext_storage-2.0.1-py3-none-any.whl (7.6 kB)
+Using cached pystac_ext_table-1.2.1-py3-none-any.whl (4.7 kB)
+Using cached pystac_ext_timestamps-1.1.1-py3-none-any.whl (4.6 kB)
+Using cached pystac_ext_version-1.2.1-py3-none-any.whl (5.8 kB)
+Using cached pystac_ext_view-1.0.1-py3-none-any.whl (4.8 kB)
+Using cached pystac_ext_xarray_assets-1.0.1-py3-none-any.whl (3.9 kB)
+Downloading pywin32-312-cp312-cp312-win_amd64.whl (6.9 MB)
+   ---------------------------------------- 0.0/6.9 MB ? eta -:--:--
+   ---- ----------------------------------- 0.8/6.9 MB 4.2 MB/s eta 0:00:02
+   ------------- -------------------------- 2.4/6.9 MB 5.8 MB/s eta 0:00:01
+   ------------------------- -------------- 4.5/6.9 MB 7.4 MB/s eta 0:00:01
+   ---------------------------------------  6.8/6.9 MB 8.6 MB/s eta 0:00:01
+   ---------------------------------------- 6.9/6.9 MB 8.3 MB/s eta 0:00:00
+Installing collected packages: pytz, wrapt, urllib3, shapely, pywin32, charset_normalizer, certifi, requests, pystac-core, pyproj, pyogrio, pandas, oschmod, deprecated, xarray, pystac-ext-xarray-assets, pystac-ext-view, pystac-ext-version, pystac-ext-timestamps, pystac-ext-table, pystac-ext-storage, pystac-ext-scientific, pystac-ext-sat, pystac-ext-sar, pystac-ext-render, pystac-ext-raster, pystac-ext-projection, pystac-ext-pointcloud, pystac-ext-mgrs, pystac-ext-label, pystac-ext-item-assets, pystac-ext-grid, pystac-ext-file, pystac-ext-datacube, geopandas, pystac-ext-eo, pystac-ext-classification, pystac-ext-mlm, pystac, openeo
+Successfully installed certifi-2026.7.22 charset_normalizer-3.5.1 deprecated-1.3.1 geopandas-1.1.4 openeo-0.51.0 oschmod-0.3.12 pandas-2.3.3 pyogrio-0.13.0 pyproj-3.7.2 pystac-1.15.2 pystac-core-1.15.2 pystac-ext-classification-2.0.1 pystac-ext-datacube-2.2.1 pystac-ext-eo-1.1.1 pystac-ext-file-2.1.1 pystac-ext-grid-1.1.1 pystac-ext-item-assets-1.0.1 pystac-ext-label-1.0.2 pystac-ext-mgrs-1.0.1 pystac-ext-mlm-1.4.1 pystac-ext-pointcloud-1.0.1 pystac-ext-projection-2.0.1 pystac-ext-raster-1.1.1 pystac-ext-render-2.0.0 pystac-ext-sar-1.0.1 pystac-ext-sat-1.0.1 pystac-ext-scientific-1.0.1 pystac-ext-storage-2.0.1 pystac-ext-table-1.2.1 pystac-ext-timestamps-1.1.1 pystac-ext-version-1.2.1 pystac-ext-view-1.0.1 pystac-ext-xarray-assets-1.0.1 pytz-2026.3.post1 pywin32-312 requests-2.34.2 shapely-2.1.2 urllib3-2.7.0 wrapt-2.4.0 xarray-2025.1.1
+Note: you may need to restart the kernel to use updated packages.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[notice] A new release of pip is available: 24.2 -&gt; 26.2.1
+[notice] To update, run: python.exe -m pip install --upgrade pip
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">openeo</span>
+
+<span class="n">connection</span> <span class="o">=</span> <span class="n">openeo</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+    <span class="s2">&quot;openeo.dataspace.copernicus.eu&quot;</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">connection</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Connection to &#39;https://openeo.dataspace.copernicus.eu/openeo/1.2/&#39; with NullAuth&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">connection</span><span class="o">.</span><span class="n">authenticate_oidc</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">Visit <a href="https://identity.dataspace.copernicus.eu/auth/realms/CDSE/device?user_code=ZJKV-KZBL" title="Authenticate at https://identity.dataspace.copernicus.eu/auth/realms/CDSE/device?user_code=ZJKV-KZBL" target="_blank" rel="noopener noreferrer">https://identity.dataspace.copernicus.eu/auth/realms/CDSE/device?user_code=ZJKV-KZBL</a> <a href="#" onclick="navigator.clipboard.writeText('https://identity.dataspace.copernicus.eu/auth/realms/CDSE/device?user_code=ZJKV-KZBL');return false;" title="Copy authentication URL to clipboard">&#128203;</a> to authenticate.</div><div class="output text_html">✅ Authorized successfully</div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Authenticated using device code flow.
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Connection to &#39;https://openeo.dataspace.copernicus.eu/openeo/1.2/&#39; with OidcBearerAuth&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ngawi_bbox</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;west&quot;</span><span class="p">:</span> <span class="mf">111.118446</span><span class="p">,</span>
+    <span class="s2">&quot;south&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mf">7.620417</span><span class="p">,</span>
+    <span class="s2">&quot;east&quot;</span><span class="p">:</span> <span class="mf">111.671219</span><span class="p">,</span>
+    <span class="s2">&quot;north&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mf">7.244574</span>
+<span class="p">}</span>
+
+<span class="c1"># AOI (Area of Interest) dalam format polygon GeoJSON</span>
+<span class="n">aoi</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Polygon&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;coordinates&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">[</span>
+            <span class="p">[</span><span class="mf">111.118446</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.620417</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">111.118446</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.244574</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">111.671219</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.244574</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">111.671219</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.620417</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">111.118446</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.620417</span><span class="p">],</span>
+        <span class="p">]</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+
+<span class="n">tanggal_mulai</span> <span class="o">=</span> <span class="s2">&quot;2025-08-25&quot;</span>
+<span class="n">tanggal_selesai</span> <span class="o">=</span> <span class="s2">&quot;2026-08-25&quot;</span>
+
+<span class="c1"># Daftar polutan yang ingin diambil</span>
+<span class="n">daftar_polutan</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;NO2&quot;</span><span class="p">,</span> <span class="s2">&quot;SO2&quot;</span><span class="p">,</span> <span class="s2">&quot;O3&quot;</span><span class="p">,</span> <span class="s2">&quot;CO&quot;</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">polutan</span> <span class="ow">in</span> <span class="n">daftar_polutan</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Memproses polutan: </span><span class="si">{</span><span class="n">polutan</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">s5p</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">load_collection</span><span class="p">(</span>
+        <span class="s2">&quot;SENTINEL_5P_L2&quot;</span><span class="p">,</span>
+        <span class="n">temporal_extent</span><span class="o">=</span><span class="p">[</span><span class="n">tanggal_mulai</span><span class="p">,</span> <span class="n">tanggal_selesai</span><span class="p">],</span>
+        <span class="n">spatial_extent</span><span class="o">=</span><span class="n">ngawi_bbox</span><span class="p">,</span>
+        <span class="n">bands</span><span class="o">=</span><span class="p">[</span><span class="n">polutan</span><span class="p">],</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Agregasi harian agar tidak ada lebih dari satu data per hari</span>
+    <span class="n">s5p_daily</span> <span class="o">=</span> <span class="n">s5p</span><span class="o">.</span><span class="n">aggregate_temporal_period</span><span class="p">(</span><span class="n">reducer</span><span class="o">=</span><span class="s2">&quot;mean&quot;</span><span class="p">,</span> <span class="n">period</span><span class="o">=</span><span class="s2">&quot;day&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Agregasi spasial agar seluruh grid wilayah Ngawi dirata-rata jadi satu nilai</span>
+    <span class="n">s5p_aoi</span> <span class="o">=</span> <span class="n">s5p_daily</span><span class="o">.</span><span class="n">aggregate_spatial</span><span class="p">(</span><span class="n">reducer</span><span class="o">=</span><span class="s2">&quot;mean&quot;</span><span class="p">,</span> <span class="n">geometries</span><span class="o">=</span><span class="n">aoi</span><span class="p">)</span>
+
+    <span class="c1"># Simpan hasil sebagai CSV</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">s5p_aoi</span><span class="o">.</span><span class="n">save_result</span><span class="p">(</span><span class="nb">format</span><span class="o">=</span><span class="s2">&quot;CSV&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Jalankan job dan tunggu sampai selesai</span>
+    <span class="n">job</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">create_job</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;s5p_</span><span class="si">{</span><span class="n">polutan</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="si">}</span><span class="s2">_ngawi&quot;</span><span class="p">)</span>
+    <span class="n">job</span><span class="o">.</span><span class="n">start_and_wait</span><span class="p">()</span>
+
+    <span class="c1"># Download hasil</span>
+    <span class="n">job</span><span class="o">.</span><span class="n">get_results</span><span class="p">()</span><span class="o">.</span><span class="n">download_files</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;output_</span><span class="si">{</span><span class="n">polutan</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="si">}</span><span class="s2">_ngawi&quot;</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Selesai: </span><span class="si">{</span><span class="n">polutan</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Memproses polutan: NO2
+0:00:00 Job &#39;j-26083013441041ba9648159ac754997d&#39;: send &#39;start&#39;
+0:00:03 Job &#39;j-26083013441041ba9648159ac754997d&#39;: queued (progress 0%)
+0:00:08 Job &#39;j-26083013441041ba9648159ac754997d&#39;: queued (progress 0%)
+0:00:15 Job &#39;j-26083013441041ba9648159ac754997d&#39;: queued (progress 0%)
+0:00:23 Job &#39;j-26083013441041ba9648159ac754997d&#39;: queued (progress 0%)
+0:00:33 Job &#39;j-26083013441041ba9648159ac754997d&#39;: queued (progress 0%)
+0:00:45 Job &#39;j-26083013441041ba9648159ac754997d&#39;: queued (progress 0%)
+0:01:01 Job &#39;j-26083013441041ba9648159ac754997d&#39;: queued (progress 0%)
+0:01:20 Job &#39;j-26083013441041ba9648159ac754997d&#39;: running (progress N/A)
+0:01:44 Job &#39;j-26083013441041ba9648159ac754997d&#39;: running (progress N/A)
+0:02:14 Job &#39;j-26083013441041ba9648159ac754997d&#39;: running (progress N/A)
+0:02:52 Job &#39;j-26083013441041ba9648159ac754997d&#39;: running (progress N/A)
+0:03:39 Job &#39;j-26083013441041ba9648159ac754997d&#39;: finished (progress 100%)
+Selesai: NO2
+
+Memproses polutan: SO2
+0:00:00 Job &#39;j-2608301347584f2c946f06cbc49ef60f&#39;: send &#39;start&#39;
+0:00:02 Job &#39;j-2608301347584f2c946f06cbc49ef60f&#39;: created (progress 0%)
+0:00:07 Job &#39;j-2608301347584f2c946f06cbc49ef60f&#39;: queued (progress 0%)
+0:00:14 Job &#39;j-2608301347584f2c946f06cbc49ef60f&#39;: queued (progress 0%)
+0:00:22 Job &#39;j-2608301347584f2c946f06cbc49ef60f&#39;: queued (progress 0%)
+0:00:32 Job &#39;j-2608301347584f2c946f06cbc49ef60f&#39;: queued (progress 0%)
+0:00:45 Job &#39;j-2608301347584f2c946f06cbc49ef60f&#39;: queued (progress 0%)
+0:01:00 Job &#39;j-2608301347584f2c946f06cbc49ef60f&#39;: queued (progress 0%)
+0:01:20 Job &#39;j-2608301347584f2c946f06cbc49ef60f&#39;: running (progress N/A)
+0:01:44 Job &#39;j-2608301347584f2c946f06cbc49ef60f&#39;: running (progress N/A)
+0:02:14 Job &#39;j-2608301347584f2c946f06cbc49ef60f&#39;: running (progress N/A)
+0:02:51 Job &#39;j-2608301347584f2c946f06cbc49ef60f&#39;: running (progress N/A)
+0:03:38 Job &#39;j-2608301347584f2c946f06cbc49ef60f&#39;: finished (progress 100%)
+Selesai: SO2
+
+Memproses polutan: O3
+0:00:00 Job &#39;j-260830135149492a873cdc10edffcf50&#39;: send &#39;start&#39;
+0:00:02 Job &#39;j-260830135149492a873cdc10edffcf50&#39;: queued (progress 0%)
+0:00:08 Job &#39;j-260830135149492a873cdc10edffcf50&#39;: queued (progress 0%)
+0:00:14 Job &#39;j-260830135149492a873cdc10edffcf50&#39;: queued (progress 0%)
+0:00:22 Job &#39;j-260830135149492a873cdc10edffcf50&#39;: running (progress N/A)
+0:00:32 Job &#39;j-260830135149492a873cdc10edffcf50&#39;: running (progress N/A)
+0:00:45 Job &#39;j-260830135149492a873cdc10edffcf50&#39;: running (progress N/A)
+0:01:00 Job &#39;j-260830135149492a873cdc10edffcf50&#39;: running (progress N/A)
+0:01:20 Job &#39;j-260830135149492a873cdc10edffcf50&#39;: running (progress N/A)
+0:01:44 Job &#39;j-260830135149492a873cdc10edffcf50&#39;: running (progress N/A)
+0:02:14 Job &#39;j-260830135149492a873cdc10edffcf50&#39;: running (progress N/A)
+0:02:52 Job &#39;j-260830135149492a873cdc10edffcf50&#39;: running (progress N/A)
+0:03:38 Job &#39;j-260830135149492a873cdc10edffcf50&#39;: finished (progress 100%)
+Selesai: O3
+
+Memproses polutan: CO
+0:00:00 Job &#39;j-2608301355384408b8790871dd771020&#39;: send &#39;start&#39;
+0:00:02 Job &#39;j-2608301355384408b8790871dd771020&#39;: created (progress 0%)
+0:00:07 Job &#39;j-2608301355384408b8790871dd771020&#39;: queued (progress 0%)
+0:00:14 Job &#39;j-2608301355384408b8790871dd771020&#39;: queued (progress 0%)
+0:00:22 Job &#39;j-2608301355384408b8790871dd771020&#39;: queued (progress 0%)
+0:00:32 Job &#39;j-2608301355384408b8790871dd771020&#39;: queued (progress 0%)
+0:00:45 Job &#39;j-2608301355384408b8790871dd771020&#39;: running (progress N/A)
+0:01:00 Job &#39;j-2608301355384408b8790871dd771020&#39;: running (progress N/A)
+0:01:20 Job &#39;j-2608301355384408b8790871dd771020&#39;: running (progress N/A)
+0:01:44 Job &#39;j-2608301355384408b8790871dd771020&#39;: running (progress N/A)
+0:02:14 Job &#39;j-2608301355384408b8790871dd771020&#39;: running (progress N/A)
+0:02:52 Job &#39;j-2608301355384408b8790871dd771020&#39;: finished (progress 100%)
+Selesai: CO
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">daftar_file</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;NO2&quot;</span><span class="p">:</span> <span class="s2">&quot;output_no2_ngawi/timeseries.csv&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;SO2&quot;</span><span class="p">:</span> <span class="s2">&quot;output_so2_ngawi/timeseries.csv&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;O3&quot;</span><span class="p">:</span> <span class="s2">&quot;output_o3_ngawi/timeseries.csv&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;CO&quot;</span><span class="p">:</span> <span class="s2">&quot;output_co_ngawi/timeseries.csv&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">dataframes</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="k">for</span> <span class="n">polutan</span><span class="p">,</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">daftar_file</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;===== </span><span class="si">{</span><span class="n">polutan</span><span class="si">}</span><span class="s2"> =====&quot;</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="n">dataframes</span><span class="p">[</span><span class="n">polutan</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Shape:&quot;</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Info:&quot;</span><span class="p">)</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Cuplikan data:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Jumlah nilai unik kolom date:&quot;</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span> <span class="k">if</span> <span class="s1">&#39;date&#39;</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="k">else</span> <span class="s2">&quot;kolom &#39;date&#39; tidak ditemukan&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>===== NO2 =====
+Shape: (366, 3)
+
+Info:
+&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 366 entries, 0 to 365
+Data columns (total 3 columns):
+ #   Column         Non-Null Count  Dtype  
+---  ------         --------------  -----  
+ 0   date           366 non-null    object 
+ 1   feature_index  366 non-null    int64  
+ 2   NO2            300 non-null    float64
+dtypes: float64(1), int64(1), object(1)
+memory usage: 8.7+ KB
+
+Cuplikan data:
+                       date  feature_index       NO2
+0  2026-07-21T00:00:00.000Z              0  0.000024
+1  2026-07-15T00:00:00.000Z              0  0.000033
+2  2026-07-20T00:00:00.000Z              0  0.000030
+3  2026-07-17T00:00:00.000Z              0  0.000035
+4  2026-07-16T00:00:00.000Z              0  0.000031
+
+Jumlah nilai unik kolom date: 366
+
+
+===== SO2 =====
+Shape: (366, 3)
+
+Info:
+&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 366 entries, 0 to 365
+Data columns (total 3 columns):
+ #   Column         Non-Null Count  Dtype  
+---  ------         --------------  -----  
+ 0   date           366 non-null    object 
+ 1   feature_index  366 non-null    int64  
+ 2   SO2            325 non-null    float64
+dtypes: float64(1), int64(1), object(1)
+memory usage: 8.7+ KB
+
+Cuplikan data:
+                       date  feature_index       SO2
+0  2025-09-25T00:00:00.000Z              0  0.000107
+1  2025-09-27T00:00:00.000Z              0  0.000038
+2  2025-09-23T00:00:00.000Z              0  0.000155
+3  2025-09-24T00:00:00.000Z              0  0.000097
+4  2025-09-21T00:00:00.000Z              0 -0.000024
+
+Jumlah nilai unik kolom date: 366
+
+
+===== O3 =====
+Shape: (366, 3)
+
+Info:
+&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 366 entries, 0 to 365
+Data columns (total 3 columns):
+ #   Column         Non-Null Count  Dtype  
+---  ------         --------------  -----  
+ 0   date           366 non-null    object 
+ 1   feature_index  366 non-null    int64  
+ 2   O3             361 non-null    float64
+dtypes: float64(1), int64(1), object(1)
+memory usage: 8.7+ KB
+
+Cuplikan data:
+                       date  feature_index        O3
+0  2025-11-20T00:00:00.000Z              0  0.114528
+1  2025-11-19T00:00:00.000Z              0  0.116565
+2  2025-11-17T00:00:00.000Z              0  0.115491
+3  2025-11-22T00:00:00.000Z              0  0.114391
+4  2025-11-23T00:00:00.000Z              0  0.112889
+
+Jumlah nilai unik kolom date: 366
+
+
+===== CO =====
+Shape: (366, 3)
+
+Info:
+&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 366 entries, 0 to 365
+Data columns (total 3 columns):
+ #   Column         Non-Null Count  Dtype  
+---  ------         --------------  -----  
+ 0   date           366 non-null    object 
+ 1   feature_index  366 non-null    int64  
+ 2   CO             326 non-null    float64
+dtypes: float64(1), int64(1), object(1)
+memory usage: 8.7+ KB
+
+Cuplikan data:
+                       date  feature_index        CO
+0  2025-09-20T00:00:00.000Z              0  0.026309
+1  2025-09-16T00:00:00.000Z              0  0.033442
+2  2025-09-18T00:00:00.000Z              0       NaN
+3  2025-09-15T00:00:00.000Z              0  0.026634
+4  2025-09-14T00:00:00.000Z              0  0.027013
+
+Jumlah nilai unik kolom date: 366
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">daftar_file</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;NO2&quot;</span><span class="p">:</span> <span class="s2">&quot;output_no2_ngawi/timeseries.csv&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;SO2&quot;</span><span class="p">:</span> <span class="s2">&quot;output_so2_ngawi/timeseries.csv&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;O3&quot;</span><span class="p">:</span> <span class="s2">&quot;output_o3_ngawi/timeseries.csv&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;CO&quot;</span><span class="p">:</span> <span class="s2">&quot;output_co_ngawi/timeseries.csv&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="k">for</span> <span class="n">polutan</span><span class="p">,</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">daftar_file</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+    <span class="c1"># Pastikan kolom tanggal valid &amp; buang info timezone</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;coerce&quot;</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Buang kolom feature_index, hanya simpan date &amp; nilai polutan</span>
+    <span class="n">new_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+        <span class="s2">&quot;date&quot;</span><span class="p">:</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">],</span>
+        <span class="n">polutan</span><span class="p">:</span> <span class="n">df</span><span class="p">[</span><span class="n">polutan</span><span class="p">]</span>
+    <span class="p">})</span>
+
+    <span class="n">new_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">polutan</span><span class="si">}</span><span class="s2">_Timeseries.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Selesai normalisasi: </span><span class="si">{</span><span class="n">polutan</span><span class="si">}</span><span class="s2"> -&gt; </span><span class="si">{</span><span class="n">polutan</span><span class="si">}</span><span class="s2">_Timeseries.csv&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Selesai normalisasi: NO2 -&gt; NO2_Timeseries.csv
+Selesai normalisasi: SO2 -&gt; SO2_Timeseries.csv
+Selesai normalisasi: O3 -&gt; O3_Timeseries.csv
+Selesai normalisasi: CO -&gt; CO_Timeseries.csv
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">daftar_polutan</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;NO2&quot;</span><span class="p">,</span> <span class="s2">&quot;SO2&quot;</span><span class="p">,</span> <span class="s2">&quot;O3&quot;</span><span class="p">,</span> <span class="s2">&quot;CO&quot;</span><span class="p">]</span>
+
+<span class="n">start_date</span> <span class="o">=</span> <span class="s2">&quot;2025-08-25&quot;</span>
+<span class="n">end_date</span>   <span class="o">=</span> <span class="s2">&quot;2026-08-25&quot;</span>
+<span class="n">full_range</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">start_date</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="n">end_date</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;D&#39;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">polutan</span> <span class="ow">in</span> <span class="n">daftar_polutan</span><span class="p">:</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">polutan</span><span class="si">}</span><span class="s2">_Timeseries.csv&quot;</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">])</span>
+
+    <span class="c1"># Cek tanggal yang hilang</span>
+    <span class="n">missing_dates</span> <span class="o">=</span> <span class="n">full_range</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">])</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;===== </span><span class="si">{</span><span class="n">polutan</span><span class="si">}</span><span class="s2"> =====&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Jumlah hari missing: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">missing_dates</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">missing_dates</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Daftar tanggal missing:&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">missing_dates</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>===== NO2 =====
+Jumlah hari missing: 1
+Daftar tanggal missing:
+DatetimeIndex([&#39;2026-08-25&#39;], dtype=&#39;datetime64[ns]&#39;, freq=&#39;D&#39;)
+
+===== SO2 =====
+Jumlah hari missing: 1
+Daftar tanggal missing:
+DatetimeIndex([&#39;2026-08-25&#39;], dtype=&#39;datetime64[ns]&#39;, freq=&#39;D&#39;)
+
+===== O3 =====
+Jumlah hari missing: 1
+Daftar tanggal missing:
+DatetimeIndex([&#39;2026-08-25&#39;], dtype=&#39;datetime64[ns]&#39;, freq=&#39;D&#39;)
+
+===== CO =====
+Jumlah hari missing: 1
+Daftar tanggal missing:
+DatetimeIndex([&#39;2026-08-25&#39;], dtype=&#39;datetime64[ns]&#39;, freq=&#39;D&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">daftar_polutan</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;NO2&quot;</span><span class="p">,</span> <span class="s2">&quot;SO2&quot;</span><span class="p">,</span> <span class="s2">&quot;O3&quot;</span><span class="p">,</span> <span class="s2">&quot;CO&quot;</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">polutan</span> <span class="ow">in</span> <span class="n">daftar_polutan</span><span class="p">:</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">polutan</span><span class="si">}</span><span class="s2">_Timeseries.csv&quot;</span><span class="p">)</span>
+    
+    <span class="n">jumlah_missing</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">polutan</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="n">total_baris</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+    <span class="n">persentase</span> <span class="o">=</span> <span class="p">(</span><span class="n">jumlah_missing</span> <span class="o">/</span> <span class="n">total_baris</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;===== </span><span class="si">{</span><span class="n">polutan</span><span class="si">}</span><span class="s2"> =====&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Jumlah nilai kosong (NaN): </span><span class="si">{</span><span class="n">jumlah_missing</span><span class="si">}</span><span class="s2"> dari </span><span class="si">{</span><span class="n">total_baris</span><span class="si">}</span><span class="s2"> baris (</span><span class="si">{</span><span class="n">persentase</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">%)&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>===== NO2 =====
+Jumlah nilai kosong (NaN): 66 dari 366 baris (18.03%)
+
+===== SO2 =====
+Jumlah nilai kosong (NaN): 41 dari 366 baris (11.20%)
+
+===== O3 =====
+Jumlah nilai kosong (NaN): 5 dari 366 baris (1.37%)
+
+===== CO =====
+Jumlah nilai kosong (NaN): 40 dari 366 baris (10.93%)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">IsolationForest</span>
+
+<span class="n">daftar_polutan</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;NO2&quot;</span><span class="p">,</span> <span class="s2">&quot;SO2&quot;</span><span class="p">,</span> <span class="s2">&quot;O3&quot;</span><span class="p">,</span> <span class="s2">&quot;CO&quot;</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">polutan</span> <span class="ow">in</span> <span class="n">daftar_polutan</span><span class="p">:</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">polutan</span><span class="si">}</span><span class="s2">_Timeseries.csv&quot;</span><span class="p">)</span>
+    <span class="n">df_clean</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="n">polutan</span><span class="p">])</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="n">model</span> <span class="o">=</span> <span class="n">IsolationForest</span><span class="p">(</span><span class="n">contamination</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>  <span class="c1"># contamination 0.05 = 5%</span>
+    <span class="n">pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">df_clean</span><span class="p">[[</span><span class="n">polutan</span><span class="p">]])</span>
+
+    <span class="c1"># Nilai -1 merepresentasikan outlier</span>
+    <span class="n">df_clean</span><span class="p">[</span><span class="s2">&quot;is_outlier&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pred</span>
+    <span class="n">jumlah_outlier</span> <span class="o">=</span> <span class="p">(</span><span class="n">pred</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;===== </span><span class="si">{</span><span class="n">polutan</span><span class="si">}</span><span class="s2"> =====&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Jumlah baris valid (non-NaN): </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df_clean</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Jumlah outlier: </span><span class="si">{</span><span class="n">jumlah_outlier</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Contoh baris outlier:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">df_clean</span><span class="p">[</span><span class="n">df_clean</span><span class="p">[</span><span class="s2">&quot;is_outlier&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+    <span class="nb">print</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>===== NO2 =====
+Jumlah baris valid (non-NaN): 300
+Jumlah outlier: 15
+Contoh baris outlier:
+           date       NO2  is_outlier
+26   2026-02-11  0.000007          -1
+30   2026-02-08  0.000046          -1
+47   2026-01-24  0.000005          -1
+106  2025-12-16  0.000009          -1
+114  2026-03-21  0.000011          -1
+
+===== SO2 =====
+Jumlah baris valid (non-NaN): 325
+Jumlah outlier: 17
+Contoh baris outlier:
+           date       SO2  is_outlier
+25   2025-11-19 -0.000805          -1
+54   2026-06-08  0.000298          -1
+63   2025-09-01  0.000394          -1
+79   2025-10-24 -0.000194          -1
+105  2026-02-23 -0.000417          -1
+
+===== O3 =====
+Jumlah baris valid (non-NaN): 361
+Jumlah outlier: 18
+Contoh baris outlier:
+          date        O3  is_outlier
+14  2026-02-20  0.110673          -1
+25  2026-08-21  0.123320          -1
+26  2026-08-18  0.121799          -1
+29  2026-08-22  0.121267          -1
+30  2026-08-17  0.120814          -1
+
+===== CO =====
+Jumlah baris valid (non-NaN): 326
+Jumlah outlier: 17
+Contoh baris outlier:
+          date        CO  is_outlier
+19  2025-10-09  0.036587          -1
+22  2025-10-07  0.038910          -1
+59  2026-08-15  0.035316          -1
+60  2026-08-19  0.036071          -1
+62  2026-08-17  0.035349          -1
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">df_no2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;NO2_Timeseries.csv&quot;</span><span class="p">)</span>
+<span class="n">df_so2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;SO2_Timeseries.csv&quot;</span><span class="p">)</span>
+<span class="n">df_o3</span>  <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;O3_Timeseries.csv&quot;</span><span class="p">)</span>
+<span class="n">df_co</span>  <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;CO_Timeseries.csv&quot;</span><span class="p">)</span>
+
+<span class="c1"># Gabungkan berdasarkan kolom date (merge, bukan asumsi urutan baris sama)</span>
+<span class="n">df_merged</span> <span class="o">=</span> <span class="n">df_no2</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_so2</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;outer&quot;</span><span class="p">)</span> \
+                   <span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_o3</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;outer&quot;</span><span class="p">)</span> \
+                   <span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_co</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;outer&quot;</span><span class="p">)</span>
+
+<span class="c1"># Urutkan berdasarkan tanggal</span>
+<span class="n">df_merged</span> <span class="o">=</span> <span class="n">df_merged</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">df_merged</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;Polutan_Ngawi.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Shape hasil gabungan:&quot;</span><span class="p">,</span> <span class="n">df_merged</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_merged</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Shape hasil gabungan: (366, 5)
+         date       NO2       SO2        O3        CO
+0  2025-08-24       NaN       NaN       NaN       NaN
+1  2025-08-25  0.000022  0.000017  0.116711  0.031344
+2  2025-08-26  0.000035 -0.000082  0.115135       NaN
+3  2025-08-27  0.000019  0.000085  0.116175  0.023245
+4  2025-08-28  0.000014  0.000074  0.113984  0.026982
+</pre></div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="simple pst-show_toc_level nav section-nav flex-column">
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Deo Candra Saputra
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
