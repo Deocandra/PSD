@@ -233,23 +233,151 @@ NO₂ memiliki proporsi nilai kosong tertinggi (~18%), diikuti SO₂ (~11%) dan 
 
 _Outliers_ (pencilan) adalah titik data yang menyimpang drastis dari mayoritas distribusi data lainnya. Bisa jadi merupakan lonjakan polusi nyata (misalnya kebakaran hutan atau aktivitas industri mendadak), atau sekadar _noise_ pembacaan sensor satelit.
 
-Deteksi outlier dilakukan menggunakan algoritma **Isolation Forest** dari `scikit-learn` dengan parameter _contamination_ 5%.
+Deteksi outlier dilakukan menggunakan algoritma **Isolation Forest** dari `scikit-learn`. Algoritma ini bekerja dengan cara "mengisolasi" tiap titik data melalui pemisahan secara acak berkali-kali — titik data yang anomali akan lebih cepat terisolasi dibanding titik data normal. Parameter _contamination_ diatur sebesar 5%, yang berarti model diasumsikan sekitar 5% dari data adalah outlier. Hasil prediksi bernilai `-1` menandakan baris tersebut terdeteksi sebagai outlier.
+
+### NO₂
 
 ```{code-cell}
 import pandas as pd
+import matplotlib.pyplot as plt
 from sklearn.ensemble import IsolationForest
 
-for polutan in ["NO2", "SO2", "O3", "CO"]:
-    df = pd.read_csv(f"../../data/polutan/{polutan}_Timeseries.csv")
-    df_clean = df.dropna(subset=[polutan]).copy()
+df = pd.read_csv("../../data/polutan/NO2_Timeseries.csv")
+df_clean = df.dropna(subset=['NO2']).copy()
+df_clean['date'] = pd.to_datetime(df_clean['date'])
+df_clean = df_clean.sort_values('date').reset_index(drop=True)
 
-    model = IsolationForest(contamination=0.05, random_state=42)
-    pred = model.fit_predict(df_clean[[polutan]])
+model = IsolationForest(contamination=0.05, random_state=42)
+pred = model.fit_predict(df_clean[['NO2']])
+df_clean['anomaly'] = pred
 
-    jumlah_outlier = (pred == -1).sum()
-    print(f"{polutan}: jumlah outlier = {jumlah_outlier}")
+outliers_if = df_clean[df_clean['anomaly'] == -1]
+print("Jumlah outlier:", len(outliers_if))
+print(outliers_if[['date', 'NO2']].head())
 ```
 
+```{code-cell}
+plt.figure(figsize=(15, 5))
+plt.plot(df_clean['date'], df_clean['NO2'], label="NO2", linewidth=1)
+plt.scatter(outliers_if['date'], outliers_if['NO2'],
+            color='red', marker='o', label="Outliers (Isolation Forest)")
+plt.title("Deteksi Outlier Data NO2 (Metode Isolation Forest)")
+plt.xlabel("Tanggal")
+plt.ylabel("Kadar NO2")
+plt.legend()
+plt.tight_layout()
+plt.xticks(
+    ticks=[df_clean['date'].iloc[0], df_clean['date'].iloc[-1]],
+    labels=[df_clean['date'].iloc[0].strftime('%Y-%m-%d'),
+            df_clean['date'].iloc[-1].strftime('%Y-%m-%d')]
+)
+plt.show()
+```
+
+### SO₂
+
+```{code-cell}
+df = pd.read_csv("../../data/polutan/SO2_Timeseries.csv")
+df_clean = df.dropna(subset=['SO2']).copy()
+df_clean['date'] = pd.to_datetime(df_clean['date'])
+df_clean = df_clean.sort_values('date').reset_index(drop=True)
+
+model = IsolationForest(contamination=0.05, random_state=42)
+pred = model.fit_predict(df_clean[['SO2']])
+df_clean['anomaly'] = pred
+
+outliers_if = df_clean[df_clean['anomaly'] == -1]
+print("Jumlah outlier:", len(outliers_if))
+print(outliers_if[['date', 'SO2']].head())
+```
+
+```{code-cell}
+plt.figure(figsize=(15, 5))
+plt.plot(df_clean['date'], df_clean['SO2'], label="SO2", linewidth=1)
+plt.scatter(outliers_if['date'], outliers_if['SO2'],
+            color='red', marker='o', label="Outliers (Isolation Forest)")
+plt.title("Deteksi Outlier Data SO2 (Metode Isolation Forest)")
+plt.xlabel("Tanggal")
+plt.ylabel("Kadar SO2")
+plt.legend()
+plt.tight_layout()
+plt.xticks(
+    ticks=[df_clean['date'].iloc[0], df_clean['date'].iloc[-1]],
+    labels=[df_clean['date'].iloc[0].strftime('%Y-%m-%d'),
+            df_clean['date'].iloc[-1].strftime('%Y-%m-%d')]
+)
+plt.show()
+```
+
+### O₃
+
+```{code-cell}
+df = pd.read_csv("../../data/polutan/O3_Timeseries.csv")
+df_clean = df.dropna(subset=['O3']).copy()
+df_clean['date'] = pd.to_datetime(df_clean['date'])
+df_clean = df_clean.sort_values('date').reset_index(drop=True)
+
+model = IsolationForest(contamination=0.05, random_state=42)
+pred = model.fit_predict(df_clean[['O3']])
+df_clean['anomaly'] = pred
+
+outliers_if = df_clean[df_clean['anomaly'] == -1]
+print("Jumlah outlier:", len(outliers_if))
+print(outliers_if[['date', 'O3']].head())
+```
+
+```{code-cell}
+plt.figure(figsize=(15, 5))
+plt.plot(df_clean['date'], df_clean['O3'], label="O3", linewidth=1)
+plt.scatter(outliers_if['date'], outliers_if['O3'],
+            color='red', marker='o', label="Outliers (Isolation Forest)")
+plt.title("Deteksi Outlier Data O3 (Metode Isolation Forest)")
+plt.xlabel("Tanggal")
+plt.ylabel("Kadar O3")
+plt.legend()
+plt.tight_layout()
+plt.xticks(
+    ticks=[df_clean['date'].iloc[0], df_clean['date'].iloc[-1]],
+    labels=[df_clean['date'].iloc[0].strftime('%Y-%m-%d'),
+            df_clean['date'].iloc[-1].strftime('%Y-%m-%d')]
+)
+plt.show()
+```
+
+### CO
+
+```{code-cell}
+df = pd.read_csv("../../data/polutan/CO_Timeseries.csv")
+df_clean = df.dropna(subset=['CO']).copy()
+df_clean['date'] = pd.to_datetime(df_clean['date'])
+df_clean = df_clean.sort_values('date').reset_index(drop=True)
+
+model = IsolationForest(contamination=0.05, random_state=42)
+pred = model.fit_predict(df_clean[['CO']])
+df_clean['anomaly'] = pred
+
+outliers_if = df_clean[df_clean['anomaly'] == -1]
+print("Jumlah outlier:", len(outliers_if))
+print(outliers_if[['date', 'CO']].head())
+```
+
+```{code-cell}
+plt.figure(figsize=(15, 5))
+plt.plot(df_clean['date'], df_clean['CO'], label="CO", linewidth=1)
+plt.scatter(outliers_if['date'], outliers_if['CO'],
+            color='red', marker='o', label="Outliers (Isolation Forest)")
+plt.title("Deteksi Outlier Data CO (Metode Isolation Forest)")
+plt.xlabel("Tanggal")
+plt.ylabel("Kadar CO")
+plt.legend()
+plt.tight_layout()
+plt.xticks(
+    ticks=[df_clean['date'].iloc[0], df_clean['date'].iloc[-1]],
+    labels=[df_clean['date'].iloc[0].strftime('%Y-%m-%d'),
+            df_clean['date'].iloc[-1].strftime('%Y-%m-%d')]
+)
+plt.show()
+```
 ## Menggabungkan File CSV
 
 Setelah setiap dataset polutan (NO₂, SO₂, O₃, CO) dinormalisasi dan dianalisis nilai kosong serta pencilannya, keempat file digabungkan menjadi satu dataset terpadu berdasarkan kolom `date`, menggunakan `merge` dengan `how="outer"` agar seluruh tanggal dari keempat file tetap ikut tergabung meskipun jumlah baris valid tiap polutan berbeda:

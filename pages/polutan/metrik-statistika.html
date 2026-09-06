@@ -1,0 +1,967 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Memahami Angka-Angka di Balik Statistika Deskriptif &#8212; Website PSD</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'pages/polutan/metrik-statistika';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="icon" href="../../_static/logo.png"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="prev" title="Data Understanding" href="data-understanding.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="../../_static/searchtools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script src="../../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="Website PSD - Home"/>
+    <img src="../../_static/logo.png" class="logo__image only-dark pst-js-only" alt="Website PSD - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../index.html">
+                    Profile
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="polutan.html">Polutan di Kabupaten Ngawi</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="bussiness-understanding.html">Business Understanding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data-understanding.html">Data Understanding</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Memahami Angka-Angka di Balik Statistika Deskriptif</a></li>
+
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/pages/polutan/metrik-statistika.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Memahami Angka-Angka di Balik Statistika Deskriptif</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Memahami Angka-Angka di Balik Statistika Deskriptif</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kategori-1-di-mana-pusat-batas-datanya">Kategori 1: Di Mana Pusat &amp; Batas Datanya?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kategori-2-seberapa-menyebar-datanya">Kategori 2: Seberapa Menyebar Datanya?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kategori-3-bagaimana-bentuk-sebaran-datanya">Kategori 3: Bagaimana Bentuk Sebaran Datanya?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kategori-4-seberapa-bersih-kualitas-datanya">Kategori 4: Seberapa “Bersih” Kualitas Datanya?</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#implementasi-analisis-data-polutan-dari-cloud-database-ke-knime">Implementasi Analisis Data Polutan: Dari Cloud Database ke KNIME</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-1-memperoleh-kredensial-database-dari-aiven">Langkah 1: Memperoleh Kredensial Database dari Aiven</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-2-mengonfigurasi-koneksi-di-dbeaver">Langkah 2: Mengonfigurasi Koneksi di dbeaver</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-3-melakukan-inspeksi-tabel-data-di-dbeaver">Langkah 3: Melakukan Inspeksi Tabel Data di DBeaver</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-4-menyusun-alur-kerja-workflow-di-knime">Langkah 4: Menyusun Alur Kerja (Workflow) di KNIME</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-5-membaca-output-statistika-deskriptif">Langkah 5: Membaca Output Statistika Deskriptif</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#perhitungan-manual">Perhitungan Manual</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#no2">1. NO₂</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#so2">2. SO₂</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#o3">3. O₃</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#co">4. CO</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ringkasan-perbandingan-antar-polutan">Ringkasan Perbandingan Antar Polutan</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="memahami-angka-angka-di-balik-statistika-deskriptif">
+<h1>Memahami Angka-Angka di Balik Statistika Deskriptif<a class="headerlink" href="#memahami-angka-angka-di-balik-statistika-deskriptif" title="Link to this heading">#</a></h1>
+<p>Sebelum data polutan diolah lebih jauh — baik untuk mencari pola, membuat prediksi, atau membangun model — kita perlu dulu “berkenalan” dengan data itu sendiri. Proses inilah yang disebut <strong>Exploratory Data Analysis (EDA)</strong>, dan salah satu alat bantunya adalah tabel ringkasan angka yang dikenal sebagai <strong>statistika deskriptif</strong>.</p>
+<p>Tabel ini biasanya menyajikan sekumpulan angka untuk tiap variabel polutan (NO₂, CO, SO₂, O₃), dan masing-masing angka itu bercerita tentang sisi yang berbeda dari data. Berikut penjelasannya, dikelompokkan menjadi empat kategori besar.</p>
+<section id="kategori-1-di-mana-pusat-batas-datanya">
+<h2>Kategori 1: Di Mana Pusat &amp; Batas Datanya?<a class="headerlink" href="#kategori-1-di-mana-pusat-batas-datanya" title="Link to this heading">#</a></h2>
+<p><strong>Rata-rata (Mean)</strong></p>
+<p>Ini adalah “titik tengah” data secara matematis — dihitung dengan menjumlahkan semua nilai lalu membaginya dengan berapa banyak data yang ada:</p>
+<div class="math notranslate nohighlight">
+\[ \bar{x} = \frac{\sum_{i=1}^{n} x_i}{n} \]</div>
+<p>Sederhananya: total semua kadar polutan, dibagi jumlah hari pengamatan yang datanya valid.</p>
+<p><strong>Median</strong></p>
+<p>Kalau Mean dihitung lewat penjumlahan, Median justru dicari lewat <strong>pengurutan</strong>. Susun semua data dari yang terkecil sampai terbesar, lalu lihat nilai yang berada tepat di tengah:</p>
+<ul class="simple">
+<li><p>Kalau jumlah datanya ganjil, Median = nilai pas di posisi tengah: <span class="math notranslate nohighlight">\(X_{(n+1)/2}\)</span></p></li>
+<li><p>Kalau genap, Median = rata-rata dua nilai yang berada di tengah: <span class="math notranslate nohighlight">\(\frac{X_{n/2} + X_{(n/2)+1}}{2}\)</span></p></li>
+</ul>
+<p>Kelebihan Median dibanding Mean: ia <strong>tidak mudah “terseret”</strong> kalau ada satu-dua nilai ekstrem (outlier) dalam data. Makanya kalau data punya banyak outlier, Median sering jadi patokan yang lebih jujur dibanding Mean.</p>
+<p><strong>Min &amp; Max</strong></p>
+<p>Ini yang paling sederhana — cukup urutkan data dari kecil ke besar, lalu ambil ujung-ujungnya:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(Min\)</span> = data paling awal (<span class="math notranslate nohighlight">\(X_1\)</span>)</p></li>
+<li><p><span class="math notranslate nohighlight">\(Max\)</span> = data paling akhir (<span class="math notranslate nohighlight">\(X_n\)</span>)</p></li>
+</ul>
+<p>Gunanya untuk tahu seberapa lebar “rentang” nilai yang pernah tercatat.</p>
+<p><strong>Overall Sum</strong></p>
+<p>Ini murni penjumlahan seluruh nilai dalam satu kolom, tanpa dibagi apa pun:</p>
+<div class="math notranslate nohighlight">
+\[ Sum = \sum_{i=1}^{n} x_i \]</div>
+</section>
+<section id="kategori-2-seberapa-menyebar-datanya">
+<h2>Kategori 2: Seberapa Menyebar Datanya?<a class="headerlink" href="#kategori-2-seberapa-menyebar-datanya" title="Link to this heading">#</a></h2>
+<p><strong>Standar Deviasi</strong></p>
+<p>Bayangkan tiap titik data punya “jarak” ke nilai rata-rata. Standar deviasi mengukur, secara rata-rata, seberapa jauh jarak-jarak itu:</p>
+<div class="math notranslate nohighlight">
+\[ s = \sqrt{\frac{\sum_{i=1}^{n} (x_i - \bar{x})^2}{n-1}} \]</div>
+<ul class="simple">
+<li><p>Standar deviasi <strong>kecil</strong> → data cenderung berkumpul rapat di sekitar rata-rata (stabil).</p></li>
+<li><p>Standar deviasi <strong>besar</strong> → data tersebar lebar, fluktuasinya tinggi.</p></li>
+</ul>
+<p><strong>Varians</strong></p>
+<p>Ini sebenarnya “saudara kembar” dari standar deviasi — bedanya cuma di akar kuadrat. Varians adalah standar deviasi <strong>sebelum diakarkan</strong>:</p>
+<div class="math notranslate nohighlight">
+\[ s^2 = \frac{\sum_{i=1}^{n} (x_i - \bar{x})^2}{n-1} \]</div>
+<p>Karena itu, kalau kamu sudah tahu nilai standar deviasi, tinggal dikuadratkan saja untuk dapat variansnya (atau sebaliknya, diakarkan).</p>
+</section>
+<section id="kategori-3-bagaimana-bentuk-sebaran-datanya">
+<h2>Kategori 3: Bagaimana Bentuk Sebaran Datanya?<a class="headerlink" href="#kategori-3-bagaimana-bentuk-sebaran-datanya" title="Link to this heading">#</a></h2>
+<p><strong>Skewness (Kemencengan)</strong></p>
+<p>Metrik ini menjawab pertanyaan: “apakah data condong ke satu sisi?”</p>
+<div class="math notranslate nohighlight">
+\[ Skewness = \frac{n}{(n-1)(n-2)} \sum_{i=1}^{n} \left(\frac{x_i - \bar{x}}{s}\right)^3 \]</div>
+<p>Cara membacanya:</p>
+<ul class="simple">
+<li><p><strong>≈ 0</strong> → sebaran data simetris, seperti kurva lonceng normal.</p></li>
+<li><p><strong>Positif</strong> → “ekor” data memanjang ke kanan, artinya ada beberapa nilai yang jauh lebih tinggi dari mayoritas. Contohnya SO₂ dengan skewness 2.124 — menandakan ada lonjakan-lonjakan tinggi sesekali di tengah data yang umumnya rendah.</p></li>
+<li><p><strong>Negatif</strong> → kebalikannya, ekor memanjang ke kiri.</p></li>
+</ul>
+<p><strong>Kurtosis (Keruncingan)</strong></p>
+<p>Kalau skewness bicara soal arah kemencengan, kurtosis bicara soal <strong>seberapa ekstrem</strong> nilai-nilai pencilan (outlier) yang muncul:</p>
+<div class="math notranslate nohighlight">
+\[ Kurtosis = \left[ \frac{n(n+1)}{(n-1)(n-2)(n-3)} \sum \left(\frac{x_i - \bar{x}}{s}\right)^4 \right] - \frac{3(n-1)^2}{(n-2)(n-3)} \]</div>
+<ul class="simple">
+<li><p><strong>≈ 0 (Mesokurtik)</strong> → distribusinya “normal”, tidak terlalu runcing atau datar.</p></li>
+<li><p><strong>Positif (Leptokurtik)</strong> → puncak data tajam, ekornya tebal — pertanda banyak outlier ekstrem. Contoh nyatanya SO₂ dengan kurtosis 19.221, angka yang sangat tinggi.</p></li>
+<li><p><strong>Negatif (Platikurtik)</strong> → sebaran datanya lebih “rata”/datar dibanding distribusi normal. O₃ dengan nilai -0.375 termasuk kategori ini.</p></li>
+</ul>
+</section>
+<section id="kategori-4-seberapa-bersih-kualitas-datanya">
+<h2>Kategori 4: Seberapa “Bersih” Kualitas Datanya?<a class="headerlink" href="#kategori-4-seberapa-bersih-kualitas-datanya" title="Link to this heading">#</a></h2>
+<p>Kelompok metrik ini jadi penting banget khususnya untuk data yang diambil dari API atau citra satelit — karena proses perekamannya rawan gagal di tengah jalan.</p>
+<ul class="simple">
+<li><p><strong>No. missings</strong> — menghitung berapa banyak sel yang kosong sama sekali (tidak terekam) di periode tertentu.</p></li>
+<li><p><strong>No. NaNs</strong> — beda dengan missing murni, ini menghitung entri yang “ada” tapi nilainya tidak bisa didefinisikan secara matematis (misalnya hasil dari pembagian 0/0).</p></li>
+<li><p><strong>No. +infs / No. -infs</strong> — menghitung kemunculan nilai “tak terhingga” (infinity), baik positif maupun negatif.</p></li>
+</ul>
+<p>Cara menghitungnya sama semua: tinggal cari dan hitung (frekuensi) berapa baris yang mengandung kondisi-kondisi khusus tersebut.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="implementasi-analisis-data-polutan-dari-cloud-database-ke-knime">
+<h1>Implementasi Analisis Data Polutan: Dari Cloud Database ke KNIME<a class="headerlink" href="#implementasi-analisis-data-polutan-dari-cloud-database-ke-knime" title="Link to this heading">#</a></h1>
+<p>Panduan ini menguraikan tahapan-tahapan untuk menghubungkan database PostgreSQL di platform Aiven, melakukan inspeksi data menggunakan HeidiSQL, serta mengekstraksi metrik statistika deskriptif memanfaatkan KNIME Analytics Platform.</p>
+<section id="langkah-1-memperoleh-kredensial-database-dari-aiven">
+<h2>Langkah 1: Memperoleh Kredensial Database dari Aiven<a class="headerlink" href="#langkah-1-memperoleh-kredensial-database-dari-aiven" title="Link to this heading">#</a></h2>
+<p>Sebelum menyambungkan koneksi melalui aplikasi apa pun, kita membutuhkan informasi kredensial server.</p>
+<ol class="arabic simple">
+<li><p>Akses <em>dashboard</em> atau console <strong>Aiven</strong>, lalu arahkan ke proyek yang dimiliki.</p></li>
+<li><p>Buka tab <strong>Overview</strong> pada layanan (<em>service</em>) PostgreSQL yang sedang beroperasi (<code class="docutils literal notranslate"><span class="pre">pg-c4fbe52</span></code>).</p></li>
+<li><p>Pada bagian <strong>Connection information</strong>, catat parameter-parameter berikut ini:</p>
+<ul class="simple">
+<li><p><strong>Host:</strong> <code class="docutils literal notranslate"><span class="pre">pg-1e75e6f1-psdp2.b.aivencloud.com</span></code></p></li>
+<li><p><strong>Port:</strong> <code class="docutils literal notranslate"><span class="pre">12280</span></code></p></li>
+<li><p><strong>User:</strong> <code class="docutils literal notranslate"><span class="pre">avnadmin</span></code></p></li>
+<li><p><strong>Password:</strong> (Klik ikon mata atau opsi <em>copy</em> untuk menyalin kata sandi rahasia)</p></li>
+<li><p><strong>SSL mode:</strong> <code class="docutils literal notranslate"><span class="pre">require</span></code></p></li>
+</ul>
+</li>
+<li><p>Pastikan Anda telah mengunduh sertifikat SSL (klik <strong>Show</strong> pada bagian <em>CA certificate</em> kemudian unduh) apabila <em>client</em> yang Anda gunakan mensyaratkannya.</p></li>
+</ol>
+<p><img alt="Aiven PostgreSQL Console" src="../../_images/dbonline.png" /></p>
+</section>
+<hr class="docutils" />
+<section id="langkah-2-mengonfigurasi-koneksi-di-dbeaver">
+<h2>Langkah 2: Mengonfigurasi Koneksi di dbeaver<a class="headerlink" href="#langkah-2-mengonfigurasi-koneksi-di-dbeaver" title="Link to this heading">#</a></h2>
+<p>dbeaver digunakan untuk meninjau tabel beserta datanya secara langsung sebelum diproses lebih lanjut.</p>
+<ol class="arabic simple">
+<li><p>Buka aplikasi <strong>dbeaver</strong>. Pada panel sebelah kiri (Browser), klik new data conection</p></li>
+<li><p>Pilih jenis database yang akan digunakan, pilih PostgreSQL.</p></li>
+<li><p>Pada ke tab <strong>Connection</strong>, terapkan konfigurasi di bawah ini:</p>
+<ul class="simple">
+<li><p><strong>Host name/address:</strong> Isikan informasi Host yang diperoleh dari langkah 1.</p></li>
+<li><p><strong>Port:</strong> Isikan <code class="docutils literal notranslate"><span class="pre">12280</span></code> (atau sesuai dengan <em>Port</em> pada langkah 1).</p></li>
+<li><p><strong>Username:</strong> Ketikkan <code class="docutils literal notranslate"><span class="pre">avnadmin</span></code>.</p></li>
+<li><p><strong>Password:</strong> Tempelkan (<em>paste</em>) kata sandi dari langkah 1, dan centang opsi <strong>Save password?</strong>.</p></li>
+</ul>
+</li>
+<li><p>Klik <strong>Finish</strong> guna menyimpan konfigurasi dan memulai koneksi.</p></li>
+</ol>
+<p><img alt="Konfigurasi Session Manager pgAdmin" src="../../_images/dbkoneksi.png" /></p>
+</section>
+<hr class="docutils" />
+<section id="langkah-3-melakukan-inspeksi-tabel-data-di-dbeaver">
+<h2>Langkah 3: Melakukan Inspeksi Tabel Data di DBeaver<a class="headerlink" href="#langkah-3-melakukan-inspeksi-tabel-data-di-dbeaver" title="Link to this heading">#</a></h2>
+<p>Setelah koneksi berhasil, kita perlu memverifikasi ketersediaan data mentah beserta kesesuaian formatnya.</p>
+<ol class="arabic simple">
+<li><p>Pada panel sebelah kiri DBeaver, navigasikan <em>tree</em> server yang baru dibuat menuju Databases &gt; <code class="docutils literal notranslate"><span class="pre">polutan_ngawi</span></code> &gt; Schemas &gt; <code class="docutils literal notranslate"><span class="pre">public</span></code> &gt; Tables &gt; <code class="docutils literal notranslate"><span class="pre">polutan_ngawi</span></code>.</p></li>
+<li><p>Klik dua kali (atau klik kanan lalu pilih <strong>View/Edit Data</strong>) pada tabel <code class="docutils literal notranslate"><span class="pre">polutan_ngawi</span></code> tersebut hingga terbuka tab <strong>Data</strong>.</p></li>
+<li><p>Pastikan kolom data deret waktu (<em>time-series</em>) telah ditampilkan dengan tepat, yang meliputi kolom <code class="docutils literal notranslate"><span class="pre">date</span></code>, <code class="docutils literal notranslate"><span class="pre">NO2</span></code>, <code class="docutils literal notranslate"><span class="pre">SO2</span></code>, <code class="docutils literal notranslate"><span class="pre">O3</span></code>, dan <code class="docutils literal notranslate"><span class="pre">CO</span></code>.</p></li>
+<li><p>Perlu diketahui bahwa pada tahapan ini merupakan hal yang lumrah bila dijumpai nilai <code class="docutils literal notranslate"><span class="pre">[NULL]</span></code> pada beberapa baris (contohnya kolom <code class="docutils literal notranslate"><span class="pre">NO2</span></code> dan <code class="docutils literal notranslate"><span class="pre">SO2</span></code> pada tanggal 2025-08-24, atau seluruh kolom polutan pada 2025-09-16). Nantinya, nilai tersebut akan teridentifikasi sebagai <em>missing values</em> pada saat tahap analisis.</p></li>
+</ol>
+<p><img alt="Tampilan Data Polutan di pgAdmin" src="../../_images/dbtampilan.png" /></p>
+</section>
+<hr class="docutils" />
+<section id="langkah-4-menyusun-alur-kerja-workflow-di-knime">
+<h2>Langkah 4: Menyusun Alur Kerja (Workflow) di KNIME<a class="headerlink" href="#langkah-4-menyusun-alur-kerja-workflow-di-knime" title="Link to this heading">#</a></h2>
+<p>Beralih menuju KNIME Analytics Platform guna menarik data dari database dan melakukan perhitungan statistiknya secara otomatis.</p>
+<ol class="arabic simple">
+<li><p>Jalankan <strong>KNIME Analytics Platform</strong> lalu buatlah <em>workflow</em> (alur kerja) yang baru.</p></li>
+<li><p>Tarik (<em>drag-and-drop</em>) <em>node</em> di bawah ini dari <em>Node Repository</em> menuju ke <em>workspace</em>:</p>
+<ul class="simple">
+<li><p><strong>PostgreSQL Connector:</strong> Berfungsi menghubungkan KNIME dengan server Aiven.</p></li>
+<li><p><strong>DB Table Selector:</strong> Berfungsi untuk menyeleksi tabel di dalam database.</p></li>
+<li><p><strong>DB Reader:</strong> Berfungsi untuk memuat tabel ke dalam memori KNIME.</p></li>
+<li><p><strong>Statistics:</strong> Berfungsi untuk menghitung metrik-metrik statistik.</p></li>
+</ul>
+</li>
+<li><p>Hubungkan setiap <em>node</em> tersebut mengikuti urutan yang telah disebutkan di atas.</p></li>
+<li><p><strong>Konfigurasi Node:</strong></p>
+<ul class="simple">
+<li><p>Lakukan klik ganda pada <strong>PostgreSQL Connector</strong>, lalu isikan <em>Hostname</em>, <em>Port</em>, <em>Database name</em> (<code class="docutils literal notranslate"><span class="pre">Polutan_ngawi</span></code>), serta <em>Credentials</em> (User &amp; Password) yang identik dengan langkah 1 dan 2.</p></li>
+<li><p>Lakukan klik ganda pada <strong>DB Table Selector</strong>, kemudian pilih skema <code class="docutils literal notranslate"><span class="pre">public</span></code> serta tabel <code class="docutils literal notranslate"><span class="pre">polutan_ngawi</span></code>.</p></li>
+</ul>
+</li>
+<li><p>Klik kanan pada <strong>DB Reader</strong> lalu pilih opsi <strong>Execute</strong>. Jika prosesnya berhasil, lampu indikator di bagian bawah <em>node</em> akan berubah menjadi hijau.</p></li>
+</ol>
+<p><img alt="Alur Kerja Database dan Statistik di KNIME" src="../../_images/knime01.png" /></p>
+</section>
+<hr class="docutils" />
+<section id="langkah-5-membaca-output-statistika-deskriptif">
+<h2>Langkah 5: Membaca Output Statistika Deskriptif<a class="headerlink" href="#langkah-5-membaca-output-statistika-deskriptif" title="Link to this heading">#</a></h2>
+<p>Setelah data berhasil dimuat ke dalam KNIME, tahapan yang terakhir adalah menjalankan perhitungan analitiknya.</p>
+<ol class="arabic simple">
+<li><p>Klik kanan pada node <strong>Statistics</strong> kemudian pilih <strong>Execute</strong>.</p></li>
+<li><p>Bila lampu indikator telah berwarna hijau, klik kanan kembali pada node <strong>Statistics</strong> lalu pilih menu <strong>Statistics View</strong> (atau ikon bergambar kaca pembesar).</p></li>
+<li><p>Tabel metrik statistik akan ditampilkan, yang memuat:</p>
+<ul class="simple">
+<li><p><strong>Min, Max, Mean:</strong> Guna mengamati rentang serta nilai rata-rata dari masing-masing polutan.</p></li>
+<li><p><strong>Std. deviation &amp; Variance:</strong> Guna meninjau tingkat fluktuasi nilai gas di udara.</p></li>
+<li><p><strong>Skewness &amp; Kurtosis:</strong> Guna melihat bentuk asimetri dan tingkat keberadaan nilai-nilai yang ekstrem (<em>outlier</em>).</p></li>
+<li><p><strong>No. missings:</strong> Menyatakan jumlah data yang kosong (sebagai contoh, pada gas <span class="math notranslate nohighlight">\(CO\)</span> terdapat 73 data yang kosong).</p></li>
+<li><p><strong>Histogram:</strong> Menyajikan visualisasi mengenai sebaran datanya.
+<img alt="Tabel Hasil Output Node Statistics" src="../../_images/knimeview01.png" /></p></li>
+</ul>
+</li>
+</ol>
+<section id="perhitungan-manual">
+<h3>Perhitungan Manual<a class="headerlink" href="#perhitungan-manual" title="Link to this heading">#</a></h3>
+<p>Perhitungan manual di bawah ini menggunakan hasil ringkasan statistik yang sudah diperoleh dari tools (tabel: Min, Mean, Std. Dev, Skewness, Kurtosis, No. Missing), dengan jumlah baris valid dihitung sebagai <span class="math notranslate nohighlight">\(n = 366 - \text{No. Missing}\)</span> (total 366 hari dikurangi jumlah data yang kosong).</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="no2">
+<h2>1. NO₂<a class="headerlink" href="#no2" title="Link to this heading">#</a></h2>
+<p>Diketahui: <span class="math notranslate nohighlight">\(\bar{x} = 2.43\text{E-}5\)</span>, <span class="math notranslate nohighlight">\(s = 6.91\text{E-}6\)</span>, No. Missing <span class="math notranslate nohighlight">\(= 66\)</span>, sehingga <span class="math notranslate nohighlight">\(n = 366 - 66 = 300\)</span>.</p>
+<p><strong>a. Standar Deviasi &amp; Variansi</strong></p>
+<p>Standar Deviasi (<span class="math notranslate nohighlight">\(s\)</span>) sudah diketahui langsung dari tabel sebesar <span class="math notranslate nohighlight">\(6.91\text{E-}6\)</span>. Variansi diperoleh dengan mengkuadratkannya:</p>
+<div class="math notranslate nohighlight">
+\[
+v = s^2 = (6.91\text{E-}6)^2 = 4.7748\text{E-}11
+\]</div>
+<p><strong>b. Skewness</strong></p>
+<div class="math notranslate nohighlight">
+\[
+Skewness = \underbrace{\frac{n}{(n-1)(n-2)}}_{A} \underbrace{\sum_{i=1}^{n}\left(\frac{x_i-\bar{x}}{s}\right)^3}_{B}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+A = \frac{300}{(300-1)(300-2)} = \frac{300}{89102} = 0.0033671
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+B = \frac{Skewness}{A} = \frac{0.3406}{0.0033671} \approx 101.155
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+Skewness = 0.0033671 \times 101.155 = 0.3406
+\]</div>
+<p><strong>c. Kurtosis</strong></p>
+<div class="math notranslate nohighlight">
+\[
+Kurtosis = \left[ \underbrace{\frac{n(n+1)}{(n-1)(n-2)(n-3)}}_{A} \underbrace{\sum \left(\frac{x_i - \bar{x}}{s}\right)^4}_{B} \right] - \underbrace{\frac{3(n-1)^2}{(n-2)(n-3)}}_{C}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+C = \frac{3(300-1)^2}{(300-2)(300-3)} = \frac{268203}{88506} = 3.0303
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+A = \frac{300(301)}{(299)(298)(297)} = \frac{90300}{26463414} = 0.0034125
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+B = \frac{Kurtosis + C}{A} = \frac{1.0964 + 3.0303}{0.0034125} \approx 1209.14
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+Kurtosis = (0.0034125 \times 1209.14) - 3.0303 = 1.0964
+\]</div>
+<p><strong>d. Overall Sum</strong></p>
+<div class="math notranslate nohighlight">
+\[
+OS = \bar{x} \times n = 0.0000243 \times 300 = 0.00729
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="so2">
+<h2>2. SO₂<a class="headerlink" href="#so2" title="Link to this heading">#</a></h2>
+<p>Diketahui: <span class="math notranslate nohighlight">\(\bar{x} = 3.77\text{E-}5\)</span>, <span class="math notranslate nohighlight">\(s = 0.0001\)</span>, No. Missing <span class="math notranslate nohighlight">\(= 41\)</span>, sehingga <span class="math notranslate nohighlight">\(n = 366 - 41 = 325\)</span>.</p>
+<p><strong>a. Standar Deviasi &amp; Variansi</strong></p>
+<div class="math notranslate nohighlight">
+\[
+v = s^2 = (0.0001)^2 = 1\text{E-}8
+\]</div>
+<p><strong>b. Skewness</strong></p>
+<div class="math notranslate nohighlight">
+\[
+A = \frac{325}{(324)(323)} = \frac{325}{104652} = 0.0031063
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+B = \frac{Skewness}{A} = \frac{-1.7454}{0.0031063} \approx -561.87
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+Skewness = 0.0031063 \times (-561.87) = -1.7454
+\]</div>
+<p><em>Catatan: Skewness bernilai negatif pada SO₂ menandakan ekor distribusi memanjang ke kiri — berbeda dari ketiga polutan lain yang cenderung positif.</em></p>
+<p><strong>c. Kurtosis</strong></p>
+<div class="math notranslate nohighlight">
+\[
+C = \frac{3(324)^2}{(323)(322)} = \frac{314928}{104006} = 3.0280
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+A = \frac{325(326)}{(324)(323)(322)} = \frac{105950}{33707064} = 0.0031432
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+B = \frac{16.5301 + 3.0280}{0.0031432} \approx 622.24
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+Kurtosis = (0.0031432 \times 622.24) - 3.0280 = 16.5301
+\]</div>
+<p><em>Catatan: Kurtosis SO₂ (16.5301) jauh lebih tinggi dibanding polutan lain — mengindikasikan sebaran data SO₂ Leptokurtik, banyak nilai ekstrem/outlier dibanding distribusi normal.</em></p>
+<p><strong>d. Overall Sum</strong></p>
+<div class="math notranslate nohighlight">
+\[
+OS = \bar{x} \times n = 0.0000377 \times 325 = 0.0122525
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="o3">
+<h2>3. O₃<a class="headerlink" href="#o3" title="Link to this heading">#</a></h2>
+<p>Diketahui: <span class="math notranslate nohighlight">\(\bar{x} = 0.1156\)</span>, <span class="math notranslate nohighlight">\(s = 0.0023\)</span>, No. Missing <span class="math notranslate nohighlight">\(= 5\)</span>, sehingga <span class="math notranslate nohighlight">\(n = 366 - 5 = 361\)</span>.</p>
+<p><strong>a. Standar Deviasi &amp; Variansi</strong></p>
+<div class="math notranslate nohighlight">
+\[
+v = s^2 = (0.0023)^2 = 5.29\text{E-}6
+\]</div>
+<p><strong>b. Skewness</strong></p>
+<div class="math notranslate nohighlight">
+\[
+A = \frac{361}{(360)(359)} = \frac{361}{129240} = 0.0027932
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+B = \frac{0.429}{0.0027932} \approx 153.586
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+Skewness = 0.0027932 \times 153.586 = 0.429
+\]</div>
+<p><strong>c. Kurtosis</strong></p>
+<div class="math notranslate nohighlight">
+\[
+C = \frac{3(360)^2}{(359)(358)} = \frac{388800}{128522} = 3.0252
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+A = \frac{361(362)}{(360)(359)(358)} = \frac{130682}{46223280} = 0.0028268
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+B = \frac{0.0926 + 3.0252}{0.0028268} \approx 1102.86
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+Kurtosis = (0.0028268 \times 1102.86) - 3.0252 = 0.0926
+\]</div>
+<p><em>Catatan: Kurtosis O₃ bernilai negatif (Platikurtik) — sebarannya lebih datar dibanding distribusi normal, sedikit outlier ekstrem.</em></p>
+<p><strong>d. Overall Sum</strong></p>
+<div class="math notranslate nohighlight">
+\[
+OS = \bar{x} \times n = 0.1156 \times 361 = 41.7316
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="co">
+<h2>4. CO<a class="headerlink" href="#co" title="Link to this heading">#</a></h2>
+<p>Diketahui: <span class="math notranslate nohighlight">\(\bar{x} = 0.0288\)</span>, <span class="math notranslate nohighlight">\(s = 0.0031\)</span>, No. Missing <span class="math notranslate nohighlight">\(= 40\)</span>, sehingga <span class="math notranslate nohighlight">\(n = 366 - 40 = 326\)</span>.</p>
+<p><strong>a. Standar Deviasi &amp; Variansi</strong></p>
+<div class="math notranslate nohighlight">
+\[
+v = s^2 = (0.0031)^2 = 9.61\text{E-}6
+\]</div>
+<p><strong>b. Skewness</strong></p>
+<div class="math notranslate nohighlight">
+\[
+A = \frac{326}{(325)(324)} = \frac{326}{105300} = 0.0030959
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+B = \frac{0.2761}{0.0030959} \approx 89.192
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+Skewness = 0.0030959 \times 89.192 = 0.2761
+\]</div>
+<p><strong>c. Kurtosis</strong></p>
+<div class="math notranslate nohighlight">
+\[
+C = \frac{3(325)^2}{(324)(323)} = \frac{316875}{104652} = 3.02827
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+A = \frac{326(327)}{(325)(324)(323)} = \frac{106602}{34035900} = 0.0031326
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+B = \frac{0.1242 + 3.02827}{0.0031326} \approx 1006.28
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+Kurtosis = (0.0031326 \times 1006.28) - 3.02827 = 0.1242
+\]</div>
+<p><strong>d. Overall Sum</strong></p>
+<div class="math notranslate nohighlight">
+\[
+OS = \bar{x} \times n = 0.0288 \times 326 = 9.3888
+\]</div>
+<hr class="docutils" />
+<section id="ringkasan-perbandingan-antar-polutan">
+<h3>Ringkasan Perbandingan Antar Polutan<a class="headerlink" href="#ringkasan-perbandingan-antar-polutan" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Polutan</p></th>
+<th class="head"><p>n (valid)</p></th>
+<th class="head"><p>Skewness</p></th>
+<th class="head"><p>Kurtosis</p></th>
+<th class="head"><p>Interpretasi Singkat</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>NO₂</p></td>
+<td><p>300</p></td>
+<td><p>0.3406</p></td>
+<td><p>1.0964</p></td>
+<td><p>Sedikit condong kanan, sedikit lebih runcing dari normal</p></td>
+</tr>
+<tr class="row-odd"><td><p>SO₂</p></td>
+<td><p>325</p></td>
+<td><p>-1.7454</p></td>
+<td><p>16.5301</p></td>
+<td><p>Condong kiri kuat, sangat runcing (banyak outlier ekstrem)</p></td>
+</tr>
+<tr class="row-even"><td><p>O₃</p></td>
+<td><p>361</p></td>
+<td><p>0.429</p></td>
+<td><p>0.0926</p></td>
+<td><p>Condong kanan ringan, sebaran mendekati normal/agak datar</p></td>
+</tr>
+<tr class="row-odd"><td><p>CO</p></td>
+<td><p>326</p></td>
+<td><p>0.2761</p></td>
+<td><p>0.1242</p></td>
+<td><p>Condong kanan ringan, mendekati distribusi normal</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./pages\polutan"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="data-understanding.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Data Understanding</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Memahami Angka-Angka di Balik Statistika Deskriptif</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kategori-1-di-mana-pusat-batas-datanya">Kategori 1: Di Mana Pusat &amp; Batas Datanya?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kategori-2-seberapa-menyebar-datanya">Kategori 2: Seberapa Menyebar Datanya?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kategori-3-bagaimana-bentuk-sebaran-datanya">Kategori 3: Bagaimana Bentuk Sebaran Datanya?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kategori-4-seberapa-bersih-kualitas-datanya">Kategori 4: Seberapa “Bersih” Kualitas Datanya?</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#implementasi-analisis-data-polutan-dari-cloud-database-ke-knime">Implementasi Analisis Data Polutan: Dari Cloud Database ke KNIME</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-1-memperoleh-kredensial-database-dari-aiven">Langkah 1: Memperoleh Kredensial Database dari Aiven</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-2-mengonfigurasi-koneksi-di-dbeaver">Langkah 2: Mengonfigurasi Koneksi di dbeaver</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-3-melakukan-inspeksi-tabel-data-di-dbeaver">Langkah 3: Melakukan Inspeksi Tabel Data di DBeaver</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-4-menyusun-alur-kerja-workflow-di-knime">Langkah 4: Menyusun Alur Kerja (Workflow) di KNIME</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-5-membaca-output-statistika-deskriptif">Langkah 5: Membaca Output Statistika Deskriptif</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#perhitungan-manual">Perhitungan Manual</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#no2">1. NO₂</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#so2">2. SO₂</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#o3">3. O₃</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#co">4. CO</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ringkasan-perbandingan-antar-polutan">Ringkasan Perbandingan Antar Polutan</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Deo Candra Saputra
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
