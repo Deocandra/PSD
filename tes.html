@@ -228,6 +228,11 @@
 
 </ul>
 </details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="widodaren/index.html">Daerah Kecamatan Widodaren</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="widodaren/polutan-Ngawi.html">Kolekting Data: Kualitas Polusi Udara di Kecamatan Widodaren, Ngawi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="widodaren/ekstraksi-fitur.html">PreProcessing: Deteksi Outlier &amp; Imputasi Missing Value serta Ekstraksi Fitur Pada NO2</a></li>
+</ul>
+</details></li>
 </ul>
 
     </div>
@@ -560,7 +565,7 @@ Note: you may need to restart the kernel to use updated packages.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html">Visit <a href="https://identity.dataspace.copernicus.eu/auth/realms/CDSE/device?user_code=ZJKV-KZBL" title="Authenticate at https://identity.dataspace.copernicus.eu/auth/realms/CDSE/device?user_code=ZJKV-KZBL" target="_blank" rel="noopener noreferrer">https://identity.dataspace.copernicus.eu/auth/realms/CDSE/device?user_code=ZJKV-KZBL</a> <a href="#" onclick="navigator.clipboard.writeText('https://identity.dataspace.copernicus.eu/auth/realms/CDSE/device?user_code=ZJKV-KZBL');return false;" title="Copy authentication URL to clipboard">&#128203;</a> to authenticate.</div><div class="output text_html">✅ Authorized successfully</div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Authenticated using device code flow.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Authenticated using refresh token.
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Connection to &#39;https://openeo.dataspace.copernicus.eu/openeo/1.2/&#39; with OidcBearerAuth&gt;
@@ -629,66 +634,68 @@ Note: you may need to restart the kernel to use updated packages.
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Memproses polutan: NO2
-0:00:00 Job &#39;j-26083013441041ba9648159ac754997d&#39;: send &#39;start&#39;
-0:00:03 Job &#39;j-26083013441041ba9648159ac754997d&#39;: queued (progress 0%)
-0:00:08 Job &#39;j-26083013441041ba9648159ac754997d&#39;: queued (progress 0%)
-0:00:15 Job &#39;j-26083013441041ba9648159ac754997d&#39;: queued (progress 0%)
-0:00:23 Job &#39;j-26083013441041ba9648159ac754997d&#39;: queued (progress 0%)
-0:00:33 Job &#39;j-26083013441041ba9648159ac754997d&#39;: queued (progress 0%)
-0:00:45 Job &#39;j-26083013441041ba9648159ac754997d&#39;: queued (progress 0%)
-0:01:01 Job &#39;j-26083013441041ba9648159ac754997d&#39;: queued (progress 0%)
-0:01:20 Job &#39;j-26083013441041ba9648159ac754997d&#39;: running (progress N/A)
-0:01:44 Job &#39;j-26083013441041ba9648159ac754997d&#39;: running (progress N/A)
-0:02:14 Job &#39;j-26083013441041ba9648159ac754997d&#39;: running (progress N/A)
-0:02:52 Job &#39;j-26083013441041ba9648159ac754997d&#39;: running (progress N/A)
-0:03:39 Job &#39;j-26083013441041ba9648159ac754997d&#39;: finished (progress 100%)
+0:00:00 Job &#39;j-2609130702374c0d9a1e2081d13bd3eb&#39;: send &#39;start&#39;
+0:00:03 Job &#39;j-2609130702374c0d9a1e2081d13bd3eb&#39;: queued (progress 0%)
+0:00:09 Job &#39;j-2609130702374c0d9a1e2081d13bd3eb&#39;: queued (progress 0%)
+0:00:15 Job &#39;j-2609130702374c0d9a1e2081d13bd3eb&#39;: queued (progress 0%)
+0:00:24 Job &#39;j-2609130702374c0d9a1e2081d13bd3eb&#39;: queued (progress 0%)
+0:00:34 Job &#39;j-2609130702374c0d9a1e2081d13bd3eb&#39;: running (progress N/A)
+0:00:46 Job &#39;j-2609130702374c0d9a1e2081d13bd3eb&#39;: running (progress N/A)
+0:01:02 Job &#39;j-2609130702374c0d9a1e2081d13bd3eb&#39;: running (progress N/A)
+0:01:22 Job &#39;j-2609130702374c0d9a1e2081d13bd3eb&#39;: running (progress N/A)
+0:01:46 Job &#39;j-2609130702374c0d9a1e2081d13bd3eb&#39;: running (progress N/A)
+0:02:16 Job &#39;j-2609130702374c0d9a1e2081d13bd3eb&#39;: running (progress N/A)
+0:02:53 Job &#39;j-2609130702374c0d9a1e2081d13bd3eb&#39;: running (progress N/A)
+0:03:40 Job &#39;j-2609130702374c0d9a1e2081d13bd3eb&#39;: running (progress N/A)
+0:04:39 Job &#39;j-2609130702374c0d9a1e2081d13bd3eb&#39;: finished (progress 100%)
 Selesai: NO2
 
 Memproses polutan: SO2
-0:00:00 Job &#39;j-2608301347584f2c946f06cbc49ef60f&#39;: send &#39;start&#39;
-0:00:02 Job &#39;j-2608301347584f2c946f06cbc49ef60f&#39;: created (progress 0%)
-0:00:07 Job &#39;j-2608301347584f2c946f06cbc49ef60f&#39;: queued (progress 0%)
-0:00:14 Job &#39;j-2608301347584f2c946f06cbc49ef60f&#39;: queued (progress 0%)
-0:00:22 Job &#39;j-2608301347584f2c946f06cbc49ef60f&#39;: queued (progress 0%)
-0:00:32 Job &#39;j-2608301347584f2c946f06cbc49ef60f&#39;: queued (progress 0%)
-0:00:45 Job &#39;j-2608301347584f2c946f06cbc49ef60f&#39;: queued (progress 0%)
-0:01:00 Job &#39;j-2608301347584f2c946f06cbc49ef60f&#39;: queued (progress 0%)
-0:01:20 Job &#39;j-2608301347584f2c946f06cbc49ef60f&#39;: running (progress N/A)
-0:01:44 Job &#39;j-2608301347584f2c946f06cbc49ef60f&#39;: running (progress N/A)
-0:02:14 Job &#39;j-2608301347584f2c946f06cbc49ef60f&#39;: running (progress N/A)
-0:02:51 Job &#39;j-2608301347584f2c946f06cbc49ef60f&#39;: running (progress N/A)
-0:03:38 Job &#39;j-2608301347584f2c946f06cbc49ef60f&#39;: finished (progress 100%)
+0:00:00 Job &#39;j-26091307073646f0869fec01db72325f&#39;: send &#39;start&#39;
+0:00:03 Job &#39;j-26091307073646f0869fec01db72325f&#39;: queued (progress 0%)
+0:00:08 Job &#39;j-26091307073646f0869fec01db72325f&#39;: queued (progress 0%)
+0:00:15 Job &#39;j-26091307073646f0869fec01db72325f&#39;: queued (progress 0%)
+0:00:23 Job &#39;j-26091307073646f0869fec01db72325f&#39;: queued (progress 0%)
+0:00:33 Job &#39;j-26091307073646f0869fec01db72325f&#39;: queued (progress 0%)
+0:00:46 Job &#39;j-26091307073646f0869fec01db72325f&#39;: running (progress N/A)
+0:01:01 Job &#39;j-26091307073646f0869fec01db72325f&#39;: running (progress N/A)
+0:01:21 Job &#39;j-26091307073646f0869fec01db72325f&#39;: running (progress N/A)
+0:01:45 Job &#39;j-26091307073646f0869fec01db72325f&#39;: running (progress N/A)
+0:02:15 Job &#39;j-26091307073646f0869fec01db72325f&#39;: running (progress N/A)
+0:02:53 Job &#39;j-26091307073646f0869fec01db72325f&#39;: running (progress N/A)
+0:03:40 Job &#39;j-26091307073646f0869fec01db72325f&#39;: running (progress N/A)
+0:04:38 Job &#39;j-26091307073646f0869fec01db72325f&#39;: finished (progress 100%)
 Selesai: SO2
 
 Memproses polutan: O3
-0:00:00 Job &#39;j-260830135149492a873cdc10edffcf50&#39;: send &#39;start&#39;
-0:00:02 Job &#39;j-260830135149492a873cdc10edffcf50&#39;: queued (progress 0%)
-0:00:08 Job &#39;j-260830135149492a873cdc10edffcf50&#39;: queued (progress 0%)
-0:00:14 Job &#39;j-260830135149492a873cdc10edffcf50&#39;: queued (progress 0%)
-0:00:22 Job &#39;j-260830135149492a873cdc10edffcf50&#39;: running (progress N/A)
-0:00:32 Job &#39;j-260830135149492a873cdc10edffcf50&#39;: running (progress N/A)
-0:00:45 Job &#39;j-260830135149492a873cdc10edffcf50&#39;: running (progress N/A)
-0:01:00 Job &#39;j-260830135149492a873cdc10edffcf50&#39;: running (progress N/A)
-0:01:20 Job &#39;j-260830135149492a873cdc10edffcf50&#39;: running (progress N/A)
-0:01:44 Job &#39;j-260830135149492a873cdc10edffcf50&#39;: running (progress N/A)
-0:02:14 Job &#39;j-260830135149492a873cdc10edffcf50&#39;: running (progress N/A)
-0:02:52 Job &#39;j-260830135149492a873cdc10edffcf50&#39;: running (progress N/A)
-0:03:38 Job &#39;j-260830135149492a873cdc10edffcf50&#39;: finished (progress 100%)
+0:00:00 Job &#39;j-260913071236485393f18e16fc7357a5&#39;: send &#39;start&#39;
+0:00:03 Job &#39;j-260913071236485393f18e16fc7357a5&#39;: queued (progress 0%)
+0:00:08 Job &#39;j-260913071236485393f18e16fc7357a5&#39;: queued (progress 0%)
+0:00:15 Job &#39;j-260913071236485393f18e16fc7357a5&#39;: queued (progress 0%)
+0:00:23 Job &#39;j-260913071236485393f18e16fc7357a5&#39;: queued (progress 0%)
+0:00:33 Job &#39;j-260913071236485393f18e16fc7357a5&#39;: running (progress N/A)
+0:00:46 Job &#39;j-260913071236485393f18e16fc7357a5&#39;: running (progress N/A)
+0:01:01 Job &#39;j-260913071236485393f18e16fc7357a5&#39;: running (progress N/A)
+0:01:21 Job &#39;j-260913071236485393f18e16fc7357a5&#39;: running (progress N/A)
+0:01:45 Job &#39;j-260913071236485393f18e16fc7357a5&#39;: running (progress N/A)
+0:02:15 Job &#39;j-260913071236485393f18e16fc7357a5&#39;: running (progress N/A)
+0:02:53 Job &#39;j-260913071236485393f18e16fc7357a5&#39;: finished (progress 100%)
 Selesai: O3
 
 Memproses polutan: CO
-0:00:00 Job &#39;j-2608301355384408b8790871dd771020&#39;: send &#39;start&#39;
-0:00:02 Job &#39;j-2608301355384408b8790871dd771020&#39;: created (progress 0%)
-0:00:07 Job &#39;j-2608301355384408b8790871dd771020&#39;: queued (progress 0%)
-0:00:14 Job &#39;j-2608301355384408b8790871dd771020&#39;: queued (progress 0%)
-0:00:22 Job &#39;j-2608301355384408b8790871dd771020&#39;: queued (progress 0%)
-0:00:32 Job &#39;j-2608301355384408b8790871dd771020&#39;: queued (progress 0%)
-0:00:45 Job &#39;j-2608301355384408b8790871dd771020&#39;: running (progress N/A)
-0:01:00 Job &#39;j-2608301355384408b8790871dd771020&#39;: running (progress N/A)
-0:01:20 Job &#39;j-2608301355384408b8790871dd771020&#39;: running (progress N/A)
-0:01:44 Job &#39;j-2608301355384408b8790871dd771020&#39;: running (progress N/A)
-0:02:14 Job &#39;j-2608301355384408b8790871dd771020&#39;: running (progress N/A)
-0:02:52 Job &#39;j-2608301355384408b8790871dd771020&#39;: finished (progress 100%)
+0:00:00 Job &#39;j-26091307155443b3a935e74b7b989719&#39;: send &#39;start&#39;
+0:00:02 Job &#39;j-26091307155443b3a935e74b7b989719&#39;: created (progress 0%)
+0:00:08 Job &#39;j-26091307155443b3a935e74b7b989719&#39;: queued (progress 0%)
+0:00:14 Job &#39;j-26091307155443b3a935e74b7b989719&#39;: queued (progress 0%)
+0:00:23 Job &#39;j-26091307155443b3a935e74b7b989719&#39;: queued (progress 0%)
+0:00:33 Job &#39;j-26091307155443b3a935e74b7b989719&#39;: queued (progress 0%)
+0:00:45 Job &#39;j-26091307155443b3a935e74b7b989719&#39;: queued (progress 0%)
+0:01:01 Job &#39;j-26091307155443b3a935e74b7b989719&#39;: queued (progress 0%)
+0:01:20 Job &#39;j-26091307155443b3a935e74b7b989719&#39;: running (progress N/A)
+0:01:44 Job &#39;j-26091307155443b3a935e74b7b989719&#39;: running (progress N/A)
+0:02:15 Job &#39;j-26091307155443b3a935e74b7b989719&#39;: running (progress N/A)
+0:02:52 Job &#39;j-26091307155443b3a935e74b7b989719&#39;: running (progress N/A)
+0:03:40 Job &#39;j-26091307155443b3a935e74b7b989719&#39;: finished (progress 100%)
 Selesai: CO
 </pre></div>
 </div>
