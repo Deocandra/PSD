@@ -9,3 +9,7 @@ chapters:
   - file: pages/polutan/bussiness-understanding
   - file: pages/polutan/data-understanding
   - file: pages/polutan/metrik-statistika
+- file: widodaren/index
+  sections:
+  - file: widodaren/polutan-Ngawi
+  - file: widodaren/ekstraksi-fitur
