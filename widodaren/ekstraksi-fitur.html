@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>PreProcessing: Deteksi Outlier &amp; Imputasi Missing Value serta Ekstraksi Fitur Pada NO2 &#8212; Website PSD</title>
+    <title>PreProcessing: Deteksi Outlier &amp; Imputasi Missing Value serta Ekstraksi Fitur Pada Polutan(No2,So2,co) &#8212; Website PSD</title>
   
   
   
@@ -67,6 +67,7 @@
     <link rel="icon" href="../_static/logo.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="K-Means Clustering" href="K-Means%20Clustering.html" />
     <link rel="prev" title="Kolekting Data: Kualitas Polusi Udara di Kecamatan Widodaren, Ngawi" href="polutan-Ngawi.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -231,7 +232,14 @@
 </details></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Daerah Kecamatan Widodaren</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="polutan-Ngawi.html">Kolekting Data: Kualitas Polusi Udara di Kecamatan Widodaren, Ngawi</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">PreProcessing: Deteksi Outlier &amp; Imputasi Missing Value serta Ekstraksi Fitur Pada NO2</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">PreProcessing: Deteksi Outlier &amp; Imputasi Missing Value serta Ekstraksi Fitur Pada Polutan(No2,So2,co)</a></li>
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="K-Means%20Clustering.html">K-Means Clustering</a></li>
+
+
 
 </ul>
 </details></li>
@@ -370,7 +378,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>PreProcessing: Deteksi Outlier & Imputasi Missing Value serta Ekstraksi Fitur Pada NO2</h1>
+    <h1>PreProcessing: Deteksi Outlier & Imputasi Missing Value serta Ekstraksi Fitur Pada Polutan(No2,So2,co)</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -380,11 +388,11 @@
             </div>
             <nav aria-label="Page">
                 <ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">PreProcessing: Deteksi Outlier &amp; Imputasi Missing Value serta Ekstraksi Fitur Pada NO2</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">PreProcessing: Deteksi Outlier &amp; Imputasi Missing Value serta Ekstraksi Fitur Pada Polutan(No2,So2,co)</a><ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deteksi-outliers-pada-data-kualitas-udara-di-kecamatan-widodaren">Deteksi Outliers pada Data Kualitas Udara di Kecamatan Widodaren</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deteksi-outliers-pada-no2-untuk-ekstraksi-fitur">2. Deteksi Outliers pada NO2 Untuk Ekstraksi Fitur</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#merubah-outliers-no2-menjadi-nan-serta-imputasi-missing-values-dan-outliers-nan">3. Merubah Outliers NO2 Menjadi NaN serta Imputasi Missing Values dan Outliers (NaN)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#install-library-tsfel-untuk-ekstraksi-fitur">4. Install Library TSFEL Untuk Ekstraksi Fitur</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deteksi-outliers-pada-polutan-untuk-ekstraksi-fitur">2. Deteksi Outliers pada polutan Untuk Ekstraksi Fitur</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#merubah-outliers-polutan-menjadi-nan-serta-imputasi-missing-values-dan-outliers-nan">3. Merubah Outliers polutan Menjadi NaN serta Imputasi Missing Values dan Outliers (NaN)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualisasi-gabungan-setelah-preprocessing">Visualisasi Gabungan Setelah Preprocessing</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ekstraksi-menjadi-68-fitur">5. Ekstraksi Menjadi 68 Fitur</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mengelompokkan-fitur-hasil-ekstraksi-berdasarkan-domain">6. Mengelompokkan Fitur Hasil Ekstraksi Berdasarkan Domain</a></li>
 </ul>
@@ -422,6 +430,33 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#membaca-keempat-domain-secara-menyeluruh">Membaca Keempat Domain Secara Menyeluruh</a></li>
 </ul>
 </li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#fitur-1-spectral-variation">Fitur 1: Spectral Variation</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-1-ubah-sinyal-menjadi-equalizer-fft">Langkah 1: Ubah Sinyal Menjadi Equalizer (FFT)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-2-ambil-kekuatannya-saja-magnitudo">Langkah 2: Ambil Kekuatannya Saja (Magnitudo)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-3-pasangkan-setiap-batang-dengan-tetangga-kanannya">Langkah 3: Pasangkan Setiap Batang dengan Tetangga Kanannya</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-4-hitung-panjang-dua-daftar-batang">Langkah 4: Hitung “Panjang” Dua Daftar Batang</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-5-hitung-kemiripan-dan-balik-menjadi-variasi">Langkah 5: Hitung Kemiripan dan Balik Menjadi “Variasi”</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#fitur-2-spectrogram-mean-coefficient">Fitur 2: Spectrogram Mean Coefficient</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-1-tentukan-ukuran-klip-dan-frekuensi">Langkah 1: Tentukan Ukuran Klip dan Frekuensi</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-2-potong-sinyal-menjadi-klip">Langkah 2: Potong Sinyal Menjadi Klip</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-3-bersihkan-klip-dengan-mengurangi-rata-rata">Langkah 3: Bersihkan Klip dengan Mengurangi Rata-rata</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-4-redam-ujung-klip-dengan-window-tukey">Langkah 4: Redam Ujung Klip dengan Window Tukey</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-5-buat-equalizer-tiap-klip-dengan-fft">Langkah 5: Buat Equalizer Tiap Klip dengan FFT</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#klip-0">Klip 0</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#klip-1">Klip 1</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-6-ubah-menjadi-daya-psd">Langkah 6: Ubah Menjadi Daya (PSD)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Klip 0</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Klip 1</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-7-rata-ratakan-semua-klip">Langkah 7: Rata-ratakan Semua Klip</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#rangkuman">Rangkuman</a></li>
 </ul>
 
             </nav>
@@ -434,47 +469,10 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="preprocessing-deteksi-outlier-imputasi-missing-value-serta-ekstraksi-fitur-pada-no2">
-<h1>PreProcessing: Deteksi Outlier &amp; Imputasi Missing Value serta Ekstraksi Fitur Pada NO2<a class="headerlink" href="#preprocessing-deteksi-outlier-imputasi-missing-value-serta-ekstraksi-fitur-pada-no2" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="preprocessing-deteksi-outlier-imputasi-missing-value-serta-ekstraksi-fitur-pada-polutan-no2-so2-co">
+<h1>PreProcessing: Deteksi Outlier &amp; Imputasi Missing Value serta Ekstraksi Fitur Pada Polutan(No2,So2,co)<a class="headerlink" href="#preprocessing-deteksi-outlier-imputasi-missing-value-serta-ekstraksi-fitur-pada-polutan-no2-so2-co" title="Link to this heading">#</a></h1>
 <section id="deteksi-outliers-pada-data-kualitas-udara-di-kecamatan-widodaren">
 <h2>Deteksi Outliers pada Data Kualitas Udara di Kecamatan Widodaren<a class="headerlink" href="#deteksi-outliers-pada-data-kualitas-udara-di-kecamatan-widodaren" title="Link to this heading">#</a></h2>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">pandas</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Note: you may need to restart the kernel to use updated packages.Requirement already satisfied: pandas in c:\users\acer\appdata\local\programs\python\python312\lib\site-packages (2.3.3)
-Requirement already satisfied: numpy&gt;=1.26.0 in c:\users\acer\appdata\local\programs\python\python312\lib\site-packages (from pandas) (2.2.0)
-Requirement already satisfied: python-dateutil&gt;=2.8.2 in c:\users\acer\appdata\roaming\python\python312\site-packages (from pandas) (2.9.0.post0)
-Requirement already satisfied: pytz&gt;=2020.1 in c:\users\acer\appdata\local\programs\python\python312\lib\site-packages (from pandas) (2026.3.post1)
-Requirement already satisfied: tzdata&gt;=2022.7 in c:\users\acer\appdata\local\programs\python\python312\lib\site-packages (from pandas) (2026.2)
-Requirement already satisfied: six&gt;=1.5 in c:\users\acer\appdata\roaming\python\python312\site-packages (from python-dateutil&gt;=2.8.2-&gt;pandas) (1.16.0)
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[notice] A new release of pip is available: 24.2 -&gt; 26.2.1
-[notice] To update, run: C:\Users\ACER\AppData\Local\Programs\Python\Python312\python.exe -m pip install --upgrade pip
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">numpy</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: numpy in c:\users\acer\appdata\local\programs\python\python312\lib\site-packages (2.2.0)Note: you may need to restart the kernel to use updated packages.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[notice] A new release of pip is available: 24.2 -&gt; 26.2.1
-[notice] To update, run: C:\Users\ACER\AppData\Local\Programs\Python\Python312\python.exe -m pip install --upgrade pip
-</pre></div>
-</div>
-</div>
-</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -536,11 +534,11 @@ Requirement already satisfied: six&gt;=1.5 in c:\users\acer\appdata\roaming\pyth
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== PROSES DETEKSI &amp; PENANGANAN OUTLIER (METODE IQR) ===
 
 === Parameter: CO ===
-Q1  : 0.027038
-Q3  : 0.032092
-IQR : 0.005054
-Batas bawah : 0.019456
-Batas atas  : 0.039673
+Q1  : 0.027109
+Q3  : 0.032102
+IQR : 0.004994
+Batas bawah : 0.019618
+Batas atas  : 0.039593
 Jumlah Outlier : 3
                          date        CO
 38   2025-10-07T00:00:00.000Z  0.041322
@@ -551,12 +549,12 @@ Jumlah Outlier : 3
 -----------------------------------
 
 === Parameter: NO2 ===
-Q1  : 0.000020
-Q3  : 0.000029
+Q1  : 0.000019
+Q3  : 0.000028
 IQR : 0.000009
 Batas bawah : 0.000006
-Batas atas  : 0.000042
-Jumlah Outlier : 8
+Batas atas  : 0.000041
+Jumlah Outlier : 9
                          date           NO2
 4    2025-09-03T00:00:00.000Z  4.200000e-05
 62   2025-10-31T00:00:00.000Z  3.980000e-06
@@ -569,24 +567,24 @@ Jumlah Outlier : 8
 
 === Parameter: SO2 ===
 Q1  : -0.000035
-Q3  : 0.000097
-IQR : 0.000131
-Batas bawah : -0.000232
-Batas atas  : 0.000294
-Jumlah Outlier : 10
+Q3  : 0.000092
+IQR : 0.000127
+Batas bawah : -0.000226
+Batas atas  : 0.000282
+Jumlah Outlier : 13
                          date       SO2
 2    2025-09-01T00:00:00.000Z  0.000569
+38   2025-10-07T00:00:00.000Z -0.000231
 55   2025-10-24T00:00:00.000Z -0.000260
 81   2025-11-19T00:00:00.000Z -0.001029
 147  2026-01-24T00:00:00.000Z  0.000351
-182  2026-02-28T00:00:00.000Z -0.000361
 -&gt; Outlier pada kolom &#39;SO2&#39; sudah diubah menjadi NaN.
 
 -----------------------------------
 
 === SELESAI ===
 Total baris data     : 366
-Sisa missing value   : 234 (outlier + missing asli)
+Sisa missing value   : 186 (outlier + missing asli)
 File hasil disimpan  : KualitasUdaraWidodaren_NoOutlier.csv
 </pre></div>
 </div>
@@ -667,7 +665,7 @@ File hasil disimpan  : KualitasUdaraWidodaren_NoOutlier.csv
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/beda714005e3119b03643f5595ca322e258b1d98e286ca65ecf084a340cf1a84.png" src="../_images/beda714005e3119b03643f5595ca322e258b1d98e286ca65ecf084a340cf1a84.png" />
+<img alt="../_images/03dbc1befc5a3bc6ec2b691a791b5364b4fb766fda8c0c854c4d6c1391636b3b.png" src="../_images/03dbc1befc5a3bc6ec2b691a791b5364b4fb766fda8c0c854c4d6c1391636b3b.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -745,7 +743,7 @@ File hasil disimpan  : KualitasUdaraWidodaren_NoOutlier.csv
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/49f6a20b869cf78e8bc458bd86dea81e3a931f006310a8e1e457e9040cd7f148.png" src="../_images/49f6a20b869cf78e8bc458bd86dea81e3a931f006310a8e1e457e9040cd7f148.png" />
+<img alt="../_images/222a4ebe183e58eb16577860980fad764477074c38a7791e5b9b0b3dbef37308.png" src="../_images/222a4ebe183e58eb16577860980fad764477074c38a7791e5b9b0b3dbef37308.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -823,11 +821,11 @@ File hasil disimpan  : KualitasUdaraWidodaren_NoOutlier.csv
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/4e4297ca8f4580e56eb4d074469a381ea86da6df03e84753582ed2d6de1406ab.png" src="../_images/4e4297ca8f4580e56eb4d074469a381ea86da6df03e84753582ed2d6de1406ab.png" />
+<img alt="../_images/0035236adbebda4233e9ffaf57cacf642c6fcec29709db2070866aea260016e7.png" src="../_images/0035236adbebda4233e9ffaf57cacf642c6fcec29709db2070866aea260016e7.png" />
 </div>
 </div>
-<section id="deteksi-outliers-pada-no2-untuk-ekstraksi-fitur">
-<h3>2. Deteksi Outliers pada NO2 Untuk Ekstraksi Fitur<a class="headerlink" href="#deteksi-outliers-pada-no2-untuk-ekstraksi-fitur" title="Link to this heading">#</a></h3>
+<section id="deteksi-outliers-pada-polutan-untuk-ekstraksi-fitur">
+<h3>2. Deteksi Outliers pada polutan Untuk Ekstraksi Fitur<a class="headerlink" href="#deteksi-outliers-pada-polutan-untuk-ekstraksi-fitur" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -888,32 +886,32 @@ File hasil disimpan  : KualitasUdaraWidodaren_NoOutlier.csv
 
 === Parameter: SO2 ===
 Q1  : -0.000035
-Q3  : 0.000097
-IQR : 0.000131
-Batas bawah : -0.000232
-Batas atas  : 0.000294
-Jumlah Outlier : 10
+Q3  : 0.000092
+IQR : 0.000127
+Batas bawah : -0.000226
+Batas atas  : 0.000282
+Jumlah Outlier : 13
                           date       SO2
 2    2025-09-01 00:00:00+00:00  0.000569
+38   2025-10-07 00:00:00+00:00 -0.000231
 55   2025-10-24 00:00:00+00:00 -0.000260
 81   2025-11-19 00:00:00+00:00 -0.001029
 147  2026-01-24 00:00:00+00:00  0.000351
-182  2026-02-28 00:00:00+00:00 -0.000361
 -&gt; Outlier pada kolom &#39;SO2&#39; sudah diubah menjadi NaN.
 
 -----------------------------------
 
 === SELESAI ===
 Total baris data     : 366
-Sisa missing value   : 74 (outlier + missing asli)
+Sisa missing value   : 71 (outlier + missing asli)
 File hasil disimpan  : SO2Widodaren_NoOutlier.csv
 </pre></div>
 </div>
 </div>
 </div>
 </section>
-<section id="merubah-outliers-no2-menjadi-nan-serta-imputasi-missing-values-dan-outliers-nan">
-<h3>3. Merubah Outliers NO2 Menjadi NaN serta Imputasi Missing Values dan Outliers (NaN)<a class="headerlink" href="#merubah-outliers-no2-menjadi-nan-serta-imputasi-missing-values-dan-outliers-nan" title="Link to this heading">#</a></h3>
+<section id="merubah-outliers-polutan-menjadi-nan-serta-imputasi-missing-values-dan-outliers-nan">
+<h3>3. Merubah Outliers polutan Menjadi NaN serta Imputasi Missing Values dan Outliers (NaN)<a class="headerlink" href="#merubah-outliers-polutan-menjadi-nan-serta-imputasi-missing-values-dan-outliers-nan" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -950,62 +948,91 @@ File hasil disimpan  : SO2Widodaren_NoOutlier.csv
 </div>
 </div>
 </section>
-<section id="install-library-tsfel-untuk-ekstraksi-fitur">
-<h3>4. Install Library TSFEL Untuk Ekstraksi Fitur<a class="headerlink" href="#install-library-tsfel-untuk-ekstraksi-fitur" title="Link to this heading">#</a></h3>
+<section id="visualisasi-gabungan-setelah-preprocessing">
+<h3>Visualisasi Gabungan Setelah Preprocessing<a class="headerlink" href="#visualisasi-gabungan-setelah-preprocessing" title="Link to this heading">#</a></h3>
+<p>Setelah proses penanganan outlier dan interpolasi selesai untuk ketiga polutan, kita dapat melihat visualisasi gabungan dari kadar CO, SO2, dan NO2 yang telah bersih dan utuh. Deret waktu ini telah siap untuk dilanjutkan ke tahap ekstraksi fitur.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">tsfel</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Memuat data yang telah diproses</span>
+<span class="n">df_co</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;COInWidodaren.csv&quot;</span><span class="p">)</span>
+<span class="n">df_so2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;SO2InWidodaren.csv&quot;</span><span class="p">)</span>
+<span class="n">df_no2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;NO2InWidodaren.csv&quot;</span><span class="p">)</span>
+
+<span class="n">df_co</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df_co</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">])</span>
+<span class="n">df_so2</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df_so2</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">])</span>
+<span class="n">df_no2</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df_no2</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">])</span>
+
+<span class="c1"># Membuat subplot untuk ketiga polutan</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Plot CO</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df_co</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">],</span> <span class="n">df_co</span><span class="p">[</span><span class="s1">&#39;CO&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Kadar CO (Setelah Preprocessing)&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Kadar CO&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+
+<span class="c1"># Plot SO2</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df_so2</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">],</span> <span class="n">df_so2</span><span class="p">[</span><span class="s1">&#39;SO2&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Kadar SO2 (Setelah Preprocessing)&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Kadar SO2&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+
+<span class="c1"># Plot NO2</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df_no2</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">],</span> <span class="n">df_no2</span><span class="p">[</span><span class="s1">&#39;NO2&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Kadar NO2 (Setelah Preprocessing)&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Tanggal&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Kadar NO2&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+
+<span class="c1"># Menyesuaikan tampilan sumbu X</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span>
+    <span class="n">ticks</span><span class="o">=</span><span class="p">[</span><span class="n">df_co</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">df_co</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]],</span>
+    <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="n">df_co</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">),</span>
+            <span class="n">df_co</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">)]</span>
+<span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: tsfel in c:\users\acer\appdata\local\programs\python\python312\lib\site-packages (0.2.0)
-Requirement already satisfied: ipython&gt;=7.4.0 in c:\users\acer\appdata\roaming\python\python312\site-packages (from tsfel) (8.28.0)
-Requirement already satisfied: numpy&gt;=1.18.5 in c:\users\acer\appdata\local\programs\python\python312\lib\site-packages (from tsfel) (2.2.0)
-Requirement already satisfied: pandas&gt;=1.5.3 in c:\users\acer\appdata\local\programs\python\python312\lib\site-packages (from tsfel) (2.3.3)
-Requirement already satisfied: PyWavelets&gt;=1.4.1 in c:\users\acer\appdata\local\programs\python\python312\lib\site-packages (from tsfel) (1.10.0)
-Requirement already satisfied: requests&gt;=2.31.0 in c:\users\acer\appdata\local\programs\python\python312\lib\site-packages (from tsfel) (2.32.3)
-Requirement already satisfied: scikit-learn&gt;=0.21.3 in c:\users\acer\appdata\local\programs\python\python312\lib\site-packages (from tsfel) (1.8.0)
-Requirement already satisfied: scipy&gt;=1.7.3 in c:\users\acer\appdata\local\programs\python\python312\lib\site-packages (from tsfel) (1.17.1)
-Requirement already satisfied: setuptools&gt;=47.1.1 in c:\users\acer\appdata\local\programs\python\python312\lib\site-packages (from tsfel) (84.0.0)
-Requirement already satisfied: statsmodels&gt;=0.12.0 in c:\users\acer\appdata\local\programs\python\python312\lib\site-packages (from tsfel) (0.15.0)
-Requirement already satisfied: decorator in c:\users\acer\appdata\roaming\python\python312\site-packages (from ipython&gt;=7.4.0-&gt;tsfel) (5.1.1)
-Requirement already satisfied: jedi&gt;=0.16 in c:\users\acer\appdata\roaming\python\python312\site-packages (from ipython&gt;=7.4.0-&gt;tsfel) (0.19.1)
-Requirement already satisfied: matplotlib-inline in c:\users\acer\appdata\roaming\python\python312\site-packages (from ipython&gt;=7.4.0-&gt;tsfel) (0.1.7)
-Requirement already satisfied: prompt-toolkit&lt;3.1.0,&gt;=3.0.41 in c:\users\acer\appdata\roaming\python\python312\site-packages (from ipython&gt;=7.4.0-&gt;tsfel) (3.0.48)
-Requirement already satisfied: pygments&gt;=2.4.0 in c:\users\acer\appdata\roaming\python\python312\site-packages (from ipython&gt;=7.4.0-&gt;tsfel) (2.18.0)
-Requirement already satisfied: stack-data in c:\users\acer\appdata\roaming\python\python312\site-packages (from ipython&gt;=7.4.0-&gt;tsfel) (0.6.3)
-Requirement already satisfied: traitlets&gt;=5.13.0 in c:\users\acer\appdata\roaming\python\python312\site-packages (from ipython&gt;=7.4.0-&gt;tsfel) (5.14.3)
-Requirement already satisfied: colorama in c:\users\acer\appdata\roaming\python\python312\site-packages (from ipython&gt;=7.4.0-&gt;tsfel) (0.4.6)
-Requirement already satisfied: python-dateutil&gt;=2.8.2 in c:\users\acer\appdata\roaming\python\python312\site-packages (from pandas&gt;=1.5.3-&gt;tsfel) (2.9.0.post0)
-Requirement already satisfied: pytz&gt;=2020.1 in c:\users\acer\appdata\local\programs\python\python312\lib\site-packages (from pandas&gt;=1.5.3-&gt;tsfel) (2026.3.post1)
-Requirement already satisfied: tzdata&gt;=2022.7 in c:\users\acer\appdata\local\programs\python\python312\lib\site-packages (from pandas&gt;=1.5.3-&gt;tsfel) (2026.2)
-Requirement already satisfied: charset-normalizer&lt;4,&gt;=2 in c:\users\acer\appdata\local\programs\python\python312\lib\site-packages (from requests&gt;=2.31.0-&gt;tsfel) (3.4.1)
-Requirement already satisfied: idna&lt;4,&gt;=2.5 in c:\users\acer\appdata\local\programs\python\python312\lib\site-packages (from requests&gt;=2.31.0-&gt;tsfel) (3.10)
-Requirement already satisfied: urllib3&lt;3,&gt;=1.21.1 in c:\users\acer\appdata\local\programs\python\python312\lib\site-packages (from requests&gt;=2.31.0-&gt;tsfel) (2.3.0)
-Requirement already satisfied: certifi&gt;=2017.4.17 in c:\users\acer\appdata\local\programs\python\python312\lib\site-packages (from requests&gt;=2.31.0-&gt;tsfel) (2024.12.14)
-Requirement already satisfied: joblib&gt;=1.3.0 in c:\users\acer\appdata\local\programs\python\python312\lib\site-packages (from scikit-learn&gt;=0.21.3-&gt;tsfel) (1.5.3)
-Requirement already satisfied: threadpoolctl&gt;=3.2.0 in c:\users\acer\appdata\local\programs\python\python312\lib\site-packages (from scikit-learn&gt;=0.21.3-&gt;tsfel) (3.6.0)
-Requirement already satisfied: patsy&gt;=0.5.6 in c:\users\acer\appdata\local\programs\python\python312\lib\site-packages (from statsmodels&gt;=0.12.0-&gt;tsfel) (1.0.3)
-Requirement already satisfied: packaging&gt;=21.3 in c:\users\acer\appdata\roaming\python\python312\site-packages (from statsmodels&gt;=0.12.0-&gt;tsfel) (24.1)
-Requirement already satisfied: formulaic&gt;=1.1.0 in c:\users\acer\appdata\local\programs\python\python312\lib\site-packages (from statsmodels&gt;=0.12.0-&gt;tsfel) (1.2.2)
-Requirement already satisfied: interface-meta&gt;=1.2.0 in c:\users\acer\appdata\local\programs\python\python312\lib\site-packages (from formulaic&gt;=1.1.0-&gt;statsmodels&gt;=0.12.0-&gt;tsfel) (2.0.1)
-Requirement already satisfied: narwhals&gt;=1.17 in c:\users\acer\appdata\local\programs\python\python312\lib\site-packages (from formulaic&gt;=1.1.0-&gt;statsmodels&gt;=0.12.0-&gt;tsfel) (2.26.0)
-Requirement already satisfied: typing-extensions&gt;=4.2.0 in c:\users\acer\appdata\local\programs\python\python312\lib\site-packages (from formulaic&gt;=1.1.0-&gt;statsmodels&gt;=0.12.0-&gt;tsfel) (4.15.0)
-Requirement already satisfied: wrapt&gt;=1.0 in c:\users\acer\appdata\local\programs\python\python312\lib\site-packages (from formulaic&gt;=1.1.0-&gt;statsmodels&gt;=0.12.0-&gt;tsfel) (2.4.0)
-Requirement already satisfied: parso&lt;0.9.0,&gt;=0.8.3 in c:\users\acer\appdata\roaming\python\python312\site-packages (from jedi&gt;=0.16-&gt;ipython&gt;=7.4.0-&gt;tsfel) (0.8.4)
-Requirement already satisfied: wcwidth in c:\users\acer\appdata\roaming\python\python312\site-packages (from prompt-toolkit&lt;3.1.0,&gt;=3.0.41-&gt;ipython&gt;=7.4.0-&gt;tsfel) (0.2.13)
-Requirement already satisfied: six&gt;=1.5 in c:\users\acer\appdata\roaming\python\python312\site-packages (from python-dateutil&gt;=2.8.2-&gt;pandas&gt;=1.5.3-&gt;tsfel) (1.16.0)
-Requirement already satisfied: executing&gt;=1.2.0 in c:\users\acer\appdata\roaming\python\python312\site-packages (from stack-data-&gt;ipython&gt;=7.4.0-&gt;tsfel) (2.1.0)
-Requirement already satisfied: asttokens&gt;=2.1.0 in c:\users\acer\appdata\roaming\python\python312\site-packages (from stack-data-&gt;ipython&gt;=7.4.0-&gt;tsfel) (2.4.1)
-Requirement already satisfied: pure-eval in c:\users\acer\appdata\roaming\python\python312\site-packages (from stack-data-&gt;ipython&gt;=7.4.0-&gt;tsfel) (0.2.3)
-Note: you may need to restart the kernel to use updated packages.
+<img alt="../_images/3b0325c8c33989b39e57a28a396871bd22ca8db4702f4386a34c07d08ad91fd3.png" src="../_images/3b0325c8c33989b39e57a28a396871bd22ca8db4702f4386a34c07d08ad91fd3.png" />
+</div>
+</div>
+<p>Selain divisualisasikan dalam subplot terpisah, kita juga dapat menumpuk (overlay) ketiga polutan dalam satu grafik untuk membandingkan fluktuasinya secara langsung. Karena skala kadar polutan mungkin berbeda, perbandingan ini difokuskan pada pengamatan pola tren perubahannya.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="c1"># Plot ketiga polutan dalam satu axis</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df_co</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">],</span> <span class="n">df_co</span><span class="p">[</span><span class="s1">&#39;CO&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;CO&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df_so2</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">],</span> <span class="n">df_so2</span><span class="p">[</span><span class="s1">&#39;SO2&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;SO2&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df_no2</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">],</span> <span class="n">df_no2</span><span class="p">[</span><span class="s1">&#39;NO2&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;NO2&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Perbandingan Fluktuasi Kadar CO, SO2, dan NO2 (Overlay)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Tanggal&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Kadar Polutan&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="c1"># Menyesuaikan tampilan sumbu X</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span>
+    <span class="n">ticks</span><span class="o">=</span><span class="p">[</span><span class="n">df_co</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">df_co</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]],</span>
+    <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="n">df_co</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">),</span>
+            <span class="n">df_co</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">)]</span>
+<span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[notice] A new release of pip is available: 24.2 -&gt; 26.2.1
-[notice] To update, run: C:\Users\ACER\AppData\Local\Programs\Python\Python312\python.exe -m pip install --upgrade pip
-</pre></div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/14ca732f51b9108a1a72bf283545d7aa2eacd514d5c2d11d81c1637df4328d2d.png" src="../_images/14ca732f51b9108a1a72bf283545d7aa2eacd514d5c2d11d81c1637df4328d2d.png" />
 </div>
 </div>
 </section>
@@ -1101,6 +1128,7 @@ Berhasil! Jumlah fitur yang dihasilkan untuk NO2: 68
 </div>
 </div>
 </div>
+<p>Contoh cuplikan hasil ekstraksi fitur NO2:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_features</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;NO2-Widodaren-TSFEL.csv&quot;</span><span class="p">)</span>
@@ -1153,26 +1181,26 @@ Berhasil! Jumlah fitur yang dihasilkan untuk NO2: 68
   <tbody>
     <tr>
       <th>0</th>
-      <td>2.173853e-07</td>
-      <td>0.008632</td>
+      <td>2.168925e-07</td>
+      <td>0.008625</td>
       <td>2.0</td>
-      <td>5.955761e-10</td>
-      <td>196.997143</td>
+      <td>5.942260e-10</td>
+      <td>196.71579</td>
       <td>0.000038</td>
       <td>0.000024</td>
       <td>0.000023</td>
       <td>0.00001</td>
       <td>0.000006</td>
       <td>...</td>
-      <td>0.152316</td>
-      <td>0.642335</td>
-      <td>5.870496e-11</td>
+      <td>0.152464</td>
+      <td>0.646435</td>
+      <td>5.792181e-11</td>
       <td>0.001716</td>
       <td>0.000001</td>
       <td>0.000009</td>
-      <td>2.181052</td>
+      <td>2.181652</td>
       <td>0.000009</td>
-      <td>8.221539e-11</td>
+      <td>8.051177e-11</td>
       <td>0.0</td>
     </tr>
   </tbody>
@@ -1180,6 +1208,7 @@ Berhasil! Jumlah fitur yang dihasilkan untuk NO2: 68
 <p>1 rows × 68 columns</p>
 </div></div></div>
 </div>
+<p>Contoh cuplikan hasil ekstraksi fitur SO2:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_features</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;SO2-Widodaren-TSFEL.csv&quot;</span><span class="p">)</span>
@@ -1259,6 +1288,7 @@ Berhasil! Jumlah fitur yang dihasilkan untuk NO2: 68
 <p>1 rows × 68 columns</p>
 </div></div></div>
 </div>
+<p>Contoh cuplikan hasil ekstraksi fitur CO:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_features</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;CO-Widodaren-TSFEL.csv&quot;</span><span class="p">)</span>
@@ -2512,6 +2542,766 @@ X_k=\sum_{n=0}^{N-1}x_n e^{-2\pi i kn/N},\qquad f_k=\frac{kf_s}{N},\qquad P_k=|X
 <p>Perlu diingat juga bahwa ekstraksi ini menghasilkan <strong>satu baris ringkasan untuk keseluruhan setahun</strong>, karena seluruh 365 hari diproses sebagai satu segmen sinyal utuh. Jika nantinya diperlukan perbandingan antarbulan atau prediksi per periode yang lebih pendek, sinyal NO2 perlu dipecah dulu menjadi beberapa jendela waktu — ekstraksi satu baris untuk satu tahun penuh tidak bisa dipakai untuk menyimpulkan perubahan fitur dari bulan ke bulan.</p>
 </section>
 </section>
+<section class="tex2jax_ignore mathjax_ignore" id="fitur-1-spectral-variation">
+<h1>Fitur 1: Spectral Variation<a class="headerlink" href="#fitur-1-spectral-variation" title="Link to this heading">#</a></h1>
+<p><strong>Gambaran awam:</strong> Sinyal diubah menjadi “equalizer” (batang kekuatan untuk tiap frekuensi). Lalu kita cek seberapa mulus batang-batang itu: apakah tinggi batang berubah pelan (hasil mendekati 0) atau naik turun tajam (hasil mendekati 1).</p>
+<p><strong>Sinyal contoh:</strong><br />
+<span class="math notranslate nohighlight">\(x=[2,4,6,4,2,0,2,4]\)</span></p>
+<p>Jumlah data <span class="math notranslate nohighlight">\(N=8\)</span> dan frekuensi sampling <span class="math notranslate nohighlight">\(f_s=8\)</span> Hz.</p>
+<hr class="docutils" />
+<section id="langkah-1-ubah-sinyal-menjadi-equalizer-fft">
+<h2>Langkah 1: Ubah Sinyal Menjadi Equalizer (FFT)<a class="headerlink" href="#langkah-1-ubah-sinyal-menjadi-equalizer-fft" title="Link to this heading">#</a></h2>
+<p><strong>Awam:</strong> FFT menghitung seberapa kuat setiap frekuensi ada di dalam sinyal. Dari 8 data, kita mendapatkan 5 batang frekuensi, yaitu 0, 1, 2, 3, dan 4 Hz.</p>
+<p><strong>Rumus:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+X[k]=\sum_{n=0}^{N-1}x[n]\,e^{-j2\pi kn/N},
+\qquad k=0,1,\dots,K,
+\qquad K=\frac{N}{2}=4
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+f_k=\frac{k\,f_s}{N}=k\ \text{Hz}
+\]</div>
+<p><strong>Hitungan:</strong></p>
+<p>Dua nilai dapat dicek langsung tanpa kalkulator.</p>
+<div class="math notranslate nohighlight">
+\[
+X[0]=\sum x[n]
+=2+4+6+4+2+0+2+4
+=24
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+X[4]=\sum(-1)^n x[n]
+=2-4+6-4+2-0+2-4
+=0
+\]</div>
+<p>Hasil lengkapnya:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p><span class="math notranslate nohighlight">\(k\)</span></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(f_k\)</span></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(X[k]\)</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>0 Hz</p></td>
+<td><p><span class="math notranslate nohighlight">\(24\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>1 Hz</p></td>
+<td><p><span class="math notranslate nohighlight">\(2{,}83-6{,}83j\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>2</p></td>
+<td><p>2 Hz</p></td>
+<td><p><span class="math notranslate nohighlight">\(-4+4j\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>3</p></td>
+<td><p>3 Hz</p></td>
+<td><p><span class="math notranslate nohighlight">\(-2{,}83+1{,}17j\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>4</p></td>
+<td><p>4 Hz</p></td>
+<td><p><span class="math notranslate nohighlight">\(0\)</span></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="langkah-2-ambil-kekuatannya-saja-magnitudo">
+<h2>Langkah 2: Ambil Kekuatannya Saja (Magnitudo)<a class="headerlink" href="#langkah-2-ambil-kekuatannya-saja-magnitudo" title="Link to this heading">#</a></h2>
+<p><strong>Awam:</strong> Hasil FFT berbentuk bilangan kompleks yang memiliki bagian “<span class="math notranslate nohighlight">\(j\)</span>”. Kita hanya membutuhkan besarnya. Perhitungannya menggunakan konsep seperti Pythagoras.</p>
+<p><strong>Rumus:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+a_k=|X[k]|
+=
+\sqrt{
+\big(\operatorname{Re}X[k]\big)^2+
+\big(\operatorname{Im}X[k]\big)^2
+}
+\]</div>
+<p><strong>Hitungan:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+a_0=24
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+a_1=
+\sqrt{2{,}83^2+6{,}83^2}
+=7{,}39
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+a_2=
+\sqrt{4^2+4^2}
+=5{,}66
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+a_3=3{,}06
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+a_4=0
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="langkah-3-pasangkan-setiap-batang-dengan-tetangga-kanannya">
+<h2>Langkah 3: Pasangkan Setiap Batang dengan Tetangga Kanannya<a class="headerlink" href="#langkah-3-pasangkan-setiap-batang-dengan-tetangga-kanannya" title="Link to this heading">#</a></h2>
+<p><strong>Awam:</strong> Setiap batang dikalikan dengan batang di sebelah kanannya, kemudian semua hasil perkalian dijumlahkan. Jika tinggi dua batang yang bersebelahan mirip, hasil perkaliannya akan lebih besar.</p>
+<p><strong>Rumus:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+S_1=
+\sum_{k=0}^{K-1}a_k\,a_{k+1}
+\]</div>
+<p><strong>Hitungan:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+S_1=
+(24)(7{,}39)
++(7{,}39)(5{,}66)
++(5{,}66)(3{,}06)
++(3{,}06)(0)
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+S_1=
+177{,}38+41{,}81+17{,}32+0
+=236{,}51
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="langkah-4-hitung-panjang-dua-daftar-batang">
+<h2>Langkah 4: Hitung “Panjang” Dua Daftar Batang<a class="headerlink" href="#langkah-4-hitung-panjang-dua-daftar-batang" title="Link to this heading">#</a></h2>
+<p><strong>Awam:</strong> Kita mempunyai dua daftar yang saling bergeser satu posisi. Daftar A tidak menggunakan batang terakhir, sedangkan Daftar B tidak menggunakan batang pertama. Panjang setiap daftar dihitung menggunakan akar dari jumlah kuadrat isinya.</p>
+<p><strong>Rumus:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+S_3=
+\sum_{k=0}^{K-1}a_k^2
+\qquad
+\text{(Daftar A)}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+S_2=
+\sum_{k=1}^{K}a_k^2
+\qquad
+\text{(Daftar B)}
+\]</div>
+<p><strong>Hitungan:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+S_3=
+24^2+7{,}39^2+5{,}66^2+3{,}06^2
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+=576+54{,}63+32+9{,}37
+=672
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+S_2=
+7{,}39^2+5{,}66^2+3{,}06^2+0^2
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+=54{,}63+32+9{,}37+0
+=96
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="langkah-5-hitung-kemiripan-dan-balik-menjadi-variasi">
+<h2>Langkah 5: Hitung Kemiripan dan Balik Menjadi “Variasi”<a class="headerlink" href="#langkah-5-hitung-kemiripan-dan-balik-menjadi-variasi" title="Link to this heading">#</a></h2>
+<p><strong>Awam:</strong> Kemiripan dihitung dengan membagi <span class="math notranslate nohighlight">\(S_1\)</span> dengan hasil kali panjang kedua daftar. Konsep ini disebut <em>kemiripan kosinus</em>. Nilai yang mendekati 1 menunjukkan kedua daftar sangat mirip. Agar hasilnya menjadi ukuran variasi, nilai kemiripan tersebut dikurangkan dari 1.</p>
+<p><strong>Rumus:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+\boxed{
+SV=
+1-
+\frac{S_1}
+{\sqrt{S_2}\,\sqrt{S_3}}
+}
+\qquad SV\in[0,1]
+\]</div>
+<p>Jika <span class="math notranslate nohighlight">\(S_2=0\)</span> atau <span class="math notranslate nohighlight">\(S_3=0\)</span>, maka:</p>
+<div class="math notranslate nohighlight">
+\[
+SV=1
+\]</div>
+<p><strong>Hitungan:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+SV=
+1-
+\frac{236{,}51}
+{\sqrt{96}\cdot\sqrt{672}}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+=
+1-
+\frac{236{,}51}
+{(9{,}80)(25{,}92)}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+=
+1-
+\frac{236{,}51}{253{,}99}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+=
+1-0{,}931
+=\boxed{0{,}0688}
+\]</div>
+<p><strong>Cara membaca:</strong> Nilai <span class="math notranslate nohighlight">\(0{,}0688\)</span> sangat kecil. Artinya, batang equalizer berubah relatif mulus dari 24 → 7,4 → 5,7 → 3,1 → 0 tanpa perubahan yang terlalu tajam.</p>
+<blockquote>
+<div><p>Meskipun namanya “variation”, yang dibandingkan adalah batang yang bersebelahan dalam satu spektrum, bukan perubahan nilai dari waktu ke waktu.</p>
+</div></blockquote>
+</section>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="fitur-2-spectrogram-mean-coefficient">
+<h1>Fitur 2: Spectrogram Mean Coefficient<a class="headerlink" href="#fitur-2-spectrogram-mean-coefficient" title="Link to this heading">#</a></h1>
+<p><strong>Gambaran awam:</strong> Sinyal dipotong menjadi klip-klip pendek. Setiap klip dibuatkan equalizer sendiri, kemudian semua equalizer dirata-ratakan. Hasil akhirnya adalah “equalizer rata-rata” untuk seluruh sinyal.</p>
+<p>Pada contoh ini digunakan <code class="docutils literal notranslate"><span class="pre">bins</span></code> <span class="math notranslate nohighlight">\(B=3\)</span>.</p>
+<hr class="docutils" />
+<section id="langkah-1-tentukan-ukuran-klip-dan-frekuensi">
+<h2>Langkah 1: Tentukan Ukuran Klip dan Frekuensi<a class="headerlink" href="#langkah-1-tentukan-ukuran-klip-dan-frekuensi" title="Link to this heading">#</a></h2>
+<p><strong>Awam:</strong> Jumlah <code class="docutils literal notranslate"><span class="pre">bins</span></code> menentukan panjang klip yang digunakan. Klip yang lebih panjang dapat membedakan lebih banyak frekuensi.</p>
+<p><strong>Rumus:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+L=2B-2
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+O=
+\left\lfloor
+\frac{L}{8}
+\right\rfloor
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+H=L-O
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+M=
+\left\lfloor
+\frac{N-O}{H}
+\right\rfloor
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\Delta f=
+\frac{f_s}{L}
+\]</div>
+<p>Keterangan:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(L\)</span> = panjang klip</p></li>
+<li><p><span class="math notranslate nohighlight">\(O\)</span> = jumlah data yang tumpang tindih antar-klip</p></li>
+<li><p><span class="math notranslate nohighlight">\(H\)</span> = langkah pergeseran klip</p></li>
+<li><p><span class="math notranslate nohighlight">\(M\)</span> = jumlah klip</p></li>
+<li><p><span class="math notranslate nohighlight">\(\Delta f\)</span> = jarak antarfrekuensi</p></li>
+</ul>
+<p>Jika:</p>
+<div class="math notranslate nohighlight">
+\[
+B&gt;
+\left\lfloor
+\frac{N}{2}
+\right\rfloor+1
+\]</div>
+<p>maka nilai <span class="math notranslate nohighlight">\(B\)</span> dibatasi menjadi:</p>
+<div class="math notranslate nohighlight">
+\[
+\left\lfloor
+\frac{N}{2}
+\right\rfloor+1
+\]</div>
+<p><strong>Hitungan:</strong></p>
+<p>Batas <span class="math notranslate nohighlight">\(B\)</span> adalah:</p>
+<div class="math notranslate nohighlight">
+\[
+\left\lfloor
+\frac{8}{2}
+\right\rfloor+1
+=5
+\]</div>
+<p>Karena <span class="math notranslate nohighlight">\(B=3\)</span>, maka masih berada dalam batas yang diperbolehkan.</p>
+<div class="math notranslate nohighlight">
+\[
+L=2(3)-2=4
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+O=
+\left\lfloor
+\frac{4}{8}
+\right\rfloor
+=0
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+H=4-0=4
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+M=
+\left\lfloor
+\frac{8}{4}
+\right\rfloor
+=2
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\Delta f=
+\frac{8}{4}
+=2\text{ Hz}
+\]</div>
+<p>Frekuensi yang dihitung adalah:</p>
+<div class="math notranslate nohighlight">
+\[
+f_k=k\,\Delta f
+\]</div>
+<p>sehingga:</p>
+<div class="math notranslate nohighlight">
+\[
+f_k=0,\ 2,\ 4\text{ Hz}
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="langkah-2-potong-sinyal-menjadi-klip">
+<h2>Langkah 2: Potong Sinyal Menjadi Klip<a class="headerlink" href="#langkah-2-potong-sinyal-menjadi-klip" title="Link to this heading">#</a></h2>
+<p><strong>Rumus:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+s_m[n]=x[mH+n],
+\qquad
+n=0,\dots,L-1,
+\qquad
+m=0,\dots,M-1
+\]</div>
+<p><strong>Hitungan:</strong></p>
+<p>Klip pertama:</p>
+<div class="math notranslate nohighlight">
+\[
+s_0=[2,4,6,4]
+\]</div>
+<p>Klip kedua:</p>
+<div class="math notranslate nohighlight">
+\[
+s_1=[2,0,2,4]
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="langkah-3-bersihkan-klip-dengan-mengurangi-rata-rata">
+<h2>Langkah 3: Bersihkan Klip dengan Mengurangi Rata-rata<a class="headerlink" href="#langkah-3-bersihkan-klip-dengan-mengurangi-rata-rata" title="Link to this heading">#</a></h2>
+<p><strong>Awam:</strong> Rata-rata setiap klip dikurangi agar “tinggi dasar” sinyal dihilangkan. Dengan demikian, yang tersisa lebih berfokus pada perubahan naik-turunnya sinyal.</p>
+<p><strong>Rumus:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+\tilde{s}_m[n]
+=
+s_m[n]
+-
+\frac{1}{L}
+\sum_{i=0}^{L-1}s_m[i]
+\]</div>
+<p><strong>Hitungan:</strong></p>
+<p>Rata-rata klip pertama:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{2+4+6+4}{4}=4
+\]</div>
+<p>Rata-rata klip kedua:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{2+0+2+4}{4}=2
+\]</div>
+<p>Maka:</p>
+<div class="math notranslate nohighlight">
+\[
+\tilde{s}_0=[2-4,4-4,6-4,4-4]
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\tilde{s}_0=[-2,0,2,0]
+\]</div>
+<p>dan:</p>
+<div class="math notranslate nohighlight">
+\[
+\tilde{s}_1=[2-2,0-2,2-2,4-2]
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\tilde{s}_1=[0,-2,0,2]
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="langkah-4-redam-ujung-klip-dengan-window-tukey">
+<h2>Langkah 4: Redam Ujung Klip dengan Window Tukey<a class="headerlink" href="#langkah-4-redam-ujung-klip-dengan-window-tukey" title="Link to this heading">#</a></h2>
+<p><strong>Awam:</strong> Ujung klip yang terpotong secara tiba-tiba dapat menghasilkan gangguan pada hasil FFT. Oleh karena itu, bagian ujung sinyal diperkecil menggunakan pengali yang disebut <em>window</em>. Bagian tengah tetap dikalikan 1.</p>
+<p><strong>Rumus:</strong></p>
+<p>Misalkan:</p>
+<div class="math notranslate nohighlight">
+\[
+r=
+\left\lfloor
+0{,}25\,L/2
+\right\rfloor
+\]</div>
+<p>Maka:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+w[n]=
+\begin{cases}
+\frac12
+\left[
+1-\cos
+\left(
+\frac{2\pi n}{0{,}25L}
+\right)
+\right],
+&amp;
+0\le n\le r
+\\[2mm]
+1,
+&amp;
+r&lt;n&lt;L-r
+\\[1mm]
+\frac12
+\left[
+1-\cos
+\left(
+\frac{2\pi(L-n)}{0{,}25L}
+\right)
+\right],
+&amp;
+L-r\le n\le L-1
+\end{cases}
+\end{split}\]</div>
+<p>Kemudian:</p>
+<div class="math notranslate nohighlight">
+\[
+y_m[n]=\tilde{s}_m[n]\cdot w[n]
+\]</div>
+<p><strong>Hitungan:</strong></p>
+<p>Untuk <span class="math notranslate nohighlight">\(L=4\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+r=
+\left\lfloor
+0{,}25(4)/2
+\right\rfloor
+=0
+\]</div>
+<p>Sehingga:</p>
+<div class="math notranslate nohighlight">
+\[
+w[0]
+=
+\frac12[1-\cos(0)]
+=0
+\]</div>
+<p>Dalam contoh ini digunakan:</p>
+<div class="math notranslate nohighlight">
+\[
+w=[0,1,1,1]
+\]</div>
+<p>dan:</p>
+<div class="math notranslate nohighlight">
+\[
+\sum w^2=3
+\]</div>
+<p>Maka:</p>
+<div class="math notranslate nohighlight">
+\[
+y_0=[0,0,2,0]
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+y_1=[0,-2,0,2]
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="langkah-5-buat-equalizer-tiap-klip-dengan-fft">
+<h2>Langkah 5: Buat Equalizer Tiap Klip dengan FFT<a class="headerlink" href="#langkah-5-buat-equalizer-tiap-klip-dengan-fft" title="Link to this heading">#</a></h2>
+<p><strong>Awam:</strong> Prosesnya sama seperti pada Fitur 1, tetapi sekarang FFT dilakukan pada setiap klip. Karena setiap klip memiliki 4 data, diperoleh 3 batang frekuensi, yaitu 0, 2, dan 4 Hz.</p>
+<p><strong>Rumus:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+Y_m[k]
+=
+\sum_{n=0}^{L-1}
+y_m[n]\,
+e^{-j2\pi kn/L},
+\qquad
+k=0,\dots,B-1
+\]</div>
+<p><strong>Hitungan:</strong></p>
+<section id="klip-0">
+<h3>Klip 0<a class="headerlink" href="#klip-0" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[
+Y_0[0]=0+0+2+0=2
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+Y_0[1]
+=
+2e^{-j\pi}
+=-2
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+Y_0[2]
+=
+2e^{-j2\pi}
+=2
+\]</div>
+</section>
+<section id="klip-1">
+<h3>Klip 1<a class="headerlink" href="#klip-1" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[
+Y_1[0]=-2+2=0
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+Y_1[1]
+=
+-2e^{-j\pi/2}
++
+2e^{-j3\pi/2}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+=-2(-j)+2(j)
+=4j
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+Y_1[2]
+=
+-2e^{-j\pi}
++
+2e^{-j3\pi}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+=2-2=0
+\]</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="langkah-6-ubah-menjadi-daya-psd">
+<h2>Langkah 6: Ubah Menjadi Daya (PSD)<a class="headerlink" href="#langkah-6-ubah-menjadi-daya-psd" title="Link to this heading">#</a></h2>
+<p><strong>Awam:</strong> Setiap batang FFT diubah menjadi ukuran daya. Prosesnya dilakukan dengan:</p>
+<ol class="arabic simple">
+<li><p>Mengkuadratkan kekuatan batang.</p></li>
+<li><p>Membaginya dengan <span class="math notranslate nohighlight">\(f_s\sum w^2\)</span>.</p></li>
+<li><p>Mengalikan 2 untuk frekuensi tengah karena energi dari frekuensi negatif digabungkan ke frekuensi positif.</p></li>
+</ol>
+<p>Frekuensi 0 Hz dan frekuensi terakhir tidak dikalikan 2 karena tidak memiliki pasangan negatif yang berbeda.</p>
+<p><strong>Rumus:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+P_m[k]
+=
+\frac{
+c_k|Y_m[k]|^2
+}{
+f_s\displaystyle\sum_{n=0}^{L-1}w[n]^2
+}
+\]</div>
+<p>dengan:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+c_k=
+\begin{cases}
+1,
+&amp;
+k=0\text{ atau }k=B-1
+\\
+2,
+&amp;
+\text{lainnya}
+\end{cases}
+\end{split}\]</div>
+<p><strong>Hitungan:</strong></p>
+<p>Penyebut:</p>
+<div class="math notranslate nohighlight">
+\[
+f_s\sum w^2
+=
+8\times3
+=24
+\]</div>
+<section id="id9">
+<h3>Klip 0<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
+<p>Karena:</p>
+<div class="math notranslate nohighlight">
+\[
+|Y_0|^2=[4,4,4]
+\]</div>
+<p>maka:</p>
+<div class="math notranslate nohighlight">
+\[
+P_0[0]
+=
+\frac{1\cdot4}{24}
+=0{,}1667
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+P_0[1]
+=
+\frac{2\cdot4}{24}
+=0{,}3333
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+P_0[2]
+=
+\frac{1\cdot4}{24}
+=0{,}1667
+\]</div>
+</section>
+<section id="id10">
+<h3>Klip 1<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<p>Karena:</p>
+<div class="math notranslate nohighlight">
+\[
+|Y_1|^2=[0,16,0]
+\]</div>
+<p>maka:</p>
+<div class="math notranslate nohighlight">
+\[
+P_1[0]=0
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+P_1[1]
+=
+\frac{2\cdot16}{24}
+=1{,}3333
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+P_1[2]=0
+\]</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="langkah-7-rata-ratakan-semua-klip">
+<h2>Langkah 7: Rata-ratakan Semua Klip<a class="headerlink" href="#langkah-7-rata-ratakan-semua-klip" title="Link to this heading">#</a></h2>
+<p><strong>Awam:</strong> Untuk setiap frekuensi, daya dari seluruh klip dijumlahkan kemudian dibagi dengan jumlah klip. Hasilnya adalah daya rata-rata pada setiap frekuensi.</p>
+<p><strong>Rumus:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+\boxed{
+\bar{S}[k]
+=
+\frac{1}{M}
+\sum_{m=0}^{M-1}P_m[k]
+}
+\]</div>
+<p>dengan:</p>
+<div class="math notranslate nohighlight">
+\[
+k=0,\dots,B-1
+\]</div>
+<p><strong>Hitungan:</strong></p>
+<p>Untuk frekuensi 0 Hz:</p>
+<div class="math notranslate nohighlight">
+\[
+\bar{S}[0]
+=
+\frac{0{,}1667+0}{2}
+=
+0{,}0833
+\]</div>
+<p>Untuk frekuensi 2 Hz:</p>
+<div class="math notranslate nohighlight">
+\[
+\bar{S}[1]
+=
+\frac{0{,}3333+1{,}3333}{2}
+=
+0{,}8333
+\]</div>
+<p>Untuk frekuensi 4 Hz:</p>
+<div class="math notranslate nohighlight">
+\[
+\bar{S}[2]
+=
+\frac{0{,}1667+0}{2}
+=
+0{,}0833
+\]</div>
+<p>Sehingga diperoleh:</p>
+<div class="math notranslate nohighlight">
+\[
+\boxed{
+\bar{S}
+=
+[\,0{,}0833,\;0{,}8333,\;0{,}0833\,]
+}
+\]</div>
+<p><strong>Cara membaca:</strong> Batang pada frekuensi <strong>2 Hz</strong> jauh lebih tinggi dibandingkan batang lainnya. Artinya, frekuensi yang paling dominan pada sinyal contoh berada di sekitar <strong>2 Hz</strong>. Hal ini sesuai dengan pola sinyal yang mengalami perubahan naik-turun secara berulang.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="rangkuman">
+<h1>Rangkuman<a class="headerlink" href="#rangkuman" title="Link to this heading">#</a></h1>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p>Spectral Variation</p></th>
+<th class="head"><p>Spectrogram Mean Coeff</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Rumus inti</p></td>
+<td><p><span class="math notranslate nohighlight">\(SV=1-\dfrac{S_1}{\sqrt{S_2S_3}}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\bar{S}[k]=\dfrac{1}{M}\sum_m P_m[k]\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Sinyal diproses</p></td>
+<td><p>Utuh, sekali FFT</p></td>
+<td><p>Dipotong menjadi <span class="math notranslate nohighlight">\(M\)</span> klip, FFT per klip</p></td>
+</tr>
+<tr class="row-even"><td><p>Hasil</p></td>
+<td><p>1 angka, <span class="math notranslate nohighlight">\(SV\in[0,1]\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(B\)</span> angka, satu per frekuensi</p></td>
+</tr>
+<tr class="row-odd"><td><p>Hasil contoh</p></td>
+<td><p><span class="math notranslate nohighlight">\(0{,}0688\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\([0{,}0833,\ 0{,}8333,\ 0{,}0833]\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>Nilai kecil berarti</p></td>
+<td><p>Spektrum lebih mulus</p></td>
+<td><p>Frekuensi tersebut memiliki daya rendah</p></td>
+</tr>
+<tr class="row-odd"><td><p>Nilai besar berarti</p></td>
+<td><p>Spektrum lebih berubah</p></td>
+<td><p>Frekuensi tersebut lebih dominan</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -2552,6 +3342,15 @@ X_k=\sum_{n=0}^{N-1}x_n e^{-2\pi i kn/N},\qquad f_k=\frac{kf_s}{N},\qquad P_k=|X
         <p class="prev-next-title">Kolekting Data: Kualitas Polusi Udara di Kecamatan Widodaren, Ngawi</p>
       </div>
     </a>
+    <a class="right-next"
+       href="K-Means%20Clustering.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">K-Means Clustering</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div>
                 </footer>
               
@@ -2570,11 +3369,11 @@ X_k=\sum_{n=0}^{N-1}x_n e^{-2\pi i kn/N},\qquad f_k=\frac{kf_s}{N},\qquad P_k=|X
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">PreProcessing: Deteksi Outlier &amp; Imputasi Missing Value serta Ekstraksi Fitur Pada NO2</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">PreProcessing: Deteksi Outlier &amp; Imputasi Missing Value serta Ekstraksi Fitur Pada Polutan(No2,So2,co)</a><ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deteksi-outliers-pada-data-kualitas-udara-di-kecamatan-widodaren">Deteksi Outliers pada Data Kualitas Udara di Kecamatan Widodaren</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deteksi-outliers-pada-no2-untuk-ekstraksi-fitur">2. Deteksi Outliers pada NO2 Untuk Ekstraksi Fitur</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#merubah-outliers-no2-menjadi-nan-serta-imputasi-missing-values-dan-outliers-nan">3. Merubah Outliers NO2 Menjadi NaN serta Imputasi Missing Values dan Outliers (NaN)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#install-library-tsfel-untuk-ekstraksi-fitur">4. Install Library TSFEL Untuk Ekstraksi Fitur</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deteksi-outliers-pada-polutan-untuk-ekstraksi-fitur">2. Deteksi Outliers pada polutan Untuk Ekstraksi Fitur</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#merubah-outliers-polutan-menjadi-nan-serta-imputasi-missing-values-dan-outliers-nan">3. Merubah Outliers polutan Menjadi NaN serta Imputasi Missing Values dan Outliers (NaN)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualisasi-gabungan-setelah-preprocessing">Visualisasi Gabungan Setelah Preprocessing</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ekstraksi-menjadi-68-fitur">5. Ekstraksi Menjadi 68 Fitur</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mengelompokkan-fitur-hasil-ekstraksi-berdasarkan-domain">6. Mengelompokkan Fitur Hasil Ekstraksi Berdasarkan Domain</a></li>
 </ul>
@@ -2612,6 +3411,33 @@ X_k=\sum_{n=0}^{N-1}x_n e^{-2\pi i kn/N},\qquad f_k=\frac{kf_s}{N},\qquad P_k=|X
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#membaca-keempat-domain-secara-menyeluruh">Membaca Keempat Domain Secara Menyeluruh</a></li>
 </ul>
 </li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#fitur-1-spectral-variation">Fitur 1: Spectral Variation</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-1-ubah-sinyal-menjadi-equalizer-fft">Langkah 1: Ubah Sinyal Menjadi Equalizer (FFT)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-2-ambil-kekuatannya-saja-magnitudo">Langkah 2: Ambil Kekuatannya Saja (Magnitudo)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-3-pasangkan-setiap-batang-dengan-tetangga-kanannya">Langkah 3: Pasangkan Setiap Batang dengan Tetangga Kanannya</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-4-hitung-panjang-dua-daftar-batang">Langkah 4: Hitung “Panjang” Dua Daftar Batang</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-5-hitung-kemiripan-dan-balik-menjadi-variasi">Langkah 5: Hitung Kemiripan dan Balik Menjadi “Variasi”</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#fitur-2-spectrogram-mean-coefficient">Fitur 2: Spectrogram Mean Coefficient</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-1-tentukan-ukuran-klip-dan-frekuensi">Langkah 1: Tentukan Ukuran Klip dan Frekuensi</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-2-potong-sinyal-menjadi-klip">Langkah 2: Potong Sinyal Menjadi Klip</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-3-bersihkan-klip-dengan-mengurangi-rata-rata">Langkah 3: Bersihkan Klip dengan Mengurangi Rata-rata</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-4-redam-ujung-klip-dengan-window-tukey">Langkah 4: Redam Ujung Klip dengan Window Tukey</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-5-buat-equalizer-tiap-klip-dengan-fft">Langkah 5: Buat Equalizer Tiap Klip dengan FFT</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#klip-0">Klip 0</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#klip-1">Klip 1</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-6-ubah-menjadi-daya-psd">Langkah 6: Ubah Menjadi Daya (PSD)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Klip 0</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Klip 1</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-7-rata-ratakan-semua-klip">Langkah 7: Rata-ratakan Semua Klip</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#rangkuman">Rangkuman</a></li>
 </ul>
 
   </nav></div>

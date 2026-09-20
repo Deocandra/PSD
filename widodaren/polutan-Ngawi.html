@@ -67,7 +67,7 @@
     <link rel="icon" href="../_static/logo.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="PreProcessing: Deteksi Outlier &amp; Imputasi Missing Value serta Ekstraksi Fitur Pada NO2" href="ekstraksi-fitur.html" />
+    <link rel="next" title="PreProcessing: Deteksi Outlier &amp; Imputasi Missing Value serta Ekstraksi Fitur Pada Polutan(No2,So2,co)" href="ekstraksi-fitur.html" />
     <link rel="prev" title="Daerah Kecamatan Widodaren" href="index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -232,7 +232,14 @@
 </details></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Daerah Kecamatan Widodaren</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Kolekting Data: Kualitas Polusi Udara di Kecamatan Widodaren, Ngawi</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ekstraksi-fitur.html">PreProcessing: Deteksi Outlier &amp; Imputasi Missing Value serta Ekstraksi Fitur Pada NO2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ekstraksi-fitur.html">PreProcessing: Deteksi Outlier &amp; Imputasi Missing Value serta Ekstraksi Fitur Pada Polutan(No2,So2,co)</a></li>
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="K-Means%20Clustering.html">K-Means Clustering</a></li>
+
+
 
 </ul>
 </details></li>
@@ -617,19 +624,19 @@ Note: you may need to restart the kernel to use updated packages.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0:00:00 Job &#39;j-2609200848294a8484787465ff43e946&#39;: send &#39;start&#39;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0:00:00 Job &#39;j-2609201746294945bfe370e2d6b95b42&#39;: send &#39;start&#39;
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0:00:03 Job &#39;j-2609200848294a8484787465ff43e946&#39;: queued (progress 0%)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0:00:02 Job &#39;j-2609201746294945bfe370e2d6b95b42&#39;: created (progress 0%)
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0:00:08 Job &#39;j-2609200848294a8484787465ff43e946&#39;: queued (progress 0%)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0:00:08 Job &#39;j-2609201746294945bfe370e2d6b95b42&#39;: queued (progress 0%)
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0:00:15 Job &#39;j-2609200848294a8484787465ff43e946&#39;: queued (progress 0%)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0:00:14 Job &#39;j-2609201746294945bfe370e2d6b95b42&#39;: queued (progress 0%)
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0:00:23 Job &#39;j-2609200848294a8484787465ff43e946&#39;: queued (progress 0%)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0:00:23 Job &#39;j-2609201746294945bfe370e2d6b95b42&#39;: queued (progress 0%)
 </pre></div>
 </div>
 </div>
@@ -993,9 +1000,9 @@ CO   302.0  0.029622  0.003403  0.019267  0.029181  0.041322
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- LAPORAN PENGECEKAN MISSING VALUE ---
       Jumlah Missing Value  Persentase (%)
 date                     0        0.000000
-NO2                     85       23.224044
-SO2                     64       17.486339
-CO                      64       17.486339
+NO2                     57       15.573770
+SO2                     58       15.846995
+CO                      46       12.568306
 
 Jumlah baris dengan tanggal kosong: 0
 </pre></div>
@@ -1049,7 +1056,7 @@ Jumlah Outlier : 3
 -----------------------------------
 
 === Parameter: NO2 ===
-Jumlah Outlier : 8
+Jumlah Outlier : 9
                          date           NO2
 4    2025-09-03T00:00:00.000Z  4.200000e-05
 62   2025-10-31T00:00:00.000Z  3.980000e-06
@@ -1059,13 +1066,13 @@ Jumlah Outlier : 8
 -----------------------------------
 
 === Parameter: SO2 ===
-Jumlah Outlier : 10
+Jumlah Outlier : 13
                          date       SO2
 2    2025-09-01T00:00:00.000Z  0.000569
+38   2025-10-07T00:00:00.000Z -0.000231
 55   2025-10-24T00:00:00.000Z -0.000260
 81   2025-11-19T00:00:00.000Z -0.001029
 147  2026-01-24T00:00:00.000Z  0.000351
-182  2026-02-28T00:00:00.000Z -0.000361
 -----------------------------------
 </pre></div>
 </div>
@@ -1123,7 +1130,7 @@ Jumlah Outlier : 10
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/4096ac27ab10db8bb1d64884990190bebb829624f50ea5a2db5eace2601edb75.png" src="../_images/4096ac27ab10db8bb1d64884990190bebb829624f50ea5a2db5eace2601edb75.png" />
+<img alt="../_images/06947f11002e7715111e62d3a5dd1f9a9c17be9b93866ab0859dba60191b4932.png" src="../_images/06947f11002e7715111e62d3a5dd1f9a9c17be9b93866ab0859dba60191b4932.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1156,7 +1163,7 @@ Jumlah Outlier : 10
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/15a6584b56f90059be2aba74e4dacad9cc52c08d0a189e5f98db878cc3ce029c.png" src="../_images/15a6584b56f90059be2aba74e4dacad9cc52c08d0a189e5f98db878cc3ce029c.png" />
+<img alt="../_images/dea133f4847ebdd79cf4dc56e003526644d84f745e237ca3252b6c20c9ddd5f3.png" src="../_images/dea133f4847ebdd79cf4dc56e003526644d84f745e237ca3252b6c20c9ddd5f3.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1189,7 +1196,7 @@ Jumlah Outlier : 10
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/992bc788bce70c4ad3daf6db166fd58b792e1de8c31b703764a34cebbe7132fd.png" src="../_images/992bc788bce70c4ad3daf6db166fd58b792e1de8c31b703764a34cebbe7132fd.png" />
+<img alt="../_images/e0af3493d6b394b3e4773c62192d2bfc459a1534063c1ac04c7fbddf4e95d63a.png" src="../_images/e0af3493d6b394b3e4773c62192d2bfc459a1534063c1ac04c7fbddf4e95d63a.png" />
 </div>
 </div>
 </section>
@@ -1271,7 +1278,7 @@ Note: you may need to restart the kernel to use updated packages.
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">PreProcessing: Deteksi Outlier &amp; Imputasi Missing Value serta Ekstraksi Fitur Pada NO2</p>
+        <p class="prev-next-title">PreProcessing: Deteksi Outlier &amp; Imputasi Missing Value serta Ekstraksi Fitur Pada Polutan(No2,So2,co)</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
