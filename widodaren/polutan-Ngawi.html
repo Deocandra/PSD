@@ -233,6 +233,7 @@
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Daerah Kecamatan Widodaren</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Kolekting Data: Kualitas Polusi Udara di Kecamatan Widodaren, Ngawi</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ekstraksi-fitur.html">PreProcessing: Deteksi Outlier &amp; Imputasi Missing Value serta Ekstraksi Fitur Pada NO2</a></li>
+
 </ul>
 </details></li>
 </ul>
@@ -616,19 +617,19 @@ Note: you may need to restart the kernel to use updated packages.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0:00:00 Job &#39;j-2609131829394beb8c944f9ee6656718&#39;: send &#39;start&#39;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0:00:00 Job &#39;j-2609200848294a8484787465ff43e946&#39;: send &#39;start&#39;
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0:00:03 Job &#39;j-2609131829394beb8c944f9ee6656718&#39;: queued (progress 0%)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0:00:03 Job &#39;j-2609200848294a8484787465ff43e946&#39;: queued (progress 0%)
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0:00:08 Job &#39;j-2609131829394beb8c944f9ee6656718&#39;: queued (progress 0%)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0:00:08 Job &#39;j-2609200848294a8484787465ff43e946&#39;: queued (progress 0%)
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0:00:15 Job &#39;j-2609131829394beb8c944f9ee6656718&#39;: queued (progress 0%)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0:00:15 Job &#39;j-2609200848294a8484787465ff43e946&#39;: queued (progress 0%)
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0:00:23 Job &#39;j-2609131829394beb8c944f9ee6656718&#39;: queued (progress 0%)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0:00:23 Job &#39;j-2609200848294a8484787465ff43e946&#39;: queued (progress 0%)
 </pre></div>
 </div>
 </div>
@@ -890,6 +891,47 @@ memory usage: 14.4 KB
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
+<span class="n">df_no2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;NO2InWidodaren.csv&quot;</span><span class="p">)</span>
+<span class="n">df_so2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;SO2InWidodaren.csv&quot;</span><span class="p">)</span>
+<span class="n">df_co</span>  <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;COInWidodaren.csv&quot;</span><span class="p">)</span>
+
+<span class="c1"># Gabungkan berdasarkan kolom date (merge, bukan asumsi urutan baris sama)</span>
+<span class="n">df_merged</span> <span class="o">=</span> <span class="n">df_no2</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_so2</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;outer&quot;</span><span class="p">)</span> \
+                   <span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_co</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;outer&quot;</span><span class="p">)</span>
+
+<span class="c1"># Urutkan berdasarkan tanggal</span>
+<span class="n">df_merged</span> <span class="o">=</span> <span class="n">df_merged</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">df_merged</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;KualitasUdaraWidodaren.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Shape hasil gabungan:&quot;</span><span class="p">,</span> <span class="n">df_merged</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_merged</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Shape hasil gabungan: (366, 7)
+                       date  feature_index_x       NO2  feature_index_y  \
+0  2025-08-30T00:00:00.000Z                0       NaN                0   
+1  2025-08-31T00:00:00.000Z                0  0.000019                0   
+2  2025-09-01T00:00:00.000Z                0  0.000037                0   
+3  2025-09-02T00:00:00.000Z                0  0.000017                0   
+4  2025-09-03T00:00:00.000Z                0  0.000042                0   
+
+        SO2  feature_index        CO  
+0       NaN              0       NaN  
+1 -0.000044              0  0.028624  
+2  0.000569              0  0.029639  
+3 -0.000014              0  0.026621  
+4  0.000099              0  0.030721  
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;KualitasUdaraWidodaren.csv&quot;</span><span class="p">)</span>
 
 <span class="n">stat_desc</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
@@ -907,10 +949,9 @@ memory usage: 14.4 KB
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- TABEL STATISTIK DESKRIPTIF KUALITAS UDARA KEREK TUBAN ---
      count      mean       std       min    median       max
-CO   279.0  0.029583  0.003425  0.019267  0.029144  0.041322
-NO2  246.0  0.000024  0.000008 -0.000005  0.000024  0.000051
-SO2  281.0  0.000031  0.000133 -0.001029  0.000024  0.000657
-O3   361.0  0.115756  0.002423  0.109595  0.115506  0.123120
+NO2  281.0  0.000024  0.000007 -0.000005  0.000024  0.000051
+SO2  302.0  0.000030  0.000130 -0.001029  0.000022  0.000657
+CO   302.0  0.029622  0.003403  0.019267  0.029181  0.041322
 </pre></div>
 </div>
 </div>
@@ -952,10 +993,9 @@ O3   361.0  0.115756  0.002423  0.109595  0.115506  0.123120
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- LAPORAN PENGECEKAN MISSING VALUE ---
       Jumlah Missing Value  Persentase (%)
 date                     0        0.000000
-CO                      87       23.770492
-NO2                    120       32.786885
-SO2                     85       23.224044
-O3                       5        1.366120
+NO2                     85       23.224044
+SO2                     64       17.486339
+CO                      64       17.486339
 
 Jumlah baris dengan tanggal kosong: 0
 </pre></div>
@@ -1002,42 +1042,154 @@ Jumlah baris dengan tanggal kosong: 0
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== Parameter: CO ===
 Jumlah Outlier : 3
-                          date        CO
-38   2025-10-07 00:00:00+00:00  0.041322
-68   2025-11-06 00:00:00+00:00  0.019267
-363  2026-08-28 00:00:00+00:00  0.040650
+                         date        CO
+38   2025-10-07T00:00:00.000Z  0.041322
+68   2025-11-06T00:00:00.000Z  0.019267
+363  2026-08-28T00:00:00.000Z  0.040650
 -----------------------------------
 
 === Parameter: NO2 ===
-Jumlah Outlier : 7
-                          date           NO2
-62   2025-10-31 00:00:00+00:00  3.977295e-06
-132  2026-01-09 00:00:00+00:00  4.287348e-05
-147  2026-01-24 00:00:00+00:00 -4.947272e-06
-232  2026-04-19 00:00:00+00:00  3.771818e-07
-259  2026-05-16 00:00:00+00:00  4.921104e-05
+Jumlah Outlier : 8
+                         date           NO2
+4    2025-09-03T00:00:00.000Z  4.200000e-05
+62   2025-10-31T00:00:00.000Z  3.980000e-06
+132  2026-01-09T00:00:00.000Z  4.290000e-05
+147  2026-01-24T00:00:00.000Z -4.950000e-06
+232  2026-04-19T00:00:00.000Z  3.770000e-07
 -----------------------------------
 
 === Parameter: SO2 ===
 Jumlah Outlier : 10
-                          date       SO2
-2    2025-09-01 00:00:00+00:00  0.000569
-55   2025-10-24 00:00:00+00:00 -0.000260
-81   2025-11-19 00:00:00+00:00 -0.001029
-147  2026-01-24 00:00:00+00:00  0.000351
-182  2026-02-28 00:00:00+00:00 -0.000361
------------------------------------
-
-=== Parameter: O3 ===
-Jumlah Outlier : 4
-                          date        O3
-344  2026-08-09 00:00:00+00:00  0.121979
-355  2026-08-20 00:00:00+00:00  0.122261
-356  2026-08-21 00:00:00+00:00  0.123120
-357  2026-08-22 00:00:00+00:00  0.122066
+                         date       SO2
+2    2025-09-01T00:00:00.000Z  0.000569
+55   2025-10-24T00:00:00.000Z -0.000260
+81   2025-11-19T00:00:00.000Z -0.001029
+147  2026-01-24T00:00:00.000Z  0.000351
+182  2026-02-28T00:00:00.000Z -0.000361
 -----------------------------------
 </pre></div>
 </div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;COInWidodaren.csv&quot;</span><span class="p">)</span>
+
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">])</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;COInWidodaren.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data berhasil diurutkan dari tanggal paling lama ke paling baru.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data berhasil diurutkan dari tanggal paling lama ke paling baru.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Membaca file CSV</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;NO2InWidodaren.csv&quot;</span><span class="p">)</span>
+
+<span class="c1"># Mengubah kolom date menjadi format tanggal</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">])</span>
+
+<span class="c1"># Membuat grafik</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">],</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;NO2&quot;</span><span class="p">],</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;NO2 setelah interpolasi&quot;</span><span class="p">,</span>
+    <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Data NO2 Setelah Penanganan Outlier dan Interpolasi&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Tanggal&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Kadar NO2&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/4096ac27ab10db8bb1d64884990190bebb829624f50ea5a2db5eace2601edb75.png" src="../_images/4096ac27ab10db8bb1d64884990190bebb829624f50ea5a2db5eace2601edb75.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Membaca file CSV</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;SO2InWidodaren.csv&quot;</span><span class="p">)</span>
+
+<span class="c1"># Mengubah kolom date menjadi format tanggal</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">])</span>
+
+<span class="c1"># Membuat grafik</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">],</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;SO2&quot;</span><span class="p">],</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;SO2 setelah interpolasi&quot;</span><span class="p">,</span>
+    <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Data SO2 Setelah Penanganan Outlier dan Interpolasi&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Tanggal&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Kadar SO2&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/15a6584b56f90059be2aba74e4dacad9cc52c08d0a189e5f98db878cc3ce029c.png" src="../_images/15a6584b56f90059be2aba74e4dacad9cc52c08d0a189e5f98db878cc3ce029c.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Membaca file CSV</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;COInWidodaren.csv&quot;</span><span class="p">)</span>
+
+<span class="c1"># Mengubah kolom date menjadi format tanggal</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">])</span>
+
+<span class="c1"># Membuat grafik</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">],</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;CO&quot;</span><span class="p">],</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;CO setelah interpolasi&quot;</span><span class="p">,</span>
+    <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Data CO Setelah Penanganan Outlier dan Interpolasi&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Tanggal&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Kadar CO&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/992bc788bce70c4ad3daf6db166fd58b792e1de8c31b703764a34cebbe7132fd.png" src="../_images/992bc788bce70c4ad3daf6db166fd58b792e1de8c31b703764a34cebbe7132fd.png" />
 </div>
 </div>
 </section>

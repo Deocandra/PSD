@@ -60,6 +60,8 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'widodaren/ekstraksi-fitur';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="icon" href="../_static/logo.png"/>
@@ -230,6 +232,7 @@
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Daerah Kecamatan Widodaren</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="polutan-Ngawi.html">Kolekting Data: Kualitas Polusi Udara di Kecamatan Widodaren, Ngawi</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">PreProcessing: Deteksi Outlier &amp; Imputasi Missing Value serta Ekstraksi Fitur Pada NO2</a></li>
+
 </ul>
 </details></li>
 </ul>
@@ -377,6 +380,7 @@
             </div>
             <nav aria-label="Page">
                 <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">PreProcessing: Deteksi Outlier &amp; Imputasi Missing Value serta Ekstraksi Fitur Pada NO2</a><ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deteksi-outliers-pada-data-kualitas-udara-di-kecamatan-widodaren">Deteksi Outliers pada Data Kualitas Udara di Kecamatan Widodaren</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deteksi-outliers-pada-no2-untuk-ekstraksi-fitur">2. Deteksi Outliers pada NO2 Untuk Ekstraksi Fitur</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#merubah-outliers-no2-menjadi-nan-serta-imputasi-missing-values-dan-outliers-nan">3. Merubah Outliers NO2 Menjadi NaN serta Imputasi Missing Values dan Outliers (NaN)</a></li>
@@ -385,7 +389,41 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mengelompokkan-fitur-hasil-ekstraksi-berdasarkan-domain">6. Mengelompokkan Fitur Hasil Ekstraksi Berdasarkan Domain</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#penjelasan-domain-tsfel">Penjelasan Domain TSFEL</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#notasi-rumus-dan-contoh-perhitungan-68-fitur">Notasi, Rumus, dan Contoh Perhitungan 68 Fitur</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rumus-domain-statistical">Rumus Domain Statistical</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rumus-domain-temporal">Rumus Domain Temporal</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rumus-domain-spectral">Rumus Domain Spectral</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rumus-domain-fractal">Rumus Domain Fractal</a></li>
 </ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#domain-statistical">1. Domain Statistical</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#domain-temporal">2. Domain Temporal</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#domain-spectral">3. Domain Spectral</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#domain-fractal">4. Domain Fractal</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cara-membaca-hasil-secara-terpadu">Cara Membaca Hasil Secara Terpadu</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretasi-fitur-tsfel-untuk-data-no2-kecamatan-widodaren-ngawi">Interpretasi Fitur TSFEL untuk Data NO2 — Kecamatan Widodaren, Ngawi</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mengenal-pembagian-domain-tsfel">Mengenal Pembagian Domain TSFEL</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notasi-rumus-dan-ilustrasi-perhitungan">Notasi, Rumus, dan Ilustrasi Perhitungan</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Rumus Domain Statistical</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Rumus Domain Temporal</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Rumus Domain Spectral</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Rumus Domain Fractal</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">1. Domain Statistical</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">2. Domain Temporal</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">3. Domain Spectral</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">4. Domain Fractal</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#membaca-keempat-domain-secara-menyeluruh">Membaca Keempat Domain Secara Menyeluruh</a></li>
+</ul>
+</li>
+</ul>
+
             </nav>
         </div>
     </div>
@@ -407,13 +445,12 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: pandas in c:\users\acer\appdata\local\programs\python\python312\lib\site-packages (2.3.3)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Note: you may need to restart the kernel to use updated packages.Requirement already satisfied: pandas in c:\users\acer\appdata\local\programs\python\python312\lib\site-packages (2.3.3)
 Requirement already satisfied: numpy&gt;=1.26.0 in c:\users\acer\appdata\local\programs\python\python312\lib\site-packages (from pandas) (2.2.0)
 Requirement already satisfied: python-dateutil&gt;=2.8.2 in c:\users\acer\appdata\roaming\python\python312\site-packages (from pandas) (2.9.0.post0)
 Requirement already satisfied: pytz&gt;=2020.1 in c:\users\acer\appdata\local\programs\python\python312\lib\site-packages (from pandas) (2026.3.post1)
 Requirement already satisfied: tzdata&gt;=2022.7 in c:\users\acer\appdata\local\programs\python\python312\lib\site-packages (from pandas) (2026.2)
 Requirement already satisfied: six&gt;=1.5 in c:\users\acer\appdata\roaming\python\python312\site-packages (from python-dateutil&gt;=2.8.2-&gt;pandas) (1.16.0)
-Note: you may need to restart the kernel to use updated packages.
 </pre></div>
 </div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[notice] A new release of pip is available: 24.2 -&gt; 26.2.1
@@ -429,8 +466,7 @@ Note: you may need to restart the kernel to use updated packages.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: numpy in c:\users\acer\appdata\local\programs\python\python312\lib\site-packages (2.2.0)
-Note: you may need to restart the kernel to use updated packages.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: numpy in c:\users\acer\appdata\local\programs\python\python312\lib\site-packages (2.2.0)Note: you may need to restart the kernel to use updated packages.
 </pre></div>
 </div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[notice] A new release of pip is available: 24.2 -&gt; 26.2.1
@@ -448,7 +484,7 @@ Note: you may need to restart the kernel to use updated packages.
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;KualitasUdaraWidodaren.csv&quot;</span><span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>  
 
-<span class="n">fitur_polutan</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;CO&#39;</span><span class="p">,</span> <span class="s1">&#39;NO2&#39;</span><span class="p">,</span> <span class="s1">&#39;SO2&#39;</span><span class="p">,</span> <span class="s1">&#39;O3&#39;</span><span class="p">]</span>
+<span class="n">fitur_polutan</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;CO&#39;</span><span class="p">,</span> <span class="s1">&#39;NO2&#39;</span><span class="p">,</span> <span class="s1">&#39;SO2&#39;</span><span class="p">]</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=== PROSES DETEKSI &amp; PENANGANAN OUTLIER (METODE IQR) ===</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
 
@@ -500,16 +536,16 @@ Note: you may need to restart the kernel to use updated packages.
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== PROSES DETEKSI &amp; PENANGANAN OUTLIER (METODE IQR) ===
 
 === Parameter: CO ===
-Q1  : 0.027039
-Q3  : 0.031995
-IQR : 0.004956
-Batas bawah : 0.019604
-Batas atas  : 0.039429
+Q1  : 0.027038
+Q3  : 0.032092
+IQR : 0.005054
+Batas bawah : 0.019456
+Batas atas  : 0.039673
 Jumlah Outlier : 3
-                          date        CO
-38   2025-10-07 00:00:00+00:00  0.041322
-68   2025-11-06 00:00:00+00:00  0.019267
-363  2026-08-28 00:00:00+00:00  0.040650
+                         date        CO
+38   2025-10-07T00:00:00.000Z  0.041322
+68   2025-11-06T00:00:00.000Z  0.019267
+363  2026-08-28T00:00:00.000Z  0.040650
 -&gt; Outlier pada kolom &#39;CO&#39; sudah diubah menjadi NaN.
 
 -----------------------------------
@@ -519,14 +555,14 @@ Q1  : 0.000020
 Q3  : 0.000029
 IQR : 0.000009
 Batas bawah : 0.000006
-Batas atas  : 0.000043
-Jumlah Outlier : 7
-                          date           NO2
-62   2025-10-31 00:00:00+00:00  3.977295e-06
-132  2026-01-09 00:00:00+00:00  4.287348e-05
-147  2026-01-24 00:00:00+00:00 -4.947272e-06
-232  2026-04-19 00:00:00+00:00  3.771818e-07
-259  2026-05-16 00:00:00+00:00  4.921104e-05
+Batas atas  : 0.000042
+Jumlah Outlier : 8
+                         date           NO2
+4    2025-09-03T00:00:00.000Z  4.200000e-05
+62   2025-10-31T00:00:00.000Z  3.980000e-06
+132  2026-01-09T00:00:00.000Z  4.290000e-05
+147  2026-01-24T00:00:00.000Z -4.950000e-06
+232  2026-04-19T00:00:00.000Z  3.770000e-07
 -&gt; Outlier pada kolom &#39;NO2&#39; sudah diubah menjadi NaN.
 
 -----------------------------------
@@ -534,42 +570,260 @@ Jumlah Outlier : 7
 === Parameter: SO2 ===
 Q1  : -0.000035
 Q3  : 0.000097
-IQR : 0.000132
-Batas bawah : -0.000233
-Batas atas  : 0.000295
+IQR : 0.000131
+Batas bawah : -0.000232
+Batas atas  : 0.000294
 Jumlah Outlier : 10
-                          date       SO2
-2    2025-09-01 00:00:00+00:00  0.000569
-55   2025-10-24 00:00:00+00:00 -0.000260
-81   2025-11-19 00:00:00+00:00 -0.001029
-147  2026-01-24 00:00:00+00:00  0.000351
-182  2026-02-28 00:00:00+00:00 -0.000361
+                         date       SO2
+2    2025-09-01T00:00:00.000Z  0.000569
+55   2025-10-24T00:00:00.000Z -0.000260
+81   2025-11-19T00:00:00.000Z -0.001029
+147  2026-01-24T00:00:00.000Z  0.000351
+182  2026-02-28T00:00:00.000Z -0.000361
 -&gt; Outlier pada kolom &#39;SO2&#39; sudah diubah menjadi NaN.
-
------------------------------------
-
-=== Parameter: O3 ===
-Q1  : 0.114098
-Q3  : 0.117123
-IQR : 0.003025
-Batas bawah : 0.109561
-Batas atas  : 0.121660
-Jumlah Outlier : 4
-                          date        O3
-344  2026-08-09 00:00:00+00:00  0.121979
-355  2026-08-20 00:00:00+00:00  0.122261
-356  2026-08-21 00:00:00+00:00  0.123120
-357  2026-08-22 00:00:00+00:00  0.122066
--&gt; Outlier pada kolom &#39;O3&#39; sudah diubah menjadi NaN.
 
 -----------------------------------
 
 === SELESAI ===
 Total baris data     : 366
-Sisa missing value   : 321 (outlier + missing asli)
+Sisa missing value   : 234 (outlier + missing asli)
 File hasil disimpan  : KualitasUdaraWidodaren_NoOutlier.csv
 </pre></div>
 </div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Membaca file CSV</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;NO2InWidodaren.csv&quot;</span><span class="p">)</span>
+
+<span class="c1"># Mengubah date menjadi format tanggal</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">])</span>
+
+<span class="c1"># Menghitung Q1 dan Q3</span>
+<span class="n">Q1</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;NO2&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.25</span><span class="p">)</span>
+<span class="n">Q3</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;NO2&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.75</span><span class="p">)</span>
+
+<span class="c1"># Menghitung IQR</span>
+<span class="n">IQR</span> <span class="o">=</span> <span class="n">Q3</span> <span class="o">-</span> <span class="n">Q1</span>
+
+<span class="c1"># Menentukan batas bawah dan batas atas</span>
+<span class="n">lower_bound</span> <span class="o">=</span> <span class="n">Q1</span> <span class="o">-</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">IQR</span>
+<span class="n">upper_bound</span> <span class="o">=</span> <span class="n">Q3</span> <span class="o">+</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">IQR</span>
+
+<span class="c1"># Mengambil data yang dianggap outlier</span>
+<span class="n">outliers_iqr</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span>
+    <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;NO2&quot;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">lower_bound</span><span class="p">)</span> <span class="o">|</span>
+    <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;NO2&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">upper_bound</span><span class="p">)</span>
+<span class="p">]</span>
+
+<span class="c1"># Membuat grafik</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="c1"># Grafik seluruh data NO2</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">],</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;NO2&quot;</span><span class="p">],</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;NO2&quot;</span><span class="p">,</span>
+    <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span>
+<span class="p">)</span>
+
+<span class="c1"># Menampilkan outlier dengan titik merah</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+    <span class="n">outliers_iqr</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">],</span>
+    <span class="n">outliers_iqr</span><span class="p">[</span><span class="s2">&quot;NO2&quot;</span><span class="p">],</span>
+    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span>
+    <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Outliers&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Garis batas atas</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span>
+    <span class="n">upper_bound</span><span class="p">,</span>
+    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;orange&quot;</span><span class="p">,</span>
+    <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;dashed&quot;</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Upper Bound (IQR)&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Garis batas bawah</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span>
+    <span class="n">lower_bound</span><span class="p">,</span>
+    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span>
+    <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;dashed&quot;</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Lower Bound (IQR)&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Deteksi Outlier Data NO2&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Tanggal&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Kadar NO2&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/beda714005e3119b03643f5595ca322e258b1d98e286ca65ecf084a340cf1a84.png" src="../_images/beda714005e3119b03643f5595ca322e258b1d98e286ca65ecf084a340cf1a84.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Membaca file CSV</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;SO2InWidodaren.csv&quot;</span><span class="p">)</span>
+
+<span class="c1"># Mengubah date menjadi format tanggal</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">])</span>
+
+<span class="c1"># Menghitung Q1 dan Q3</span>
+<span class="n">Q1</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;SO2&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.25</span><span class="p">)</span>
+<span class="n">Q3</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;SO2&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.75</span><span class="p">)</span>
+
+<span class="c1"># Menghitung IQR</span>
+<span class="n">IQR</span> <span class="o">=</span> <span class="n">Q3</span> <span class="o">-</span> <span class="n">Q1</span>
+
+<span class="c1"># Menentukan batas bawah dan batas atas</span>
+<span class="n">lower_bound</span> <span class="o">=</span> <span class="n">Q1</span> <span class="o">-</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">IQR</span>
+<span class="n">upper_bound</span> <span class="o">=</span> <span class="n">Q3</span> <span class="o">+</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">IQR</span>
+
+<span class="c1"># Mengambil data yang dianggap outlier</span>
+<span class="n">outliers_iqr</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span>
+    <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;SO2&quot;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">lower_bound</span><span class="p">)</span> <span class="o">|</span>
+    <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;SO2&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">upper_bound</span><span class="p">)</span>
+<span class="p">]</span>
+
+<span class="c1"># Membuat grafik</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="c1"># Grafik seluruh data SO2</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">],</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;SO2&quot;</span><span class="p">],</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;SO2&quot;</span><span class="p">,</span>
+    <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span>
+<span class="p">)</span>
+
+<span class="c1"># Menampilkan outlier dengan titik merah</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+    <span class="n">outliers_iqr</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">],</span>
+    <span class="n">outliers_iqr</span><span class="p">[</span><span class="s2">&quot;SO2&quot;</span><span class="p">],</span>
+    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span>
+    <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Outliers&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Garis batas atas</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span>
+    <span class="n">upper_bound</span><span class="p">,</span>
+    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;orange&quot;</span><span class="p">,</span>
+    <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;dashed&quot;</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Upper Bound (IQR)&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Garis batas bawah</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span>
+    <span class="n">lower_bound</span><span class="p">,</span>
+    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span>
+    <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;dashed&quot;</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Lower Bound (IQR)&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Deteksi Outlier Data SO2&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Tanggal&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Kadar SO2&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/49f6a20b869cf78e8bc458bd86dea81e3a931f006310a8e1e457e9040cd7f148.png" src="../_images/49f6a20b869cf78e8bc458bd86dea81e3a931f006310a8e1e457e9040cd7f148.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Membaca file CSV</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;COInWidodaren.csv&quot;</span><span class="p">)</span>
+
+<span class="c1"># Mengubah date menjadi format tanggal</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">])</span>
+
+<span class="c1"># Menghitung Q1 dan Q3</span>
+<span class="n">Q1</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;CO&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.25</span><span class="p">)</span>
+<span class="n">Q3</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;CO&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.75</span><span class="p">)</span>
+
+<span class="c1"># Menghitung IQR</span>
+<span class="n">IQR</span> <span class="o">=</span> <span class="n">Q3</span> <span class="o">-</span> <span class="n">Q1</span>
+
+<span class="c1"># Menentukan batas bawah dan batas atas</span>
+<span class="n">lower_bound</span> <span class="o">=</span> <span class="n">Q1</span> <span class="o">-</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">IQR</span>
+<span class="n">upper_bound</span> <span class="o">=</span> <span class="n">Q3</span> <span class="o">+</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">IQR</span>
+
+<span class="c1"># Mengambil data yang dianggap outlier</span>
+<span class="n">outliers_iqr</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span>
+    <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;CO&quot;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">lower_bound</span><span class="p">)</span> <span class="o">|</span>
+    <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;CO&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">upper_bound</span><span class="p">)</span>
+<span class="p">]</span>
+
+<span class="c1"># Membuat grafik</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="c1"># Grafik seluruh data CO</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">],</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;CO&quot;</span><span class="p">],</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;CO&quot;</span><span class="p">,</span>
+    <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span>
+<span class="p">)</span>
+
+<span class="c1"># Menampilkan outlier dengan titik merah</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+    <span class="n">outliers_iqr</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">],</span>
+    <span class="n">outliers_iqr</span><span class="p">[</span><span class="s2">&quot;CO&quot;</span><span class="p">],</span>
+    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span>
+    <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Outliers&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Garis batas atas</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span>
+    <span class="n">upper_bound</span><span class="p">,</span>
+    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;orange&quot;</span><span class="p">,</span>
+    <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;dashed&quot;</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Upper Bound (IQR)&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Garis batas bawah</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span>
+    <span class="n">lower_bound</span><span class="p">,</span>
+    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span>
+    <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;dashed&quot;</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Lower Bound (IQR)&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Deteksi Outlier Data CO&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Tanggal&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Kadar CO&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/4e4297ca8f4580e56eb4d074469a381ea86da6df03e84753582ed2d6de1406ab.png" src="../_images/4e4297ca8f4580e56eb4d074469a381ea86da6df03e84753582ed2d6de1406ab.png" />
 </div>
 </div>
 <section id="deteksi-outliers-pada-no2-untuk-ekstraksi-fitur">
@@ -579,9 +833,9 @@ File hasil disimpan  : KualitasUdaraWidodaren_NoOutlier.csv
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;NO2InWidodaren.csv&quot;</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;SO2InWidodaren.csv&quot;</span><span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>  
-<span class="n">fitur_polutan</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;NO2&#39;</span><span class="p">]</span>
+<span class="n">fitur_polutan</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;SO2&#39;</span><span class="p">]</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=== PROSES DETEKSI &amp; PENANGANAN OUTLIER NO2 (METODE IQR) ===</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
 
@@ -619,12 +873,12 @@ File hasil disimpan  : KualitasUdaraWidodaren_NoOutlier.csv
 
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">35</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
 
-<span class="n">output_file</span> <span class="o">=</span> <span class="s2">&quot;NO2Widodaren_NoOutlier.csv&quot;</span>
+<span class="n">output_file</span> <span class="o">=</span> <span class="s2">&quot;SO2Widodaren_NoOutlier.csv&quot;</span>
 <span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">output_file</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;=== SELESAI ===&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total baris data     : </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Sisa missing value   : </span><span class="si">{</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;NO2&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="s2"> (outlier + missing asli)&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Sisa missing value   : </span><span class="si">{</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;SO2&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="s2"> (outlier + missing asli)&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;File hasil disimpan  : </span><span class="si">{</span><span class="n">output_file</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -632,27 +886,27 @@ File hasil disimpan  : KualitasUdaraWidodaren_NoOutlier.csv
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== PROSES DETEKSI &amp; PENANGANAN OUTLIER NO2 (METODE IQR) ===
 
-=== Parameter: NO2 ===
-Q1  : 0.000020
-Q3  : 0.000029
-IQR : 0.000009
-Batas bawah : 0.000006
-Batas atas  : 0.000043
-Jumlah Outlier : 7
-                         date           NO2
-18   2026-04-19T00:00:00.000Z  3.771818e-07
-59   2025-10-31T00:00:00.000Z  3.977295e-06
-75   2026-05-16T00:00:00.000Z  4.921104e-05
-111  2026-07-12T00:00:00.000Z  4.851363e-05
-247  2026-01-09T00:00:00.000Z  4.287348e-05
--&gt; Outlier pada kolom &#39;NO2&#39; sudah diubah menjadi NaN.
+=== Parameter: SO2 ===
+Q1  : -0.000035
+Q3  : 0.000097
+IQR : 0.000131
+Batas bawah : -0.000232
+Batas atas  : 0.000294
+Jumlah Outlier : 10
+                          date       SO2
+2    2025-09-01 00:00:00+00:00  0.000569
+55   2025-10-24 00:00:00+00:00 -0.000260
+81   2025-11-19 00:00:00+00:00 -0.001029
+147  2026-01-24 00:00:00+00:00  0.000351
+182  2026-02-28 00:00:00+00:00 -0.000361
+-&gt; Outlier pada kolom &#39;SO2&#39; sudah diubah menjadi NaN.
 
 -----------------------------------
 
 === SELESAI ===
 Total baris data     : 366
-Sisa missing value   : 127 (outlier + missing asli)
-File hasil disimpan  : NO2Widodaren_NoOutlier.csv
+Sisa missing value   : 74 (outlier + missing asli)
+File hasil disimpan  : SO2Widodaren_NoOutlier.csv
 </pre></div>
 </div>
 </div>
@@ -841,7 +1095,248 @@ Jumlah fitur yang diminta: 68
 Berhasil! Jumlah fitur yang dihasilkan untuk NO2: 68
 </pre></div>
 </div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\ACER\AppData\Local\Programs\Python\Python312\Lib\site-packages\tsfel\feature_extraction\features_utils.py:534: RuntimeWarning: invalid value encountered in divide
+  rs = np.divide(r, s)
+</pre></div>
 </div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_features</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;NO2-Widodaren-TSFEL.csv&quot;</span><span class="p">)</span>
+<span class="n">df_features</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>abs_energy</th>
+      <th>auc</th>
+      <th>autocorr</th>
+      <th>average_power</th>
+      <th>calc_centroid</th>
+      <th>calc_max</th>
+      <th>calc_mean</th>
+      <th>calc_median</th>
+      <th>calc_min</th>
+      <th>calc_std</th>
+      <th>...</th>
+      <th>spectral_spread</th>
+      <th>spectral_variation</th>
+      <th>spectrogram_mean_coeff</th>
+      <th>sum_abs_diff</th>
+      <th>wavelet_abs_mean</th>
+      <th>wavelet_energy</th>
+      <th>wavelet_entropy</th>
+      <th>wavelet_std</th>
+      <th>wavelet_var</th>
+      <th>zero_cross</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2.173853e-07</td>
+      <td>0.008632</td>
+      <td>2.0</td>
+      <td>5.955761e-10</td>
+      <td>196.997143</td>
+      <td>0.000038</td>
+      <td>0.000024</td>
+      <td>0.000023</td>
+      <td>0.00001</td>
+      <td>0.000006</td>
+      <td>...</td>
+      <td>0.152316</td>
+      <td>0.642335</td>
+      <td>5.870496e-11</td>
+      <td>0.001716</td>
+      <td>0.000001</td>
+      <td>0.000009</td>
+      <td>2.181052</td>
+      <td>0.000009</td>
+      <td>8.221539e-11</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>1 rows × 68 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_features</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;SO2-Widodaren-TSFEL.csv&quot;</span><span class="p">)</span>
+<span class="n">df_features</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>abs_energy</th>
+      <th>auc</th>
+      <th>autocorr</th>
+      <th>average_power</th>
+      <th>calc_centroid</th>
+      <th>calc_max</th>
+      <th>calc_mean</th>
+      <th>calc_median</th>
+      <th>calc_min</th>
+      <th>calc_std</th>
+      <th>...</th>
+      <th>spectral_spread</th>
+      <th>spectral_variation</th>
+      <th>spectrogram_mean_coeff</th>
+      <th>sum_abs_diff</th>
+      <th>wavelet_abs_mean</th>
+      <th>wavelet_energy</th>
+      <th>wavelet_entropy</th>
+      <th>wavelet_std</th>
+      <th>wavelet_var</th>
+      <th>zero_cross</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.000002</td>
+      <td>0.019639</td>
+      <td>1.0</td>
+      <td>6.632817e-09</td>
+      <td>204.82865</td>
+      <td>0.00024</td>
+      <td>0.000022</td>
+      <td>0.000017</td>
+      <td>-0.000177</td>
+      <td>0.000078</td>
+      <td>...</td>
+      <td>0.147906</td>
+      <td>0.227951</td>
+      <td>1.039525e-08</td>
+      <td>0.025164</td>
+      <td>0.000004</td>
+      <td>0.000098</td>
+      <td>2.188077</td>
+      <td>0.000098</td>
+      <td>9.716554e-09</td>
+      <td>124.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>1 rows × 68 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_features</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;CO-Widodaren-TSFEL.csv&quot;</span><span class="p">)</span>
+<span class="n">df_features</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>abs_energy</th>
+      <th>auc</th>
+      <th>autocorr</th>
+      <th>average_power</th>
+      <th>calc_centroid</th>
+      <th>calc_max</th>
+      <th>calc_mean</th>
+      <th>calc_median</th>
+      <th>calc_min</th>
+      <th>calc_std</th>
+      <th>...</th>
+      <th>spectral_spread</th>
+      <th>spectral_variation</th>
+      <th>spectrogram_mean_coeff</th>
+      <th>sum_abs_diff</th>
+      <th>wavelet_abs_mean</th>
+      <th>wavelet_energy</th>
+      <th>wavelet_entropy</th>
+      <th>wavelet_std</th>
+      <th>wavelet_var</th>
+      <th>zero_cross</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.323233</td>
+      <td>10.78444</td>
+      <td>4.0</td>
+      <td>0.000886</td>
+      <td>186.440948</td>
+      <td>0.037934</td>
+      <td>0.029553</td>
+      <td>0.029181</td>
+      <td>0.021309</td>
+      <td>0.003125</td>
+      <td>...</td>
+      <td>0.134168</td>
+      <td>0.506234</td>
+      <td>0.000014</td>
+      <td>0.746127</td>
+      <td>0.001805</td>
+      <td>0.007579</td>
+      <td>2.139069</td>
+      <td>0.007337</td>
+      <td>0.000062</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>1 rows × 68 columns</p>
+</div></div></div>
 </div>
 </section>
 <section id="mengelompokkan-fitur-hasil-ekstraksi-berdasarkan-domain">
@@ -924,6 +1419,1098 @@ UNKNOWN (0): []
 </div>
 </section>
 </section>
+<section id="penjelasan-domain-tsfel">
+<h2>Penjelasan Domain TSFEL<a class="headerlink" href="#penjelasan-domain-tsfel" title="Link to this heading">#</a></h2>
+<p>TSFEL (<em>Time Series Feature Extraction Library</em>) mengekstraksi karakteristik sinyal dari beberapa sudut pandang. Pada analisis ini, 365 nilai NO2 harian diperlakukan sebagai satu sinyal satu dimensi. Karena <code class="docutils literal notranslate"><span class="pre">fs</span> <span class="pre">=</span> <span class="pre">1</span></code>, satu sampel merepresentasikan satu hari dan frekuensi yang dihasilkan fitur spectral dibaca dalam satuan siklus per hari. Dengan demikian, fitur TSFEL bukan 68 pengamatan baru, melainkan 68 ringkasan matematis dari satu deret waktu NO2.</p>
+<p>Pembagian domain penting karena setiap domain menjawab pertanyaan yang berbeda:</p>
+<ol class="arabic simple">
+<li><p><strong>Statistical</strong> menjawab: bagaimana distribusi dan besarnya nilai NO2?</p></li>
+<li><p><strong>Temporal</strong> menjawab: bagaimana nilai NO2 berubah menurut urutan hari?</p></li>
+<li><p><strong>Spectral</strong> menjawab: apakah terdapat pola berulang atau energi pada frekuensi tertentu?</p></li>
+<li><p><strong>Fractal</strong> menjawab: seberapa kompleks, kasar, dan memiliki memori jangka panjang sinyal tersebut?</p></li>
+</ol>
+<p>Nilai fitur harus dibandingkan dengan hati-hati. Fitur dalam satu domain dapat memiliki skala, satuan, dan sensitivitas yang berbeda. Selain itu, beberapa fitur TSFEL dirancang untuk sinyal umum, sehingga nilainya perlu dipahami sebagai indikator pola pada data ini, bukan langsung sebagai konsentrasi atau satuan kualitas udara.</p>
+<section id="notasi-rumus-dan-contoh-perhitungan-68-fitur">
+<h3>Notasi, Rumus, dan Contoh Perhitungan 68 Fitur<a class="headerlink" href="#notasi-rumus-dan-contoh-perhitungan-68-fitur" title="Link to this heading">#</a></h3>
+<p>Bagian ini menggunakan sinyal contoh pendek berikut agar rumus lebih mudah diperiksa:</p>
+<div class="math notranslate nohighlight">
+\[
+x = [1, 2, 3, 2], \qquad N=4, \qquad \Delta t=1
+\]</div>
+<p>Contoh tersebut bukan pengganti hasil 365 hari pada data NO2, tetapi menunjukkan cara kerja rumus. Pada data aktual, <span class="math notranslate nohighlight">\(x_i\)</span> adalah kadar NO2 pada hari ke-<span class="math notranslate nohighlight">\(i\)</span>. Notasi yang digunakan adalah <span class="math notranslate nohighlight">\(\bar{x}\)</span> untuk rata-rata, <span class="math notranslate nohighlight">\(\operatorname{median}(x)\)</span> untuk median, <span class="math notranslate nohighlight">\(F(x)\)</span> untuk ECDF, <span class="math notranslate nohighlight">\(X_k\)</span> untuk koefisien Fourier, dan <span class="math notranslate nohighlight">\(P_k=|X_k|^2\)</span> untuk daya spektrum. Rumus di bawah adalah rumus inti atau bentuk konseptual; beberapa implementasi TSFEL memiliki parameter, normalisasi, dan definisi ambang tambahan.</p>
+<section id="rumus-domain-statistical">
+<h4>Rumus Domain Statistical<a class="headerlink" href="#rumus-domain-statistical" title="Link to this heading">#</a></h4>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Fitur</p></th>
+<th class="head"><p>Rumus inti</p></th>
+<th class="head"><p>Contoh dengan <span class="math notranslate nohighlight">\(x=[1,2,3,2]\)</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">abs_energy</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(E=\sum_{i=1}^{N}x_i^2\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(1^2+2^2+3^2+2^2=18\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">average_power</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(P=E/N\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(18/4=4.5\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">calc_max</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(\max(x_i)\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\max(1,2,3,2)=3\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">calc_mean</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(\bar{x}=\frac{1}{N}\sum x_i\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\((1+2+3+2)/4=2\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">calc_median</span></code></p></td>
+<td><p>Nilai tengah setelah data diurutkan</p></td>
+<td><p>Data terurut <span class="math notranslate nohighlight">\([1,2,2,3]\)</span>, median <span class="math notranslate nohighlight">\(=(2+2)/2=2\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">calc_min</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(\min(x_i)\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\min(1,2,3,2)=1\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">calc_std</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(s=\sqrt{\frac{1}{N-1}\sum(x_i-\bar{x})^2}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\sqrt{[(1-2)^2+0^2+1^2+0^2]/3}=0.816\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">calc_var</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(s^2=\frac{1}{N-1}\sum(x_i-\bar{x})^2\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(2/3=0.667\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">interq_range</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(IQR=Q_3-Q_1\)</span></p></td>
+<td><p>Dengan kuartil interpolasi umum, <span class="math notranslate nohighlight">\(Q_1=1.75\)</span>, <span class="math notranslate nohighlight">\(Q_3=2.25\)</span>, jadi <span class="math notranslate nohighlight">\(IQR=0.5\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ecdf</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(F(a)=\frac{1}{N}\sum_{i=1}^{N}\mathbf{1}(x_i\leq a)\)</span></p></td>
+<td><p>Untuk <span class="math notranslate nohighlight">\(a=2\)</span>, <span class="math notranslate nohighlight">\(F(2)=3/4=0.75\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ecdf_percentile</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(p(a)=100F(a)\)</span> atau nilai <span class="math notranslate nohighlight">\(a\)</span> pada persentil tertentu</p></td>
+<td><p>Untuk <span class="math notranslate nohighlight">\(a=2\)</span>, persentil kumulatifnya <span class="math notranslate nohighlight">\(75\%\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ecdf_percentile_count</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(C(a)=\sum\mathbf{1}(x_i\leq a)\)</span></p></td>
+<td><p>Untuk <span class="math notranslate nohighlight">\(a=2\)</span>, <span class="math notranslate nohighlight">\(C(2)=3\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ecdf_slope</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(\frac{\Delta F}{\Delta a}\)</span></p></td>
+<td><p>Jika <span class="math notranslate nohighlight">\(F\)</span> berubah <span class="math notranslate nohighlight">\(0.5\)</span> pada rentang nilai <span class="math notranslate nohighlight">\(1\)</span>, slope <span class="math notranslate nohighlight">\(=0.5/1=0.5\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">entropy</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(H=-\sum_j p_j\log p_j\)</span></p></td>
+<td><p>Jika tiga bin memiliki <span class="math notranslate nohighlight">\(p=[0.25,0.5,0.25]\)</span>, <span class="math notranslate nohighlight">\(H=-\sum p\log_2p=1.5\)</span> bit</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hist_mode</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(\operatorname{argmax}_b\;n_b\)</span></p></td>
+<td><p>Bin dengan frekuensi terbanyak adalah bin mode; hasil tepat bergantung jumlah bin histogram</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">kurtosis</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(\frac{1}{N}\sum[(x_i-\bar{x})/s]^4\)</span> dikurangi 3 untuk excess kurtosis</p></td>
+<td><p>Mengukur ekor distribusi; contoh numeriknya bergantung apakah TSFEL memakai bias correction</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">skewness</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(\frac{1}{N}\sum[(x_i-\bar{x})/s]^3\)</span></p></td>
+<td><p>Pada contoh yang simetris terhadap 2, skewness mendekati <span class="math notranslate nohighlight">\(0\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mean_abs_deviation</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(MAD_\mu=\frac{1}{N}\sum_i \lvert x_i-\bar{x}\rvert\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\((1+0+1+0)/4=0.5\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">median_abs_deviation</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(MAD=\operatorname{median}(\lvert x_i-\operatorname{median}(x)\rvert)\)</span></p></td>
+<td><p>Deviasi <span class="math notranslate nohighlight">\([1,0,1,0]\)</span>, median <span class="math notranslate nohighlight">\(=0.5\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">pk_pk_distance</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(D_{p-p}=\max(x)-\min(x)\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(3-1=2\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">rms</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(RMS=\sqrt{\frac{1}{N}\sum x_i^2}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\sqrt{18/4}=2.121\)</span></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Cara membaca rumus statistical:</strong> <span class="math notranslate nohighlight">\(x_i\)</span> adalah nilai NO2 pada pengamatan ke-<span class="math notranslate nohighlight">\(i\)</span>, sedangkan <span class="math notranslate nohighlight">\(N\)</span> adalah jumlah pengamatan. Tanda <span class="math notranslate nohighlight">\(\sum\)</span> berarti seluruh nilai dijumlahkan. Pada <code class="docutils literal notranslate"><span class="pre">calc_mean</span></code>, jumlah seluruh nilai dibagi <span class="math notranslate nohighlight">\(N\)</span> sehingga diperoleh kadar rata-rata. Pada <code class="docutils literal notranslate"><span class="pre">calc_std</span></code> dan <code class="docutils literal notranslate"><span class="pre">calc_var</span></code>, setiap nilai dibandingkan dengan rata-rata melalui <span class="math notranslate nohighlight">\((x_i-\bar{x})\)</span>; selisih tersebut dikuadratkan agar perubahan positif dan negatif tidak saling menghapus. <code class="docutils literal notranslate"><span class="pre">calc_std</span></code> kemudian menggunakan akar kuadrat agar satuannya kembali sama dengan NO2, sedangkan <code class="docutils literal notranslate"><span class="pre">calc_var</span></code> tetap dalam satuan kuadrat.</p>
+<p>Pada fitur deviasi absolut, tanda <span class="math notranslate nohighlight">\(\lvert\cdot\rvert\)</span> mengubah semua selisih menjadi nilai positif. Oleh karena itu, <code class="docutils literal notranslate"><span class="pre">mean_abs_deviation</span></code> mengukur jarak rata-rata terhadap mean dan <code class="docutils literal notranslate"><span class="pre">median_abs_deviation</span></code> mengukur jarak tengah terhadap median. <code class="docutils literal notranslate"><span class="pre">interq_range</span></code> hanya memakai kuartil ketiga dan pertama, sehingga menggambarkan penyebaran 50% data tengah. Untuk <code class="docutils literal notranslate"><span class="pre">entropy</span></code>, <span class="math notranslate nohighlight">\(p_j\)</span> adalah proporsi data pada bin ke-<span class="math notranslate nohighlight">\(j\)</span>; semakin merata proporsinya, semakin besar nilai entropinya. Untuk <code class="docutils literal notranslate"><span class="pre">ecdf</span></code>, indikator <span class="math notranslate nohighlight">\(\mathbf{1}(x_i\leq a)\)</span> bernilai 1 jika syarat terpenuhi dan 0 jika tidak, sehingga hasilnya adalah proporsi atau jumlah data di bawah ambang <span class="math notranslate nohighlight">\(a\)</span>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">abs_energy</span></code>, <code class="docutils literal notranslate"><span class="pre">average_power</span></code>, dan <code class="docutils literal notranslate"><span class="pre">rms</span></code> menggunakan kuadrat nilai sehingga nilai NO2 yang besar mendapat bobot lebih tinggi. <code class="docutils literal notranslate"><span class="pre">pk_pk_distance</span></code> hanya membandingkan nilai ekstrem, sedangkan <code class="docutils literal notranslate"><span class="pre">hist_mode</span></code> mencari bin dengan jumlah pengamatan terbanyak. <code class="docutils literal notranslate"><span class="pre">skewness</span></code> memakai pangkat tiga untuk melihat arah kemencengan distribusi, sementara <code class="docutils literal notranslate"><span class="pre">kurtosis</span></code> memakai pangkat empat untuk menilai ketebalan ekor. Karena definisi kuartil, histogram, skewness, dan kurtosis dapat berbeda antarimplementasi, nilai akhir harus dibaca bersama dokumentasi TSFEL.</p>
+</section>
+<section id="rumus-domain-temporal">
+<h4>Rumus Domain Temporal<a class="headerlink" href="#rumus-domain-temporal" title="Link to this heading">#</a></h4>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Fitur</p></th>
+<th class="head"><p>Rumus inti</p></th>
+<th class="head"><p>Contoh dengan <span class="math notranslate nohighlight">\(x=[1,2,3,2]\)</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">auc</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(A\approx\sum_{i=1}^{N-1}\frac{x_i+x_{i+1}}{2}\Delta t\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\((1.5+2.5+2.5)\times1=6.5\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">autocorr</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(\rho_k=\frac{\sum_{i=1}^{N-k}(x_i-\bar{x})(x_{i+k}-\bar{x})}{\sum_{i=1}^{N}(x_i-\bar{x})^2}\)</span></p></td>
+<td><p>Untuk lag <span class="math notranslate nohighlight">\(k=1\)</span>, pembilang <span class="math notranslate nohighlight">\(=0\)</span>, sehingga <span class="math notranslate nohighlight">\(\rho_1=0\)</span> pada definisi ini</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">calc_centroid</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(t_c=\frac{\sum t_i x_i}{\sum x_i}\)</span></p></td>
+<td><p>Dengan <span class="math notranslate nohighlight">\(t=[0,1,2,3]\)</span>, <span class="math notranslate nohighlight">\(t_c=(0+2+6+6)/8=1.75\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">distance</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(L=\sum_{i=1}^{N-1}\sqrt{(t_{i+1}-t_i)^2+(x_{i+1}-x_i)^2}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\sqrt2+\sqrt2+\sqrt2=4.243\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mean_abs_diff</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(\frac{1}{N-1}\sum_i \lvert x_{i+1}-x_i\rvert\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\((1+1+1)/3=1\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mean_diff</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(\frac{1}{N-1}\sum(x_{i+1}-x_i)\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\((1+1-1)/3=0.333\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">median_abs_diff</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(\operatorname{median}(\lvert x_{i+1}-x_i\rvert)\)</span></p></td>
+<td><p>Median <span class="math notranslate nohighlight">\([1,1,1]=1\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">median_diff</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(\operatorname{median}(x_{i+1}-x_i)\)</span></p></td>
+<td><p>Median <span class="math notranslate nohighlight">\([1,1,-1]=1\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">negative_turning</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(\sum_{i=2}^{N-1}\mathbf{1}[(x_i-x_{i-1})&gt;0\land(x_{i+1}-x_i)&lt;0]\)</span></p></td>
+<td><p>Pola <span class="math notranslate nohighlight">\(1\to2\to3\to2\)</span> memiliki satu puncak turun, jadi hasil <span class="math notranslate nohighlight">\(=1\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">positive_turning</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(\sum_{i=2}^{N-1}\mathbf{1}[(x_i-x_{i-1})&lt;0\land(x_{i+1}-x_i)&gt;0]\)</span></p></td>
+<td><p>Contoh tidak memiliki lembah naik, jadi hasil <span class="math notranslate nohighlight">\(=0\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">neighbourhood_peaks</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(\sum_i\mathbf{1}[x_i&gt;x_{i-r},x_i&gt;x_{i+r}]\)</span></p></td>
+<td><p>Nilai 3 lebih besar dari tetangganya, sehingga terdapat satu puncak lokal untuk radius <span class="math notranslate nohighlight">\(r=1\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">slope</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(b=\frac{\sum(t_i-\bar{t})(x_i-\bar{x})}{\sum(t_i-\bar{t})^2}\)</span></p></td>
+<td><p>Untuk <span class="math notranslate nohighlight">\(t=[0,1,2,3]\)</span>, <span class="math notranslate nohighlight">\(b=0.2\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">sum_abs_diff</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(S=\sum_{i=1}^{N-1}\lvert x_{i+1}-x_i\rvert\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(1+1+1=3\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">zero_cross</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(Z=\sum_{i=1}^{N-1}\mathbf{1}[x_i x_{i+1}&lt;0]\)</span></p></td>
+<td><p>Tidak ada nilai yang melewati nol, jadi <span class="math notranslate nohighlight">\(Z=0\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">lempel_ziv</span></code></p></td>
+<td><p>Membuat urutan simbol, lalu menghitung pola baru yang belum pernah muncul; rasio umumnya <span class="math notranslate nohighlight">\(c(N)\log_2N/N\)</span></p></td>
+<td><p>Setelah diskretisasi contoh menjadi simbol <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">B</span> <span class="pre">C</span> <span class="pre">B</span></code>, jumlah pola baru dihitung oleh parser LZ; hasil dapat berubah sesuai aturan simbolisasi TSFEL</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Cara membaca rumus temporal:</strong> indeks <span class="math notranslate nohighlight">\(i+1\)</span> menunjukkan pengamatan hari berikutnya. Karena itu, <span class="math notranslate nohighlight">\(x_{i+1}-x_i\)</span> adalah perubahan NO2 dari satu hari ke hari berikutnya. <code class="docutils literal notranslate"><span class="pre">mean_diff</span></code> mempertahankan tanda perubahan sehingga kenaikan dan penurunan dapat saling mengurangi; <code class="docutils literal notranslate"><span class="pre">mean_abs_diff</span></code> memakai nilai absolut sehingga seluruh perubahan dijumlahkan sebagai besarnya fluktuasi. <code class="docutils literal notranslate"><span class="pre">median_diff</span></code> dan <code class="docutils literal notranslate"><span class="pre">median_abs_diff</span></code> menggunakan median agar lebih tahan terhadap satu perubahan ekstrem.</p>
+<p>Pada <code class="docutils literal notranslate"><span class="pre">auc</span></code>, setiap dua titik yang berurutan dianggap membentuk trapesium dengan lebar waktu <span class="math notranslate nohighlight">\(\Delta t\)</span>; jumlah seluruh luas trapesium menjadi perkiraan akumulasi sinyal. <code class="docutils literal notranslate"><span class="pre">calc_centroid</span></code> memberi bobot lebih besar pada waktu ketika nilai NO2 lebih tinggi. <code class="docutils literal notranslate"><span class="pre">slope</span></code> adalah kemiringan regresi linear, sehingga menunjukkan kecenderungan umum naik atau turun, bukan perubahan setiap hari. <code class="docutils literal notranslate"><span class="pre">distance</span></code> menghitung panjang lintasan dengan teorema Pythagoras, sedangkan <code class="docutils literal notranslate"><span class="pre">sum_abs_diff</span></code> hanya menjumlahkan perubahan vertikal.</p>
+<p>Untuk fitur turning point, operator <span class="math notranslate nohighlight">\(\land\)</span> berarti “dan”. <code class="docutils literal notranslate"><span class="pre">negative_turning</span></code> menghitung pola naik lalu turun, yaitu puncak lokal; <code class="docutils literal notranslate"><span class="pre">positive_turning</span></code> menghitung pola turun lalu naik, yaitu lembah lokal. <code class="docutils literal notranslate"><span class="pre">neighbourhood_peaks</span></code> membandingkan sebuah titik dengan tetangganya dalam radius <span class="math notranslate nohighlight">\(r\)</span>. <code class="docutils literal notranslate"><span class="pre">autocorr</span></code> mengukur kemiripan sinyal dengan sinyal yang digeser sejauh lag <span class="math notranslate nohighlight">\(k\)</span>. <code class="docutils literal notranslate"><span class="pre">zero_cross</span></code> memakai hasil kali dua nilai berurutan: hasil negatif berarti keduanya berada di sisi berlawanan dari nol. <code class="docutils literal notranslate"><span class="pre">lempel_ziv</span></code> terlebih dahulu mengubah nilai kontinu menjadi simbol, kemudian menghitung kemunculan pola baru; hasilnya bukan jumlah puncak, melainkan ukuran keragaman urutan.</p>
+</section>
+<section id="rumus-domain-spectral">
+<h4>Rumus Domain Spectral<a class="headerlink" href="#rumus-domain-spectral" title="Link to this heading">#</a></h4>
+<p>Transformasi Fourier diskret digunakan sebagai dasar:</p>
+<div class="math notranslate nohighlight">
+\[
+X_k=\sum_{n=0}^{N-1}x_n e^{-2\pi i kn/N},\qquad
+f_k=\frac{k f_s}{N},\qquad P_k=|X_k|^2.
+\]</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Fitur</p></th>
+<th class="head"><p>Rumus inti</p></th>
+<th class="head"><p>Contoh/interpretasi</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">fundamental_frequency</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(f_0=\arg\max_{f_k&gt;0}P_k\)</span></p></td>
+<td><p>Jika puncak daya terbesar berada pada bin <span class="math notranslate nohighlight">\(k=1\)</span>, dengan <span class="math notranslate nohighlight">\(N=4\)</span> dan <span class="math notranslate nohighlight">\(f_s=1\)</span>, maka <span class="math notranslate nohighlight">\(f_0=1/4=0.25\)</span> siklus/hari</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">max_frequency</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(\max\{f_k:P_k&gt;0\}\)</span></p></td>
+<td><p>Dengan <span class="math notranslate nohighlight">\(N=4\)</span>, frekuensi Nyquist adalah <span class="math notranslate nohighlight">\(f_s/2=0.5\)</span> siklus/hari</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">max_power_spectrum</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(\max_k P_k\)</span></p></td>
+<td><p>Ambil daya terbesar dari semua bin Fourier</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">median_frequency</span></code></p></td>
+<td><p>Frekuensi <span class="math notranslate nohighlight">\(f_m\)</span> saat kumulatif daya mencapai <span class="math notranslate nohighlight">\(50\%\)</span></p></td>
+<td><p>Jika setengah daya tercapai pada bin <span class="math notranslate nohighlight">\(k=1\)</span>, maka <span class="math notranslate nohighlight">\(f_m=0.25\)</span> siklus/hari</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">spectral_centroid</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(C=\frac{\sum f_kP_k}{\sum P_k}\)</span></p></td>
+<td><p>Jika <span class="math notranslate nohighlight">\(P=[1,2,1]\)</span> pada <span class="math notranslate nohighlight">\(f=[0,0.25,0.5]\)</span>, <span class="math notranslate nohighlight">\(C=(0+0.5+0.5)/4=0.25\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">spectral_spread</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(\sqrt{\frac{\sum P_k(f_k-C)^2}{\sum P_k}}\)</span></p></td>
+<td><p>Mengukur sebaran daya di sekitar centroid; daya yang menyebar menghasilkan spread lebih besar</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">power_bandwidth</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(f_{upper}-f_{lower}\)</span> untuk band daya yang ditentukan</p></td>
+<td><p>Jika band energi berada dari <span class="math notranslate nohighlight">\(0.1\)</span> sampai <span class="math notranslate nohighlight">\(0.4\)</span>, bandwidth <span class="math notranslate nohighlight">\(=0.3\)</span> siklus/hari</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">spectral_entropy</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(H_s=-\sum q_k\log_2q_k\)</span>, <span class="math notranslate nohighlight">\(q_k=P_k/\sum P_k\)</span></p></td>
+<td><p>Untuk <span class="math notranslate nohighlight">\(q=[0.5,0.5]\)</span>, <span class="math notranslate nohighlight">\(H_s=1\)</span> bit; daya yang terkonsentrasi memberi entropy lebih rendah</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">spectral_roll_on</span></code></p></td>
+<td><p>Frekuensi saat kumulatif daya melewati ambang awal</p></td>
+<td><p>Jika ambang tercapai pada <span class="math notranslate nohighlight">\(f=0.10\)</span>, roll-on <span class="math notranslate nohighlight">\(=0.10\)</span> siklus/hari</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">spectral_roll_off</span></code></p></td>
+<td><p>Frekuensi saat kumulatif daya melewati ambang akhir, sering <span class="math notranslate nohighlight">\(85\%\)</span></p></td>
+<td><p>Jika <span class="math notranslate nohighlight">\(85\%\)</span> daya tercapai pada <span class="math notranslate nohighlight">\(0.40\)</span>, roll-off <span class="math notranslate nohighlight">\(=0.40\)</span> siklus/hari</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">spectral_slope</span></code></p></td>
+<td><p>Kemiringan regresi <span class="math notranslate nohighlight">\(P_k=a f_k+b\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(a&lt;0\)</span> berarti daya cenderung turun saat frekuensi meningkat</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">spectral_decrease</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(D=\frac{1}{K-1}\sum_{k=1}^{K-1}\frac{P_{k+1}-P_1}{k}\)</span></p></td>
+<td><p>Nilai menggambarkan penurunan daya relatif terhadap bin awal</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">spectral_distance</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(\sum_k \lvert P_{k+1}-P_k\rvert\)</span> atau jarak antarprofil spektrum</p></td>
+<td><p>Spektrum dengan banyak perubahan tajam menghasilkan jarak lebih besar</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">spectral_variation</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(\frac{|P_t-P_{t-1}|}{|P_{t-1}|}\)</span></p></td>
+<td><p>Pada spektrogram, mengukur perubahan spektrum antarjendela waktu</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">spectral_kurtosis</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(\frac{\sum q_k(f_k-C)^4}{(\sum q_k(f_k-C)^2)^2}\)</span></p></td>
+<td><p>Nilai tinggi menunjukkan energi terkonsentrasi tajam di sekitar frekuensi tertentu</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">spectral_skewness</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(\frac{\sum q_k(f_k-C)^3}{(\sum q_k(f_k-C)^2)^{3/2}}\)</span></p></td>
+<td><p>Positif berarti ekor energi lebih panjang ke frekuensi tinggi</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">spectral_positive_turning</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(\sum_k\mathbf{1}[P_k&gt;P_{k-1}\land P_{k+1}&gt;P_k]\)</span></p></td>
+<td><p>Menghitung kenaikan lokal pada profil daya</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">lpcc</span></code></p></td>
+<td><p>Koefisien cepstrum: <span class="math notranslate nohighlight">\(c_m=\mathcal{F}^{-1}(\log \lvert A(f)\rvert)\)</span></p></td>
+<td><p>Nilai merupakan ringkasan bentuk spektrum; tepatnya bergantung orde LPCC</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mfcc</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(c_m=\sum_b\log(E_b)\cos[\pi m(b+1/2)/B]\)</span></p></td>
+<td><p>Energi tiap filter mel <span class="math notranslate nohighlight">\(E_b\)</span> diubah menjadi koefisien; parameter filterbank memengaruhi hasil</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">spectrogram_mean_coeff</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(\frac{1}{T K}\sum_{t,k}S(t,k)\)</span></p></td>
+<td><p>Rata-rata seluruh koefisien spektrogram; hasil bergantung ukuran jendela dan overlap</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">human_range_energy</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(E_{band}=\sum_{f\in[f_l,f_u]}P(f)\)</span></p></td>
+<td><p>Jika band memiliki daya <span class="math notranslate nohighlight">\(2,3,1\)</span>, energinya <span class="math notranslate nohighlight">\(=6\)</span>; band persis ditentukan implementasi</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">wavelet_abs_mean</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(\frac{1}{M}\sum_j \lvert w_j\rvert\)</span></p></td>
+<td><p>Koefisien wavelet <span class="math notranslate nohighlight">\([1,-2,1]\)</span> memberi mean absolut <span class="math notranslate nohighlight">\(4/3\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">wavelet_energy</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(E_w=\sum_jw_j^2\)</span></p></td>
+<td><p>Untuk <span class="math notranslate nohighlight">\([1,-2,1]\)</span>, <span class="math notranslate nohighlight">\(E_w=1+4+1=6\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">wavelet_entropy</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(H_w=-\sum_jp_j\log_2p_j\)</span>, <span class="math notranslate nohighlight">\(p_j=w_j^2/E_w\)</span></p></td>
+<td><p>Untuk kuadrat <span class="math notranslate nohighlight">\([1,4,1]\)</span>, <span class="math notranslate nohighlight">\(p=[1/6,4/6,1/6]\)</span> lalu entropy dihitung dari distribusi itu</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">wavelet_std</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(\sqrt{\frac{1}{M-1}\sum(w_j-\bar{w})^2}\)</span></p></td>
+<td><p>Untuk <span class="math notranslate nohighlight">\([1,-2,1]\)</span>, mean <span class="math notranslate nohighlight">\(=0\)</span>, std <span class="math notranslate nohighlight">\(=\sqrt3\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">wavelet_var</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(\frac{1}{M-1}\sum(w_j-\bar{w})^2\)</span></p></td>
+<td><p>Untuk contoh sama, varians <span class="math notranslate nohighlight">\(=3\)</span></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Cara membaca rumus spectral:</strong> transformasi Fourier mengubah sinyal dari ranah waktu menjadi ranah frekuensi. Pada rumus <span class="math notranslate nohighlight">\(X_k\)</span>, <span class="math notranslate nohighlight">\(k\)</span> adalah indeks frekuensi dan <span class="math notranslate nohighlight">\(f_k=kf_s/N\)</span> adalah frekuensi aktual. Dengan <code class="docutils literal notranslate"><span class="pre">fs</span> <span class="pre">=</span> <span class="pre">1</span></code>, setiap frekuensi dinyatakan sebagai siklus per hari. <span class="math notranslate nohighlight">\(P_k=|X_k|^2\)</span> adalah daya, sehingga menunjukkan seberapa kuat komponen frekuensi tersebut.</p>
+<p><code class="docutils literal notranslate"><span class="pre">fundamental_frequency</span></code> mencari frekuensi dengan daya dominan, sedangkan <code class="docutils literal notranslate"><span class="pre">max_frequency</span></code> mencari frekuensi tertinggi yang masih memiliki daya. <code class="docutils literal notranslate"><span class="pre">spectral_centroid</span></code> adalah rata-rata frekuensi berbobot daya; jika daya banyak berada di frekuensi tinggi, centroid ikut bergeser ke kanan. <code class="docutils literal notranslate"><span class="pre">spectral_spread</span></code> mengukur seberapa jauh daya menyebar dari centroid. <code class="docutils literal notranslate"><span class="pre">power_bandwidth</span></code> dan fitur roll mengukur lebar atau batas rentang frekuensi yang membawa energi tertentu.</p>
+<p>Pada <code class="docutils literal notranslate"><span class="pre">spectral_entropy</span></code>, <span class="math notranslate nohighlight">\(q_k\)</span> adalah proporsi daya pada frekuensi ke-<span class="math notranslate nohighlight">\(k\)</span>. Jika daya terkonsentrasi pada satu frekuensi, distribusinya tidak merata dan entropy rendah. Jika daya tersebar pada banyak frekuensi, entropy lebih tinggi. <code class="docutils literal notranslate"><span class="pre">spectral_slope</span></code>, <code class="docutils literal notranslate"><span class="pre">spectral_decrease</span></code>, dan <code class="docutils literal notranslate"><span class="pre">spectral_variation</span></code> membaca perubahan bentuk spektrum; <code class="docutils literal notranslate"><span class="pre">spectral_kurtosis</span></code> dan <code class="docutils literal notranslate"><span class="pre">spectral_skewness</span></code> membaca bentuk distribusi daya. <code class="docutils literal notranslate"><span class="pre">spectral_positive_turning</span></code> menghitung kenaikan lokal pada kurva spektrum.</p>
+<p>LPCC dan MFCC merangkum bentuk spektrum melalui transformasi cepstral dan filterbank. Keduanya awalnya banyak digunakan pada sinyal suara, tetapi dalam penelitian ini dipakai sebagai deskriptor numerik sinyal NO2. Pada fitur wavelet, <span class="math notranslate nohighlight">\(w_j\)</span> adalah koefisien hasil pemisahan sinyal pada skala tertentu. <code class="docutils literal notranslate"><span class="pre">wavelet_energy</span></code> mengukur total kekuatan koefisien, <code class="docutils literal notranslate"><span class="pre">wavelet_entropy</span></code> mengukur penyebaran energi antar-koefisien, dan <code class="docutils literal notranslate"><span class="pre">wavelet_std</span></code> serta <code class="docutils literal notranslate"><span class="pre">wavelet_var</span></code> mengukur variasinya. Berbeda dari Fourier yang memberi gambaran frekuensi global, wavelet juga dapat menangkap perubahan lokal.</p>
+</section>
+<section id="rumus-domain-fractal">
+<h4>Rumus Domain Fractal<a class="headerlink" href="#rumus-domain-fractal" title="Link to this heading">#</a></h4>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Fitur</p></th>
+<th class="head"><p>Rumus inti</p></th>
+<th class="head"><p>Contoh/interpretasi</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">dfa</span></code></p></td>
+<td><p>Untuk ukuran jendela <span class="math notranslate nohighlight">\(s\)</span>, <span class="math notranslate nohighlight">\(F(s)=\sqrt{\frac{1}{N}\sum[Y(i)-Y_s(i)]^2}\)</span>, kemudian <span class="math notranslate nohighlight">\(F(s)\propto s^\alpha\)</span></p></td>
+<td><p>Kemiringan regresi <span class="math notranslate nohighlight">\(\log F(s)\)</span> terhadap <span class="math notranslate nohighlight">\(\log s\)</span> adalah <span class="math notranslate nohighlight">\(\alpha\)</span>; <span class="math notranslate nohighlight">\(\alpha&gt;0.5\)</span> mengarah pada persistensi</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">higuchi_fractal_dimension</span></code></p></td>
+<td><p>Hitung panjang kurva <span class="math notranslate nohighlight">\(L(k)\)</span> pada skala <span class="math notranslate nohighlight">\(k\)</span>, lalu <span class="math notranslate nohighlight">\(L(k)\propto k^{-D}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(D\)</span> adalah kemiringan regresi log-log; kurva lebih kasar cenderung memiliki <span class="math notranslate nohighlight">\(D\)</span> lebih tinggi</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hurst_exponent</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(R/S\propto n^H\)</span> atau hubungan scaling setara</p></td>
+<td><p><span class="math notranslate nohighlight">\(H\approx0.5\)</span> mendekati acak, <span class="math notranslate nohighlight">\(H&gt;0.5\)</span> persisten, dan <span class="math notranslate nohighlight">\(H&lt;0.5\)</span> antipersisten</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">maximum_fractal_length</span></code></p></td>
+<td><p>Panjang maksimum kurva pada skala: <span class="math notranslate nohighlight">\(L_{max}=\max_kL(k)\)</span></p></td>
+<td><p>Dari beberapa <span class="math notranslate nohighlight">\(L(k)\)</span>, ambil nilai terbesar; hasil bergantung skala yang diuji</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mse</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(MSE=\frac{1}{n}\sum_{i=1}^{n}(y_i-\hat{y}_i)^2\)</span></p></td>
+<td><p>Jika error <span class="math notranslate nohighlight">\([1,-1,2]\)</span>, MSE <span class="math notranslate nohighlight">\(=(1+1+4)/3=2\)</span>; pada TSFEL ini merupakan deskriptor, bukan error model prediksi</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">petrosian_fractal_dimension</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(D_P=\frac{\log_{10}N}{\log_{10}N+\log_{10}(N/(N+0.4N_\Delta))}\)</span></p></td>
+<td><p>Untuk <span class="math notranslate nohighlight">\(N=100\)</span> dan jumlah perubahan arah <span class="math notranslate nohighlight">\(N_\Delta=20\)</span>, substitusi ke rumus menghasilkan estimasi dimensi fraktal</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Cara membaca rumus fractal:</strong> pada <code class="docutils literal notranslate"><span class="pre">dfa</span></code>, sinyal terlebih dahulu diubah menjadi profil kumulatif <span class="math notranslate nohighlight">\(Y(i)\)</span>, kemudian tren lokal <span class="math notranslate nohighlight">\(Y_s(i)\)</span> dihilangkan. Nilai <span class="math notranslate nohighlight">\(\alpha\)</span> diperoleh dari kemiringan grafik log-log antara ukuran jendela <span class="math notranslate nohighlight">\(s\)</span> dan fluktuasi <span class="math notranslate nohighlight">\(F(s)\)</span>. Nilai <span class="math notranslate nohighlight">\(\alpha\)</span> yang lebih besar dari sekitar 0.5 sering dikaitkan dengan persistensi, yaitu kecenderungan perubahan berikutnya mengikuti pola sebelumnya.</p>
+<p>Pada <code class="docutils literal notranslate"><span class="pre">higuchi_fractal_dimension</span></code>, <span class="math notranslate nohighlight">\(L(k)\)</span> adalah panjang kurva ketika sinyal dilihat pada interval atau skala <span class="math notranslate nohighlight">\(k\)</span>. Hubungan log-log antara <span class="math notranslate nohighlight">\(L(k)\)</span> dan <span class="math notranslate nohighlight">\(k\)</span> digunakan untuk memperoleh dimensi fraktal <span class="math notranslate nohighlight">\(D\)</span>; kurva yang lebih kasar biasanya memiliki dimensi lebih tinggi. <code class="docutils literal notranslate"><span class="pre">hurst_exponent</span></code> menggunakan hubungan scaling antara rentang tersesuaikan dan ukuran jendela. Nilai sekitar 0.5 menunjukkan perilaku mendekati acak, di atas 0.5 menunjukkan persistensi, dan di bawah 0.5 menunjukkan antipersistensi.</p>
+<p><code class="docutils literal notranslate"><span class="pre">maximum_fractal_length</span></code> mengambil panjang kurva terbesar dari skala yang diuji. Pada <code class="docutils literal notranslate"><span class="pre">mse</span></code>, <span class="math notranslate nohighlight">\(y_i\)</span> adalah nilai aktual dan <span class="math notranslate nohighlight">\(\hat{y}_i\)</span> adalah nilai pembanding atau estimasi yang digunakan algoritma; kuadrat error membuat kesalahan besar mendapat bobot lebih besar. Dalam konteks TSFEL, fitur ini harus dianggap sebagai deskriptor sinyal, bukan otomatis sebagai kesalahan model prediksi. Pada <code class="docutils literal notranslate"><span class="pre">petrosian_fractal_dimension</span></code>, <span class="math notranslate nohighlight">\(N_\Delta\)</span> adalah jumlah perubahan tanda pada turunan diskrit, sehingga semakin banyak perubahan arah, semakin kompleks bentuk sinyal yang terukur.</p>
+<p>Rumus pada tabel memberi contoh numerik sederhana, sedangkan nilai dalam <code class="docutils literal notranslate"><span class="pre">NO2_Bandarkedungmulyo_TSFEL.csv</span></code> dihitung menggunakan 365 sampel dan implementasi fungsi TSFEL. Untuk fitur yang menggunakan histogram, Fourier, wavelet, spektrogram, atau algoritma kompleksitas, perubahan jumlah bin, jendela, skala, threshold, dan normalisasi dapat mengubah hasil meskipun sinyalnya sama. Oleh karena itu, parameter tersebut harus dibuat konsisten ketika membandingkan beberapa lokasi atau periode.</p>
+</section>
+</section>
+<section id="domain-statistical">
+<h3>1. Domain Statistical<a class="headerlink" href="#domain-statistical" title="Link to this heading">#</a></h3>
+<p>Domain statistical menjelaskan distribusi nilai NO2 tanpa memperhatikan urutan tanggal secara langsung. Jika tanggal seluruh data diacak tetapi kumpulan nilainya tetap sama, sebagian besar fitur pada domain ini akan tetap sama. Domain ini berguna untuk menjawab apakah kadar NO2 cenderung rendah atau tinggi, seberapa lebar variasinya, dan apakah distribusinya simetris.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Fitur</p></th>
+<th class="head"><p>Penjelasan dan interpretasi pada NO2</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">calc_max</span></code>, <code class="docutils literal notranslate"><span class="pre">calc_min</span></code></p></td>
+<td><p>Nilai tertinggi dan terendah dalam 365 hari. Keduanya menunjukkan batas observasi yang muncul pada periode penelitian, tetapi tidak menjelaskan kapan nilai tersebut terjadi.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">calc_mean</span></code>, <code class="docutils literal notranslate"><span class="pre">calc_median</span></code></p></td>
+<td><p>Rata-rata dan nilai tengah. Perbedaan yang besar antara keduanya dapat mengindikasikan distribusi yang tidak simetris atau pengaruh nilai ekstrem.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">calc_std</span></code>, <code class="docutils literal notranslate"><span class="pre">calc_var</span></code></p></td>
+<td><p>Simpangan baku dan varians sebagai ukuran penyebaran. Varians merupakan kuadrat simpangan baku sehingga satuannya juga ikut dikuadratkan.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">interq_range</span></code></p></td>
+<td><p>Rentang 50% data tengah, yaitu <code class="docutils literal notranslate"><span class="pre">Q3</span> <span class="pre">-</span> <span class="pre">Q1</span></code>. Fitur ini relatif lebih tahan terhadap nilai ekstrem dibandingkan rentang maksimum-minimum.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mean_abs_deviation</span></code>, <code class="docutils literal notranslate"><span class="pre">median_abs_deviation</span></code></p></td>
+<td><p>Rata-rata atau median jarak absolut setiap nilai terhadap pusat data. Nilai besar menunjukkan data lebih menyebar; median absolut biasanya lebih tahan terhadap pencilan.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">kurtosis</span></code></p></td>
+<td><p>Keruncingan dan ketebalan ekor distribusi. Nilai tinggi dapat menunjukkan adanya ekor berat atau nilai yang jauh dari pusat, sedangkan interpretasinya bergantung pada definisi kurtosis yang dipakai pustaka.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">skewness</span></code></p></td>
+<td><p>Kemencengan distribusi. Nilai positif menunjukkan ekor relatif lebih panjang ke arah nilai tinggi, sedangkan nilai negatif menunjukkan ekor ke arah nilai rendah.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hist_mode</span></code></p></td>
+<td><p>Perkiraan nilai yang paling sering muncul berdasarkan histogram. Hasilnya dipengaruhi oleh pembagian bin, sehingga bukan selalu nilai observasi yang benar-benar paling sering muncul.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">entropy</span></code></p></td>
+<td><p>Ketidakpastian atau keragaman distribusi nilai. Entropi lebih tinggi menunjukkan nilai tersebar pada lebih banyak keadaan, tetapi maknanya dipengaruhi oleh cara sinyal didiskretisasi.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ecdf</span></code></p></td>
+<td><p>Ringkasan fungsi distribusi kumulatif empiris, yaitu proporsi data yang berada di bawah ambang tertentu. Nilainya menggambarkan distribusi keseluruhan, bukan urutan harian.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ecdf_percentile</span></code>, <code class="docutils literal notranslate"><span class="pre">ecdf_percentile_count</span></code></p></td>
+<td><p>Ringkasan posisi persentil dan jumlah data yang memenuhi kriteria distribusi empiris. Fitur ini membantu melihat posisi nilai terhadap keseluruhan populasi data.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ecdf_slope</span></code></p></td>
+<td><p>Kemiringan perubahan fungsi distribusi kumulatif. Perubahan yang lebih curam menandakan banyak nilai terkonsentrasi pada rentang nilai yang sempit.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">abs_energy</span></code>, <code class="docutils literal notranslate"><span class="pre">average_power</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">abs_energy</span></code> merupakan jumlah kuadrat nilai sinyal, sedangkan <code class="docutils literal notranslate"><span class="pre">average_power</span></code> adalah energi rata-rata per sampel. Keduanya merepresentasikan besarnya amplitudo NO2 secara keseluruhan.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">rms</span></code></p></td>
+<td><p>Akar rata-rata kuadrat nilai. RMS mempertimbangkan semua nilai dan memberi bobot lebih besar pada nilai tinggi, sehingga berguna untuk mengukur level sinyal efektif.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">pk_pk_distance</span></code></p></td>
+<td><p>Jarak dari puncak tertinggi ke lembah terendah, secara umum terkait dengan <code class="docutils literal notranslate"><span class="pre">max</span> <span class="pre">-</span> <span class="pre">min</span></code>. Nilai besar menunjukkan rentang amplitudo yang lebar.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Pada hasil data ini, <code class="docutils literal notranslate"><span class="pre">calc_mean</span></code> sekitar <code class="docutils literal notranslate"><span class="pre">3.16e-05</span></code>, sedangkan <code class="docutils literal notranslate"><span class="pre">calc_std</span></code> sekitar <code class="docutils literal notranslate"><span class="pre">1.14e-05</span></code>. Angka tersebut menunjukkan bahwa ringkasan pusat dan variasi berada pada skala yang berbeda dari fitur seperti <code class="docutils literal notranslate"><span class="pre">abs_energy</span></code> atau <code class="docutils literal notranslate"><span class="pre">calc_var</span></code>. Nilai-nilai tersebut tidak boleh dibandingkan hanya berdasarkan besar angka tanpa memperhatikan definisi dan satuannya.</p>
+<p>Pada hasil data Anda, domain statistical berisi 21 fitur dan disimpan ke <code class="docutils literal notranslate"><span class="pre">NO2_fitur_statistical.csv</span></code>.</p>
+</section>
+<section id="domain-temporal">
+<h3>2. Domain Temporal<a class="headerlink" href="#domain-temporal" title="Link to this heading">#</a></h3>
+<p>Domain temporal mempertahankan urutan 365 hari. Domain ini menggambarkan perubahan, arah, ketergantungan antarwaktu, dan bentuk lintasan sinyal. Berbeda dari domain statistical, dua sinyal dengan nilai yang sama tetapi urutan tanggal berbeda dapat menghasilkan fitur temporal yang berbeda.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Fitur</p></th>
+<th class="head"><p>Penjelasan dan interpretasi pada NO2</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">auc</span></code></p></td>
+<td><p>Luas area di bawah kurva. Untuk data harian, nilainya berkaitan dengan akumulasi kadar NO2 sepanjang periode, sehingga dipengaruhi oleh level rata-rata dan panjang periode.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">autocorr</span></code></p></td>
+<td><p>Korelasi sinyal dengan versi yang digeser. Nilai ini menunjukkan kemiripan pola antarposisi waktu tertentu; autokorelasi yang tinggi dapat mengindikasikan kesinambungan atau pola berulang.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">calc_centroid</span></code></p></td>
+<td><p>Titik pusat berbobot pada sumbu waktu. Nilai ini menunjukkan apakah energi atau amplitudo sinyal lebih terkonsentrasi pada awal, tengah, atau akhir periode.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mean_diff</span></code>, <code class="docutils literal notranslate"><span class="pre">median_diff</span></code></p></td>
+<td><p>Rata-rata dan median perubahan bertanda antarhari. Nilai positif menunjukkan kecenderungan kenaikan, sedangkan nilai negatif menunjukkan kecenderungan penurunan.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mean_abs_diff</span></code>, <code class="docutils literal notranslate"><span class="pre">median_abs_diff</span></code></p></td>
+<td><p>Rata-rata dan median besar perubahan tanpa memperhatikan arah. Nilai tinggi menunjukkan NO2 lebih tidak stabil dari hari ke hari.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">positive_turning</span></code>, <code class="docutils literal notranslate"><span class="pre">negative_turning</span></code></p></td>
+<td><p>Jumlah perubahan arah lokal pada pola naik dan turun. Fitur ini membantu menggambarkan seberapa sering sinyal berbelok, bukan sekadar berapa tinggi nilai NO2.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">neighbourhood_peaks</span></code></p></td>
+<td><p>Puncak lokal yang terdeteksi dibandingkan dengan nilai di lingkungan sekitarnya. Puncak lokal dapat merepresentasikan episode kenaikan singkat, tetapi hasilnya dipengaruhi parameter deteksi dan noise.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">slope</span></code></p></td>
+<td><p>Kemiringan tren global sinyal terhadap waktu. Slope positif berarti kecenderungan meningkat selama periode, sedangkan slope negatif berarti menurun. Slope yang mendekati nol tidak berarti sinyal konstan karena fluktuasi lokal masih dapat besar.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">distance</span></code></p></td>
+<td><p>Panjang lintasan sinyal pada bidang waktu-nilai. Lintasan makin panjang apabila perubahan antarhari makin sering atau besar.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">sum_abs_diff</span></code></p></td>
+<td><p>Total perubahan absolut antarhari. Fitur ini mengakumulasi seluruh gerakan sinyal dan tidak saling meniadakan seperti <code class="docutils literal notranslate"><span class="pre">mean_diff</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">lempel_ziv</span></code></p></td>
+<td><p>Ukuran kompleksitas pola berdasarkan jumlah pola atau suburutan baru yang muncul. Nilai lebih tinggi secara umum menunjukkan pola yang lebih beragam atau kurang berulang.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">zero_cross</span></code></p></td>
+<td><p>Jumlah perpindahan sinyal melewati nilai acuan. Pada data kadar NO2 yang seluruhnya positif, nilai ini dapat nol karena sinyal tidak melintasi nol; hasil nol bukan berarti tidak ada perubahan.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Contoh interpretasi hasil: <code class="docutils literal notranslate"><span class="pre">mean_diff</span></code> yang sangat dekat nol bersama <code class="docutils literal notranslate"><span class="pre">slope</span></code> yang kecil menunjukkan tidak ada kecenderungan linear kuat selama setahun. Namun, <code class="docutils literal notranslate"><span class="pre">mean_abs_diff</span></code> tetap positif dan jumlah turning point cukup besar, sehingga sinyal tetap mengalami naik-turun harian. Ini memperlihatkan mengapa satu fitur tidak cukup untuk menyimpulkan perilaku deret waktu.</p>
+<p>Domain temporal pada hasil Anda berisi 15 fitur dan disimpan ke <code class="docutils literal notranslate"><span class="pre">NO2_fitur_temporal.csv</span></code>.</p>
+</section>
+<section id="domain-spectral">
+<h3>3. Domain Spectral<a class="headerlink" href="#domain-spectral" title="Link to this heading">#</a></h3>
+<p>Domain spectral menganalisis sinyal pada ranah frekuensi. Dengan transformasi Fourier, perubahan terhadap waktu direpresentasikan sebagai komponen frekuensi dan daya. Pada data ini, frekuensi dibaca sebagai siklus per hari; misalnya frekuensi <code class="docutils literal notranslate"><span class="pre">1/365</span></code> siklus per hari berkaitan dengan pola tahunan, sedangkan frekuensi yang lebih tinggi merepresentasikan perubahan yang lebih cepat. Karena panjang data hanya 365 hari dan pengamatan dilakukan sekali per hari, fitur spectral tidak dapat menjelaskan variasi intrahari.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Kelompok fitur</p></th>
+<th class="head"><p>Penjelasan</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">fundamental_frequency</span></code>, <code class="docutils literal notranslate"><span class="pre">max_frequency</span></code>, <code class="docutils literal notranslate"><span class="pre">median_frequency</span></code></p></td>
+<td><p>Menunjukkan frekuensi dasar, frekuensi dominan/tertinggi yang terdeteksi, dan titik tengah distribusi frekuensi. Frekuensi rendah mengarah pada perubahan lambat; frekuensi tinggi mengarah pada fluktuasi cepat.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">max_power_spectrum</span></code></p></td>
+<td><p>Daya terbesar pada spektrum. Puncak yang kuat dapat menunjukkan komponen periodik dominan, tetapi tidak otomatis membuktikan penyebab periodisitas tersebut.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">spectral_centroid</span></code>, <code class="docutils literal notranslate"><span class="pre">spectral_spread</span></code>, <code class="docutils literal notranslate"><span class="pre">power_bandwidth</span></code></p></td>
+<td><p>Centroid adalah pusat gravitasi energi spektrum; spread mengukur penyebaran energi di sekitar centroid; bandwidth mengukur lebar pita frekuensi yang membawa energi.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">spectral_entropy</span></code></p></td>
+<td><p>Mengukur seberapa merata energi tersebar di berbagai frekuensi. Entropi rendah cenderung menunjukkan energi terkonsentrasi pada beberapa frekuensi, sedangkan entropi tinggi menunjukkan spektrum lebih menyebar.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">spectral_roll_on</span></code>, <code class="docutils literal notranslate"><span class="pre">spectral_roll_off</span></code></p></td>
+<td><p>Frekuensi batas ketika proporsi tertentu dari energi spektrum telah tercapai. Roll-off yang lebih tinggi berarti energi menjangkau frekuensi yang lebih tinggi.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">spectral_slope</span></code>, <code class="docutils literal notranslate"><span class="pre">spectral_decrease</span></code>, <code class="docutils literal notranslate"><span class="pre">spectral_distance</span></code>, <code class="docutils literal notranslate"><span class="pre">spectral_variation</span></code></p></td>
+<td><p>Menggambarkan kemiringan, penurunan, jarak, dan perubahan bentuk spektrum antarbagian frekuensi. Fitur-fitur ini menjelaskan profil energi, bukan kadar NO2 secara langsung.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">spectral_kurtosis</span></code>, <code class="docutils literal notranslate"><span class="pre">spectral_skewness</span></code></p></td>
+<td><p>Menggambarkan keruncingan dan kemencengan distribusi energi pada ranah frekuensi.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">spectral_positive_turning</span></code></p></td>
+<td><p>Jumlah perubahan arah naik pada kurva spektrum. Nilai tinggi menunjukkan profil spektrum memiliki banyak perubahan lokal.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">lpcc</span></code>, <code class="docutils literal notranslate"><span class="pre">mfcc</span></code></p></td>
+<td><p>Koefisien yang merangkum bentuk spektral menggunakan pendekatan parametrik. Walaupun populer pada analisis suara, pada data NO2 fitur ini dipakai sebagai deskriptor numerik bentuk sinyal, bukan sebagai indikator suara.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">spectrogram_mean_coeff</span></code></p></td>
+<td><p>Ringkasan rata-rata koefisien spektrogram, yaitu representasi energi pada waktu dan frekuensi.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">human_range_energy</span></code></p></td>
+<td><p>Energi pada rentang frekuensi tertentu yang didefinisikan TSFEL sebagai rentang terkait persepsi manusia. Untuk NO2, fitur ini sebaiknya diperlakukan sebagai energi pada band yang ditentukan algoritma, bukan sebagai makna biologis langsung.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">wavelet_abs_mean</span></code>, <code class="docutils literal notranslate"><span class="pre">wavelet_energy</span></code>, <code class="docutils literal notranslate"><span class="pre">wavelet_entropy</span></code>, <code class="docutils literal notranslate"><span class="pre">wavelet_std</span></code>, <code class="docutils literal notranslate"><span class="pre">wavelet_var</span></code></p></td>
+<td><p>Ringkasan koefisien wavelet. Wavelet dapat menangkap perubahan lokal pada beberapa skala waktu, sehingga melengkapi Fourier yang lebih global.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Nilai spectral sangat bergantung pada panjang sinyal, frekuensi sampling, detrending, dan cara normalisasi. Karena itu, perbandingan spectral antarwilayah atau antarperiode sebaiknya menggunakan panjang periode dan pengaturan preprocessing yang sama. Fitur spectral juga menunjukkan pola frekuensi, bukan hubungan sebab-akibat dengan sumber emisi.</p>
+<p>Domain spectral berisi 26 fitur dan disimpan ke <code class="docutils literal notranslate"><span class="pre">NO2_fitur_spectral.csv</span></code>.</p>
+</section>
+<section id="domain-fractal">
+<h3>4. Domain Fractal<a class="headerlink" href="#domain-fractal" title="Link to this heading">#</a></h3>
+<p>Domain fractal mengukur kompleksitas, kekasaran, dan ketergantungan jangka panjang. Deret waktu yang tampak tidak teratur belum tentu acak sepenuhnya; analisis fractal berusaha mengukur apakah ketidakteraturan tersebut memiliki struktur pada beberapa skala waktu.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Fitur</p></th>
+<th class="head"><p>Penjelasan dan interpretasi</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">dfa</span></code></p></td>
+<td><p>Detrended Fluctuation Analysis mengukur bagaimana fluktuasi sinyal berubah terhadap ukuran jendela setelah tren lokal dihilangkan. Fitur ini digunakan untuk menilai scaling dan kemungkinan ketergantungan jangka panjang.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">higuchi_fractal_dimension</span></code></p></td>
+<td><p>Mengestimasi dimensi fraktal menggunakan panjang kurva pada beberapa skala. Nilai yang lebih tinggi umumnya berkaitan dengan kurva yang lebih kasar dan kompleks.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hurst_exponent</span></code></p></td>
+<td><p>Menggambarkan persistensi sinyal. Nilai di atas sekitar <code class="docutils literal notranslate"><span class="pre">0.5</span></code> sering dikaitkan dengan kecenderungan perubahan yang berlanjut, nilai sekitar <code class="docutils literal notranslate"><span class="pre">0.5</span></code> dengan perilaku mendekati acak, dan nilai di bawahnya dengan kecenderungan berbalik. Batas ini adalah interpretasi umum, bukan aturan mutlak.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">maximum_fractal_length</span></code></p></td>
+<td><p>Ringkasan panjang fraktal maksimum yang dihitung algoritma. Fitur ini sensitif terhadap skala dan bentuk sinyal, sehingga paling bermakna ketika dibandingkan pada preprocessing yang sama.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mse</span></code></p></td>
+<td><p>Mean Squared Error yang dikembalikan oleh fitur TSFEL. Dalam konteks ini, nilainya dipakai sebagai deskriptor numerik kompleksitas/ketidakpastian sesuai implementasi TSFEL, bukan langsung sebagai error model prediksi.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">petrosian_fractal_dimension</span></code></p></td>
+<td><p>Estimasi dimensi fraktal berdasarkan jumlah perubahan arah sinyal dan panjang sinyal. Nilai ini membantu membedakan pola yang halus dari pola yang lebih berosilasi.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Pada hasil data ini, <code class="docutils literal notranslate"><span class="pre">hurst_exponent</span></code> sekitar <code class="docutils literal notranslate"><span class="pre">0.80</span></code>. Secara deskriptif, angka tersebut konsisten dengan adanya persistensi atau memori jangka panjang pada pola NO2. Namun, kesimpulan tersebut perlu dibaca hati-hati karena deret hanya terdiri dari 365 titik, telah melalui imputasi, dan berasal dari satu lokasi. Interpolasi dapat mengurangi atau mengubah fluktuasi lokal yang ikut memengaruhi fitur fractal.</p>
+<p>Domain fractal berisi 6 fitur dan disimpan ke <code class="docutils literal notranslate"><span class="pre">NO2_fitur_fractal.csv</span></code>.</p>
+<p>Secara keseluruhan, hasil TSFEL terdiri atas 21 fitur statistical, 15 fitur temporal, 26 fitur spectral, dan 6 fitur fractal, sehingga totalnya adalah 68 fitur.</p>
+</section>
+<section id="cara-membaca-hasil-secara-terpadu">
+<h3>Cara Membaca Hasil Secara Terpadu<a class="headerlink" href="#cara-membaca-hasil-secara-terpadu" title="Link to this heading">#</a></h3>
+<p>Keempat domain sebaiknya dibaca bersama. Domain statistical dapat menunjukkan level dan variasi dasar NO2; domain temporal dapat menjelaskan apakah perubahan tersebut berlangsung stabil, berfluktuasi, atau memiliki banyak puncak; domain spectral dapat mengungkap konsentrasi energi pada skala waktu tertentu; sedangkan domain fractal dapat memberikan informasi tambahan tentang kompleksitas dan persistensi.</p>
+<p>Sebagai contoh, rata-rata yang relatif stabil tetapi <code class="docutils literal notranslate"><span class="pre">mean_abs_diff</span></code> dan jumlah puncak lokal yang tinggi berarti kadar NO2 secara keseluruhan tidak mengalami perubahan level yang besar, tetapi tetap berfluktuasi dari hari ke hari. Jika pada saat yang sama spectral entropy tinggi, energi perubahan kemungkinan tersebar pada banyak frekuensi dan tidak terkonsentrasi pada satu siklus dominan. Interpretasi seperti ini lebih informatif daripada menyimpulkan kondisi hanya dari <code class="docutils literal notranslate"><span class="pre">calc_mean</span></code> atau satu fitur lain.</p>
+<p>Hasil ekstraksi kemudian disimpan sebagai empat file ringkasan: <code class="docutils literal notranslate"><span class="pre">NO2_fitur_statistical.csv</span></code>, <code class="docutils literal notranslate"><span class="pre">NO2_fitur_temporal.csv</span></code>, <code class="docutils literal notranslate"><span class="pre">NO2_fitur_spectral.csv</span></code>, dan <code class="docutils literal notranslate"><span class="pre">NO2_fitur_fractal.csv</span></code>. Masing-masing file memiliki satu baris karena seluruh periode 365 hari diproses sebagai satu segmen sinyal. Jika analisis membutuhkan perbandingan antarbulan atau prediksi perperiode, sinyal perlu dibagi menjadi beberapa jendela waktu terlebih dahulu. Ekstraksi satu baris untuk seluruh tahun tidak dapat digunakan untuk menyimpulkan perubahan fitur dari bulan ke bulan.</p>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="interpretasi-fitur-tsfel-untuk-data-no2-kecamatan-widodaren-ngawi">
+<h1>Interpretasi Fitur TSFEL untuk Data NO2 — Kecamatan Widodaren, Ngawi<a class="headerlink" href="#interpretasi-fitur-tsfel-untuk-data-no2-kecamatan-widodaren-ngawi" title="Link to this heading">#</a></h1>
+<p>Hasil ekstraksi berupa satu baris data dengan 68 kolom. Baris tunggal ini adalah rangkuman dari keseluruhan sinyal NO2 sepanjang 365 hari pengamatan, sementara tiap kolom mewakili satu ciri numerik dari sinyal tersebut.</p>
+<section id="mengenal-pembagian-domain-tsfel">
+<h2>Mengenal Pembagian Domain TSFEL<a class="headerlink" href="#mengenal-pembagian-domain-tsfel" title="Link to this heading">#</a></h2>
+<p>TSFEL (<em>Time Series Feature Extraction Library</em>) menganalisis sebuah sinyal dari beberapa “sudut pandang” yang berbeda. Dalam kasus ini, 365 titik data NO2 harian diperlakukan sebagai satu sinyal 1 dimensi utuh. Karena parameter <code class="docutils literal notranslate"><span class="pre">fs</span></code> diset 1, artinya satu sampel mewakili satu hari, sehingga satuan frekuensi pada fitur-fitur spektral dinyatakan dalam siklus per hari. Dengan kata lain, 68 fitur yang dihasilkan bukanlah 68 titik data baru, melainkan 68 cara berbeda untuk meringkas satu deret waktu NO2 yang sama.</p>
+<p>Pembagian ke dalam domain diperlukan karena masing-masing domain menjawab pertanyaan yang berlainan:</p>
+<ol class="arabic simple">
+<li><p><strong>Statistical</strong> — seberapa besar nilai NO2 dan bagaimana sebarannya?</p></li>
+<li><p><strong>Temporal</strong> — bagaimana pola perubahan NO2 mengikuti urutan harinya?</p></li>
+<li><p><strong>Spectral</strong> — adakah siklus atau energi yang terpusat pada frekuensi tertentu?</p></li>
+<li><p><strong>Fractal</strong> — sekompleks dan sekasar apa sinyal ini, serta apakah ia “mengingat” pola masa lalunya?</p></li>
+</ol>
+<p>Nilai antar fitur tidak bisa dibandingkan begitu saja. Meskipun berada dalam domain yang sama, satuan, skala, dan tingkat sensitivitas tiap fitur bisa jauh berbeda. Sebagian fitur TSFEL juga awalnya dirancang untuk sinyal generik (misalnya sinyal audio), jadi hasilnya di sini sebaiknya dibaca sebagai <em>penanda pola</em>, bukan langsung diartikan sebagai satuan konsentrasi udara.</p>
+</section>
+<section id="notasi-rumus-dan-ilustrasi-perhitungan">
+<h2>Notasi, Rumus, dan Ilustrasi Perhitungan<a class="headerlink" href="#notasi-rumus-dan-ilustrasi-perhitungan" title="Link to this heading">#</a></h2>
+<p>Supaya rumus lebih gampang ditelusuri, bagian ini memakai sinyal contoh yang pendek:</p>
+<div class="math notranslate nohighlight">
+\[
+x = [1, 2, 3, 2], \qquad N=4, \qquad \Delta t=1
+\]</div>
+<p>Contoh ini hanya alat bantu memahami cara kerja rumus — bukan pengganti data asli 365 hari NO2 Widodaren. Pada data sesungguhnya, <span class="math notranslate nohighlight">\(x_i\)</span> adalah kadar NO2 hari ke-<span class="math notranslate nohighlight">\(i\)</span>. Notasi yang dipakai: <span class="math notranslate nohighlight">\(\bar{x}\)</span> (rata-rata), <span class="math notranslate nohighlight">\(\operatorname{median}(x)\)</span> (nilai tengah), <span class="math notranslate nohighlight">\(F(x)\)</span> (ECDF), <span class="math notranslate nohighlight">\(X_k\)</span> (koefisien Fourier), dan <span class="math notranslate nohighlight">\(P_k=|X_k|^2\)</span> (daya spektrum). Rumus yang ditampilkan adalah bentuk intinya saja; implementasi asli TSFEL kerap menambahkan parameter, normalisasi, atau ambang batas tambahan.</p>
+<section id="id1">
+<h3>Rumus Domain Statistical<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Fitur</p></th>
+<th class="head"><p>Rumus inti</p></th>
+<th class="head"><p>Ilustrasi dengan <span class="math notranslate nohighlight">\(x=[1,2,3,2]\)</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">abs_energy</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(E=\sum_{i=1}^{N}x_i^2\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(1+4+9+4=18\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">average_power</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(P=E/N\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(18/4=4.5\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">calc_max</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(\max(x_i)\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(3\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">calc_mean</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(\bar{x}=\frac{1}{N}\sum x_i\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\((1+2+3+2)/4=2\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">calc_median</span></code></p></td>
+<td><p>Nilai tengah data terurut</p></td>
+<td><p>Terurut <span class="math notranslate nohighlight">\([1,2,2,3]\)</span> → <span class="math notranslate nohighlight">\((2+2)/2=2\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">calc_min</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(\min(x_i)\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(1\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">calc_std</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(s=\sqrt{\frac{1}{N-1}\sum(x_i-\bar{x})^2}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\sqrt{2/3}=0.816\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">calc_var</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(s^2\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(0.667\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">interq_range</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(Q_3-Q_1\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(Q_1{=}1.75,\ Q_3{=}2.25 \Rightarrow 0.5\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ecdf</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(F(a)=\frac{1}{N}\sum\mathbf{1}(x_i\leq a)\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(F(2)=3/4=0.75\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ecdf_percentile</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(100F(a)\)</span></p></td>
+<td><p>Untuk <span class="math notranslate nohighlight">\(a=2\)</span>: persentil <span class="math notranslate nohighlight">\(75\%\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ecdf_percentile_count</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(\sum\mathbf{1}(x_i\leq a)\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(C(2)=3\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ecdf_slope</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(\Delta F/\Delta a\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(0.5\)</span> per satuan <span class="math notranslate nohighlight">\(a\)</span> (contoh)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">entropy</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(H=-\sum p_j\log_2p_j\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(p=[0.25,0.5,0.25]\Rightarrow H=1.5\)</span> bit</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hist_mode</span></code></p></td>
+<td><p>Bin histogram terbanyak</p></td>
+<td><p>Tergantung jumlah bin</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">kurtosis</span></code></p></td>
+<td><p>Momen ke-4 terstandarisasi</p></td>
+<td><p>Bergantung definisi bias TSFEL</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">skewness</span></code></p></td>
+<td><p>Momen ke-3 terstandarisasi</p></td>
+<td><p>Untuk data simetris <span class="math notranslate nohighlight">\(\approx 0\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mean_abs_deviation</span></code></p></td>
+<td><p>$\frac{1}{N}\sum</p></td>
+<td><p>x_i-\bar{x}</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">median_abs_deviation</span></code></p></td>
+<td><p>$\operatorname{median}(</p></td>
+<td><p>x_i-\operatorname{median}(x)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">pk_pk_distance</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(\max(x)-\min(x)\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(3-1=2\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">rms</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(\sqrt{\frac{1}{N}\sum x_i^2}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\sqrt{18/4}=2.121\)</span></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="id2">
+<h3>Rumus Domain Temporal<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Fitur</p></th>
+<th class="head"><p>Rumus inti</p></th>
+<th class="head"><p>Ilustrasi dengan <span class="math notranslate nohighlight">\(x=[1,2,3,2]\)</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">auc</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(\sum\frac{x_i+x_{i+1}}{2}\Delta t\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(1.5+2.5+2.5=6.5\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">autocorr</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(\rho_k=\frac{\sum(x_i-\bar{x})(x_{i+k}-\bar{x})}{\sum(x_i-\bar{x})^2}\)</span></p></td>
+<td><p>Lag <span class="math notranslate nohighlight">\(k=1\)</span>: pembilang <span class="math notranslate nohighlight">\(=0\Rightarrow\rho_1=0\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">calc_centroid</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(\frac{\sum t_ix_i}{\sum x_i}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(t=[0,1,2,3]\Rightarrow 14/8=1.75\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">distance</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(\sum\sqrt{(\Delta t)^2+(\Delta x)^2}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\sqrt2+\sqrt2+\sqrt2=4.243\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mean_abs_diff</span></code></p></td>
+<td><p>$\frac{1}{N-1}\sum</p></td>
+<td><p>x_{i+1}-x_i</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mean_diff</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(\frac{1}{N-1}\sum(x_{i+1}-x_i)\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\((1+1-1)/3=0.333\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">median_abs_diff</span></code></p></td>
+<td><p>median dari $</p></td>
+<td><p>x_{i+1}-x_i</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">median_diff</span></code></p></td>
+<td><p>median dari <span class="math notranslate nohighlight">\((x_{i+1}-x_i)\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(1\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">negative_turning</span></code></p></td>
+<td><p>puncak turun</p></td>
+<td><p>pola <span class="math notranslate nohighlight">\(1\to2\to3\to2\)</span>: <span class="math notranslate nohighlight">\(=1\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">positive_turning</span></code></p></td>
+<td><p>lembah naik</p></td>
+<td><p>tidak ada: <span class="math notranslate nohighlight">\(=0\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">neighbourhood_peaks</span></code></p></td>
+<td><p>puncak lokal</p></td>
+<td><p><span class="math notranslate nohighlight">\(3\)</span> adalah puncak lokal: <span class="math notranslate nohighlight">\(=1\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">slope</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(\frac{\sum(t_i-\bar t)(x_i-\bar x)}{\sum(t_i-\bar t)^2}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(t=[0,1,2,3]\Rightarrow 0.2\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">sum_abs_diff</span></code></p></td>
+<td><p>$\sum</p></td>
+<td><p>x_{i+1}-x_i</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">zero_cross</span></code></p></td>
+<td><p>perpindahan lewat nol</p></td>
+<td><p><span class="math notranslate nohighlight">\(0\)</span> (contoh selalu positif)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">lempel_ziv</span></code></p></td>
+<td><p>kompleksitas pola simbol</p></td>
+<td><p>tergantung skema simbolisasi TSFEL</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="id3">
+<h3>Rumus Domain Spectral<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>Dasarnya adalah transformasi Fourier diskret:</p>
+<div class="math notranslate nohighlight">
+\[
+X_k=\sum_{n=0}^{N-1}x_n e^{-2\pi i kn/N},\qquad f_k=\frac{kf_s}{N},\qquad P_k=|X_k|^2
+\]</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Fitur</p></th>
+<th class="head"><p>Rumus inti</p></th>
+<th class="head"><p>Interpretasi</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">fundamental_frequency</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(\arg\max_{f_k&gt;0}P_k\)</span></p></td>
+<td><p>Frekuensi dengan daya puncak terbesar</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">max_frequency</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(\max\{f_k:P_k&gt;0\}\)</span></p></td>
+<td><p>Untuk <span class="math notranslate nohighlight">\(N=4,f_s=1\)</span>: Nyquist <span class="math notranslate nohighlight">\(=0.5\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">max_power_spectrum</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(\max_kP_k\)</span></p></td>
+<td><p>Daya terbesar antar bin</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">median_frequency</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(f\)</span> saat kumulatif daya <span class="math notranslate nohighlight">\(=50\%\)</span></p></td>
+<td><p>Titik tengah distribusi daya</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">spectral_centroid</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(\frac{\sum f_kP_k}{\sum P_k}\)</span></p></td>
+<td><p>Pusat massa energi frekuensi</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">spectral_spread</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(\sqrt{\frac{\sum P_k(f_k-C)^2}{\sum P_k}}\)</span></p></td>
+<td><p>Sebaran energi di sekitar centroid</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">power_bandwidth</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(f_{atas}-f_{bawah}\)</span></p></td>
+<td><p>Lebar pita frekuensi berenergi</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">spectral_entropy</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(-\sum q_k\log_2q_k\)</span>, <span class="math notranslate nohighlight">\(q_k=P_k/\sum P_k\)</span></p></td>
+<td><p>Kerataan sebaran energi</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">spectral_roll_on/off</span></code></p></td>
+<td><p>ambang kumulatif awal/akhir</p></td>
+<td><p>Batas frekuensi cakupan energi</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">spectral_slope/decrease/distance/variation</span></code></p></td>
+<td><p>perubahan profil daya antar-bin</p></td>
+<td><p>Menjelaskan bentuk profil, bukan level NO2</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">spectral_kurtosis/skewness</span></code></p></td>
+<td><p>momen ke-4/ke-3 dari <span class="math notranslate nohighlight">\(q_k\)</span></p></td>
+<td><p>Bentuk kurva energi frekuensi</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">spectral_positive_turning</span></code></p></td>
+<td><p>kenaikan lokal profil daya</p></td>
+<td><p>Banyaknya “belokan naik” spektrum</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">lpcc</span></code>, <code class="docutils literal notranslate"><span class="pre">mfcc</span></code></p></td>
+<td><p>koefisien cepstral</p></td>
+<td><p>Ringkasan parametrik bentuk spektrum</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">spectrogram_mean_coeff</span></code></p></td>
+<td><p>rata-rata koefisien spektrogram</p></td>
+<td><p>Bergantung ukuran jendela &amp; overlap</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">human_range_energy</span></code></p></td>
+<td><p>energi pada band tertentu</p></td>
+<td><p>Definisi band mengikuti TSFEL</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">wavelet_*</span></code></p></td>
+<td><p>koefisien wavelet (<span class="math notranslate nohighlight">\(w_j\)</span>)</p></td>
+<td><p>Menangkap perubahan lokal multi-skala</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="id4">
+<h3>Rumus Domain Fractal<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Fitur</p></th>
+<th class="head"><p>Rumus inti</p></th>
+<th class="head"><p>Interpretasi</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">dfa</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(F(s)\propto s^\alpha\)</span> setelah <em>detrending</em></p></td>
+<td><p><span class="math notranslate nohighlight">\(\alpha\)</span> = kemiringan regresi log-log</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">higuchi_fractal_dimension</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(L(k)\propto k^{-D}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(D\)</span> dari regresi log-log panjang kurva</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hurst_exponent</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(R/S\propto n^H\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(H\approx0.5\)</span> acak, <span class="math notranslate nohighlight">\(H&gt;0.5\)</span> persisten</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">maximum_fractal_length</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(\max_kL(k)\)</span></p></td>
+<td><p>Nilai maksimum panjang fraktal antar skala</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mse</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(\frac1n\sum(y_i-\hat y_i)^2\)</span></p></td>
+<td><p>Deskriptor numerik, bukan error prediksi</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">petrosian_fractal_dimension</span></code></p></td>
+<td><p>fungsi dari <span class="math notranslate nohighlight">\(N\)</span> dan jumlah perubahan arah <span class="math notranslate nohighlight">\(N_\Delta\)</span></p></td>
+<td><p>Membedakan sinyal halus vs. berosilasi</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Angka pada tabel di atas hanya ilustrasi sederhana. Nilai sesungguhnya di <code class="docutils literal notranslate"><span class="pre">NO2-Widodaren-TSFEL.csv</span></code> dihitung dari 365 sampel asli memakai fungsi bawaan TSFEL. Untuk fitur berbasis histogram, Fourier, wavelet, spektrogram, atau algoritma kompleksitas, pengubahan jumlah bin, ukuran jendela, skala, atau ambang batas dapat menggeser hasil meski sinyalnya tidak berubah — sehingga pengaturan ini harus dijaga konsisten bila membandingkan antar-wilayah atau antar-periode.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id5">
+<h2>1. Domain Statistical<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
+<p>Domain ini menggambarkan sebaran nilai NO2 lepas dari urutan tanggalnya. Seandainya urutan tanggal diacak tapi himpunan nilainya tetap, mayoritas fitur di domain ini tidak akan berubah. Kegunaannya untuk menjawab: apakah kadar NO2 cenderung tinggi/rendah, seberapa lebar variasinya, dan apakah sebarannya simetris.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Fitur</p></th>
+<th class="head"><p>Makna pada data NO2</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">calc_max</span></code>, <code class="docutils literal notranslate"><span class="pre">calc_min</span></code></p></td>
+<td><p>Titik tertinggi dan terendah sepanjang 365 hari; menunjukkan rentang ekstrem tapi tidak mengungkap kapan itu terjadi.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">calc_mean</span></code>, <code class="docutils literal notranslate"><span class="pre">calc_median</span></code></p></td>
+<td><p>Rata-rata dan nilai tengah. Selisih besar antara keduanya mengindikasikan sebaran tidak simetris atau adanya pengaruh nilai ekstrem.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">calc_std</span></code>, <code class="docutils literal notranslate"><span class="pre">calc_var</span></code></p></td>
+<td><p>Ukuran sebaran data; varians adalah kuadrat dari simpangan baku sehingga satuannya juga terkuadratkan.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">interq_range</span></code></p></td>
+<td><p>Rentang 50% data tengah (<span class="math notranslate nohighlight">\(Q_3-Q_1\)</span>), lebih tahan terhadap nilai ekstrem dibanding rentang maks-min.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mean_abs_deviation</span></code>, <code class="docutils literal notranslate"><span class="pre">median_abs_deviation</span></code></p></td>
+<td><p>Rata-rata/median jarak absolut tiap nilai ke pusatnya; makin besar berarti data makin menyebar.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">kurtosis</span></code></p></td>
+<td><p>Keruncingan/ketebalan ekor distribusi.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">skewness</span></code></p></td>
+<td><p>Arah kemencengan sebaran; positif berarti ekor memanjang ke nilai tinggi.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hist_mode</span></code></p></td>
+<td><p>Perkiraan nilai tersering berdasarkan histogram, dipengaruhi jumlah bin.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">entropy</span></code></p></td>
+<td><p>Tingkat keragaman sebaran nilai; makin tinggi berarti nilai tersebar di banyak “kondisi”.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ecdf</span></code>, <code class="docutils literal notranslate"><span class="pre">ecdf_percentile</span></code>, <code class="docutils literal notranslate"><span class="pre">ecdf_percentile_count</span></code>, <code class="docutils literal notranslate"><span class="pre">ecdf_slope</span></code></p></td>
+<td><p>Ringkasan posisi dan bentuk fungsi distribusi kumulatif empiris.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">abs_energy</span></code>, <code class="docutils literal notranslate"><span class="pre">average_power</span></code></p></td>
+<td><p>Jumlah kuadrat nilai dan rata-ratanya; menggambarkan besar amplitudo NO2 secara umum.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">rms</span></code></p></td>
+<td><p>Akar rata-rata kuadrat; memberi bobot lebih pada nilai tinggi.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">pk_pk_distance</span></code></p></td>
+<td><p>Jarak puncak ke lembah, berkaitan dengan <code class="docutils literal notranslate"><span class="pre">max</span> <span class="pre">-</span> <span class="pre">min</span></code>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Pada data aktual Widodaren, <code class="docutils literal notranslate"><span class="pre">calc_mean</span></code> tercatat sekitar <strong>2.35 × 10⁻⁵</strong> dan <code class="docutils literal notranslate"><span class="pre">calc_std</span></code> sekitar <strong>5.98 × 10⁻⁶</strong>. Kedua angka ini berada pada skala berbeda dari, misalnya, <code class="docutils literal notranslate"><span class="pre">abs_energy</span></code> atau <code class="docutils literal notranslate"><span class="pre">calc_var</span></code> — jadi tidak semestinya dibandingkan hanya dari besar-kecilnya angka tanpa memperhitungkan satuan dan definisinya masing-masing.</p>
+</section>
+<section id="id6">
+<h2>2. Domain Temporal<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
+<p>Domain ini mempertahankan urutan 365 hari, sehingga menggambarkan arah perubahan, ketergantungan antarwaktu, dan bentuk lintasan sinyal. Dua sinyal dengan nilai identik tapi urutan tanggal berbeda bisa menghasilkan fitur temporal yang berbeda pula — beda dari domain statistical.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Fitur</p></th>
+<th class="head"><p>Makna pada data NO2</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">auc</span></code></p></td>
+<td><p>Luas area di bawah kurva; berkaitan dengan akumulasi kadar NO2 sepanjang periode.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">autocorr</span></code></p></td>
+<td><p>Kemiripan pola sinyal dengan versi tergesernya; nilai tinggi mengindikasikan kesinambungan/pola berulang.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">calc_centroid</span></code></p></td>
+<td><p>Titik pusat berbobot pada sumbu waktu; menandakan energi sinyal lebih terkonsentrasi di awal, tengah, atau akhir periode.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mean_diff</span></code>, <code class="docutils literal notranslate"><span class="pre">median_diff</span></code></p></td>
+<td><p>Rata-rata/median perubahan bertanda antarhari; positif = cenderung naik, negatif = cenderung turun.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mean_abs_diff</span></code>, <code class="docutils literal notranslate"><span class="pre">median_abs_diff</span></code></p></td>
+<td><p>Besar perubahan tanpa memandang arah; makin tinggi berarti NO2 makin fluktuatif harian.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">positive_turning</span></code>, <code class="docutils literal notranslate"><span class="pre">negative_turning</span></code></p></td>
+<td><p>Frekuensi belokan arah lokal (naik→turun / turun→naik).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">neighbourhood_peaks</span></code></p></td>
+<td><p>Puncak lokal dibanding nilai tetangganya; bisa merepresentasikan lonjakan singkat.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">slope</span></code></p></td>
+<td><p>Kemiringan tren global; mendekati nol tidak berarti sinyal konstan — fluktuasi lokal tetap bisa besar.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">distance</span></code></p></td>
+<td><p>Panjang lintasan sinyal pada bidang waktu-nilai; makin panjang jika perubahan antarhari makin sering/besar.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">sum_abs_diff</span></code></p></td>
+<td><p>Total akumulasi perubahan absolut, tidak saling menghapus seperti <code class="docutils literal notranslate"><span class="pre">mean_diff</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">lempel_ziv</span></code></p></td>
+<td><p>Ukuran keragaman pola; makin tinggi berarti pola makin jarang berulang.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">zero_cross</span></code></p></td>
+<td><p>Perpindahan melewati nilai acuan; karena NO2 selalu positif, nilainya bisa nol (bukan berarti tanpa perubahan).</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Sebagai gambaran: <code class="docutils literal notranslate"><span class="pre">mean_diff</span></code> yang hampir nol bersamaan dengan <code class="docutils literal notranslate"><span class="pre">slope</span></code> yang kecil menandakan tidak ada tren linear kuat sepanjang tahun. Namun <code class="docutils literal notranslate"><span class="pre">mean_abs_diff</span></code> yang tetap positif dan jumlah <em>turning point</em> yang cukup banyak menunjukkan sinyal tetap naik-turun harian — buktinya satu fitur saja tidak cukup untuk menyimpulkan perilaku deret waktu secara utuh.</p>
+</section>
+<section id="id7">
+<h2>3. Domain Spectral<a class="headerlink" href="#id7" title="Link to this heading">#</a></h2>
+<p>Domain ini menganalisis sinyal dari ranah frekuensi. Lewat transformasi Fourier, perubahan terhadap waktu diterjemahkan menjadi komponen frekuensi dan daya. Karena data direkam sekali per hari selama 365 hari, frekuensi dibaca dalam siklus per hari — misalnya frekuensi 1/365 berkaitan dengan pola tahunan — dan fitur spektral di sini tidak bisa menjelaskan variasi dalam satu hari (intrahari).</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Kelompok fitur</p></th>
+<th class="head"><p>Penjelasan</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">fundamental_frequency</span></code>, <code class="docutils literal notranslate"><span class="pre">max_frequency</span></code>, <code class="docutils literal notranslate"><span class="pre">median_frequency</span></code></p></td>
+<td><p>Frekuensi dasar, dominan, dan titik tengah distribusi frekuensi; makin rendah berarti perubahan makin lambat.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">max_power_spectrum</span></code></p></td>
+<td><p>Daya terbesar pada spektrum; puncak kuat dapat menandakan komponen periodik dominan.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">spectral_centroid</span></code>, <code class="docutils literal notranslate"><span class="pre">spectral_spread</span></code>, <code class="docutils literal notranslate"><span class="pre">power_bandwidth</span></code></p></td>
+<td><p>Pusat gravitasi energi, sebaran di sekitarnya, dan lebar pita frekuensi berenergi.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">spectral_entropy</span></code></p></td>
+<td><p>Kerataan sebaran energi antar frekuensi; rendah = energi terpusat, tinggi = energi menyebar.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">spectral_roll_on</span></code>, <code class="docutils literal notranslate"><span class="pre">spectral_roll_off</span></code></p></td>
+<td><p>Batas frekuensi ketika proporsi tertentu energi sudah tercapai.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">spectral_slope</span></code>, <code class="docutils literal notranslate"><span class="pre">spectral_decrease</span></code>, <code class="docutils literal notranslate"><span class="pre">spectral_distance</span></code>, <code class="docutils literal notranslate"><span class="pre">spectral_variation</span></code></p></td>
+<td><p>Menggambarkan bentuk/perubahan profil energi antar-frekuensi, bukan kadar NO2 langsung.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">spectral_kurtosis</span></code>, <code class="docutils literal notranslate"><span class="pre">spectral_skewness</span></code></p></td>
+<td><p>Keruncingan dan kemencengan distribusi energi pada ranah frekuensi.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">spectral_positive_turning</span></code></p></td>
+<td><p>Jumlah kenaikan lokal pada kurva spektrum.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">lpcc</span></code>, <code class="docutils literal notranslate"><span class="pre">mfcc</span></code></p></td>
+<td><p>Koefisien parametrik ringkasan bentuk spektrum.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">spectrogram_mean_coeff</span></code></p></td>
+<td><p>Rata-rata koefisien spektrogram (representasi energi waktu-frekuensi).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">human_range_energy</span></code></p></td>
+<td><p>Energi pada band frekuensi tertentu; untuk NO2 dibaca sebagai energi pada band algoritmik, bukan makna biologis.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">wavelet_abs_mean</span></code>, <code class="docutils literal notranslate"><span class="pre">wavelet_energy</span></code>, <code class="docutils literal notranslate"><span class="pre">wavelet_entropy</span></code>, <code class="docutils literal notranslate"><span class="pre">wavelet_std</span></code>, <code class="docutils literal notranslate"><span class="pre">wavelet_var</span></code></p></td>
+<td><p>Ringkasan koefisien wavelet, menangkap perubahan lokal pada beberapa skala waktu sebagai pelengkap Fourier yang lebih global.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Pada data Widodaren, <code class="docutils literal notranslate"><span class="pre">spectral_entropy</span></code> NO2 tercatat sekitar <strong>0.87</strong> — mendekati nilai maksimum 1, sehingga energi fluktuasi harian tampak menyebar di banyak frekuensi, bukan terpusat pada satu siklus dominan tunggal.</p>
+<p>Hasil pada domain ini sangat peka terhadap panjang sinyal, frekuensi sampling, proses <em>detrending</em>, dan cara normalisasi — jadi perbandingan spektral antarwilayah atau antarperiode sebaiknya memakai panjang periode dan pengaturan <em>preprocessing</em> yang sama. Pola frekuensi bukan bukti hubungan sebab-akibat dengan sumber emisi tertentu.</p>
+</section>
+<section id="id8">
+<h2>4. Domain Fractal<a class="headerlink" href="#id8" title="Link to this heading">#</a></h2>
+<p>Domain ini mengukur kompleksitas, kekasaran, dan ketergantungan jangka panjang sinyal. Deret waktu yang tampak tidak beraturan belum tentu murni acak — analisis fraktal mencoba menemukan apakah ketidakteraturan itu punya struktur pada berbagai skala waktu.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Fitur</p></th>
+<th class="head"><p>Penjelasan</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">dfa</span></code></p></td>
+<td><p>Mengukur perubahan fluktuasi sinyal terhadap ukuran jendela setelah tren lokal dihilangkan; dipakai untuk menilai kemungkinan ketergantungan jangka panjang.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">higuchi_fractal_dimension</span></code></p></td>
+<td><p>Estimasi dimensi fraktal dari panjang kurva pada beberapa skala; makin tinggi umumnya berkaitan dengan kurva yang makin kasar.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hurst_exponent</span></code></p></td>
+<td><p>Menandai persistensi sinyal: di atas 0.5 cenderung berkelanjutan, sekitar 0.5 mendekati acak, di bawah 0.5 cenderung berbalik arah — batas ini interpretasi umum, bukan aturan mutlak.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">maximum_fractal_length</span></code></p></td>
+<td><p>Panjang fraktal maksimum dari algoritma; sensitif terhadap skala dan bentuk sinyal.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mse</span></code></p></td>
+<td><p>Nilai numerik dari implementasi TSFEL, dipakai sebagai deskriptor kompleksitas — bukan error model prediksi.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">petrosian_fractal_dimension</span></code></p></td>
+<td><p>Estimasi dimensi fraktal dari jumlah perubahan arah dan panjang sinyal; membedakan pola halus dari pola berosilasi.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Pada data Widodaren, <code class="docutils literal notranslate"><span class="pre">hurst_exponent</span></code> NO2 tercatat sekitar <strong>0.73</strong>. Secara deskriptif, ini konsisten dengan adanya kecenderungan persistensi/memori jangka panjang pada pola NO2. Meski demikian, kesimpulan ini perlu dibaca hati-hati mengingat data hanya mencakup 365 titik, sudah melalui proses interpolasi, dan berasal dari satu wilayah kecamatan saja — proses interpolasi berpotensi meredam atau mengubah fluktuasi lokal yang turut memengaruhi fitur fraktal ini.</p>
+</section>
+<hr class="docutils" />
+<section id="membaca-keempat-domain-secara-menyeluruh">
+<h2>Membaca Keempat Domain Secara Menyeluruh<a class="headerlink" href="#membaca-keempat-domain-secara-menyeluruh" title="Link to this heading">#</a></h2>
+<p>Keempat domain idealnya dibaca berbarengan, bukan satu per satu terpisah. Domain statistical menunjukkan level dan variasi dasar NO2; domain temporal mengungkap apakah perubahannya stabil, fluktuatif, atau banyak berpuncak; domain spectral memperlihatkan konsentrasi energi pada skala waktu tertentu; sementara domain fractal menambahkan gambaran tentang kompleksitas dan persistensi jangka panjangnya.</p>
+<p>Contohnya: rata-rata (<code class="docutils literal notranslate"><span class="pre">calc_mean</span></code>) yang relatif stabil namun disertai <code class="docutils literal notranslate"><span class="pre">mean_abs_diff</span></code> dan jumlah puncak lokal yang tinggi menandakan level NO2 secara umum tidak banyak berubah, tapi tetap berfluktuasi dari hari ke hari. Jika pada saat bersamaan <code class="docutils literal notranslate"><span class="pre">spectral_entropy</span></code> juga tinggi, kemungkinan besar energi fluktuasi itu tersebar di banyak frekuensi, bukan terkonsentrasi pada satu siklus dominan. Membaca kombinasi seperti ini jauh lebih informatif ketimbang menyimpulkan kondisi udara hanya dari satu fitur, misalnya <code class="docutils literal notranslate"><span class="pre">calc_mean</span></code> saja.</p>
+<p>Perlu diingat juga bahwa ekstraksi ini menghasilkan <strong>satu baris ringkasan untuk keseluruhan setahun</strong>, karena seluruh 365 hari diproses sebagai satu segmen sinyal utuh. Jika nantinya diperlukan perbandingan antarbulan atau prediksi per periode yang lebih pendek, sinyal NO2 perlu dipecah dulu menjadi beberapa jendela waktu — ekstraksi satu baris untuk satu tahun penuh tidak bisa dipakai untuk menyimpulkan perubahan fitur dari bulan ke bulan.</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -983,6 +2570,7 @@ UNKNOWN (0): []
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">PreProcessing: Deteksi Outlier &amp; Imputasi Missing Value serta Ekstraksi Fitur Pada NO2</a><ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deteksi-outliers-pada-data-kualitas-udara-di-kecamatan-widodaren">Deteksi Outliers pada Data Kualitas Udara di Kecamatan Widodaren</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deteksi-outliers-pada-no2-untuk-ekstraksi-fitur">2. Deteksi Outliers pada NO2 Untuk Ekstraksi Fitur</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#merubah-outliers-no2-menjadi-nan-serta-imputasi-missing-values-dan-outliers-nan">3. Merubah Outliers NO2 Menjadi NaN serta Imputasi Missing Values dan Outliers (NaN)</a></li>
@@ -991,7 +2579,41 @@ UNKNOWN (0): []
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mengelompokkan-fitur-hasil-ekstraksi-berdasarkan-domain">6. Mengelompokkan Fitur Hasil Ekstraksi Berdasarkan Domain</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#penjelasan-domain-tsfel">Penjelasan Domain TSFEL</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#notasi-rumus-dan-contoh-perhitungan-68-fitur">Notasi, Rumus, dan Contoh Perhitungan 68 Fitur</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rumus-domain-statistical">Rumus Domain Statistical</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rumus-domain-temporal">Rumus Domain Temporal</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rumus-domain-spectral">Rumus Domain Spectral</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rumus-domain-fractal">Rumus Domain Fractal</a></li>
 </ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#domain-statistical">1. Domain Statistical</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#domain-temporal">2. Domain Temporal</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#domain-spectral">3. Domain Spectral</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#domain-fractal">4. Domain Fractal</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cara-membaca-hasil-secara-terpadu">Cara Membaca Hasil Secara Terpadu</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretasi-fitur-tsfel-untuk-data-no2-kecamatan-widodaren-ngawi">Interpretasi Fitur TSFEL untuk Data NO2 — Kecamatan Widodaren, Ngawi</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mengenal-pembagian-domain-tsfel">Mengenal Pembagian Domain TSFEL</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notasi-rumus-dan-ilustrasi-perhitungan">Notasi, Rumus, dan Ilustrasi Perhitungan</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Rumus Domain Statistical</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Rumus Domain Temporal</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Rumus Domain Spectral</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Rumus Domain Fractal</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">1. Domain Statistical</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">2. Domain Temporal</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">3. Domain Spectral</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">4. Domain Fractal</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#membaca-keempat-domain-secara-menyeluruh">Membaca Keempat Domain Secara Menyeluruh</a></li>
+</ul>
+</li>
+</ul>
+
   </nav></div>
 
 </div></div>
