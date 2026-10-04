@@ -12,5 +12,11 @@ chapters:
 - file: widodaren/index
   sections:
   - file: widodaren/polutan-Ngawi
-  - file: widodaren/ekstraksi-fitur
-  - file: widodaren/K-Means Clustering
+  - file: widodaren/tsfel
+  - file: widodaren/interpolasi-linear
+  - file: widodaren/interpolasi-polynomial
+  - file: widodaren/k-meansCPolinomial
+- file: klasifikasi/index
+  sections:
+  - file: klasifikasi/klasifikasi-sawah
+
