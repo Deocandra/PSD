@@ -1,0 +1,1190 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Klasifikasi Spasial Lahan Sawah dan Non-Sawah Menggunakan Citra Sentinel-2A &#8212; Website PSD</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'klasifikasi/klasifikasi-sawah';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="icon" href="../_static/logo.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Klasfikasi Sawah dan Non-Sawah" href="index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Website PSD - Home"/>
+    <img src="../_static/logo.png" class="logo__image only-dark pst-js-only" alt="Website PSD - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Profile
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../pages/polutan/polutan.html">Polutan di Kabupaten Ngawi</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../pages/polutan/bussiness-understanding.html">Business Understanding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pages/polutan/data-understanding.html">Data Understanding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pages/polutan/metrik-statistika.html">Memahami Angka-Angka di Balik Statistika Deskriptif</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../widodaren/index.html">Daerah Kecamatan Widodaren</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../widodaren/polutan-Ngawi.html">Kolekting Data: Kualitas Polusi Udara di Kecamatan Widodaren, Ngawi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../widodaren/tsfel.html">Penjelasan Domain TSFEL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../widodaren/interpolasi-linear.html">Data Preprocessing dan Ekstraksi Fitur (Interpolasi Linear)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../widodaren/interpolasi-polynomial.html">Data Preprocessing dan Ekstraksi Fitur (Interpolasi Polinomial)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../widodaren/k-meansCPolinomial.html">K-Means Clustering (Linier)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Klasfikasi Sawah dan Non-Sawah</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Klasifikasi Spasial Lahan Sawah dan Non-Sawah Menggunakan Citra Sentinel-2A</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/klasifikasi/klasifikasi-sawah.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Klasifikasi Spasial Lahan Sawah dan Non-Sawah Menggunakan Citra Sentinel-2A</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instalasi-library-yang-digunakan">Instalasi Library Yang Digunakan</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#desain-pengambilan-sampel-ground-truth">1. Desain Pengambilan Sampel (Ground Truth)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#akuisisi-citra-sentinel-2a-tif-via-openeo-dan-ekstraksi-fitur">2. Akuisisi Citra Sentinel-2A (<code class="docutils literal notranslate"><span class="pre">.tif</span></code>) via openEO dan Ekstraksi Fitur</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fitur-spektral-dan-indeks-turunan-yang-diekstrak">Fitur Spektral dan Indeks Turunan yang Diekstrak:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hasil-evaluasi-klasifikasi-2-kelas-random-forest">3. Hasil Evaluasi Klasifikasi 2 Kelas (Random Forest)</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="klasifikasi-spasial-lahan-sawah-dan-non-sawah-menggunakan-citra-sentinel-2a">
+<h1>Klasifikasi Spasial Lahan Sawah dan Non-Sawah Menggunakan Citra Sentinel-2A<a class="headerlink" href="#klasifikasi-spasial-lahan-sawah-dan-non-sawah-menggunakan-citra-sentinel-2a" title="Link to this heading">#</a></h1>
+<p>Bagian ini mendokumentasikan tahapan akuisisi citra satelit optik <strong>Sentinel-2A (Level-2A)</strong> dalam format GeoTIFF (<code class="docutils literal notranslate"><span class="pre">.tif</span></code>) melalui <strong>openEO</strong>, ekstraksi nilai spektral pada <strong>100 titik sampel</strong> (50 sampel Sawah dan 50 sampel Non-Sawah) yang telah dilabeli melalui <strong>QGIS</strong>, hingga pemodelan klasifikasi biner (2 kelas).</p>
+<section id="instalasi-library-yang-digunakan">
+<h2>Instalasi Library Yang Digunakan<a class="headerlink" href="#instalasi-library-yang-digunakan" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">geopandas</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: geopandas in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (1.1.4)
+Requirement already satisfied: numpy&gt;=1.24 in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from geopandas) (2.5.2)
+Requirement already satisfied: pyogrio&gt;=0.7.2 in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from geopandas) (0.13.0)
+Requirement already satisfied: packaging in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from geopandas) (26.3)
+Requirement already satisfied: pandas&gt;=2.0.0 in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from geopandas) (2.3.3)
+Requirement already satisfied: pyproj&gt;=3.5.0 in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from geopandas) (3.7.2)
+Requirement already satisfied: shapely&gt;=2.0.0 in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from geopandas) (2.1.2)
+Requirement already satisfied: python-dateutil&gt;=2.8.2 in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from pandas&gt;=2.0.0-&gt;geopandas) (2.9.0.post0)
+Requirement already satisfied: pytz&gt;=2020.1 in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from pandas&gt;=2.0.0-&gt;geopandas) (2026.3.post1)
+Requirement already satisfied: tzdata&gt;=2022.7 in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from pandas&gt;=2.0.0-&gt;geopandas) (2026.3)
+Requirement already satisfied: certifi in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from pyogrio&gt;=0.7.2-&gt;geopandas) (2026.7.22)
+Requirement already satisfied: six&gt;=1.5 in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from python-dateutil&gt;=2.8.2-&gt;pandas&gt;=2.0.0-&gt;geopandas) (1.17.0)
+Note: you may need to restart the kernel to use updated packages.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[notice] A new release of pip is available: 24.2 -&gt; 26.2.1
+[notice] To update, run: python.exe -m pip install --upgrade pip
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">openeo</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: openeo in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (0.51.0)
+Requirement already satisfied: requests&gt;=2.26.0 in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from openeo) (2.34.2)
+Requirement already satisfied: urllib3&gt;=1.9.0 in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from openeo) (2.7.0)
+Requirement already satisfied: shapely&gt;=1.6.4 in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from openeo) (2.1.2)
+Requirement already satisfied: numpy&gt;=1.17.0 in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from openeo) (2.5.2)
+Requirement already satisfied: xarray&lt;2025.01.2,&gt;=0.12.3 in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from openeo) (2025.1.1)
+Requirement already satisfied: pandas&lt;3.0.0,&gt;0.20.0 in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from openeo) (2.3.3)
+Requirement already satisfied: pystac&gt;=1.5.0 in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from openeo) (1.15.2)
+Requirement already satisfied: deprecated&gt;=1.2.12 in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from openeo) (1.3.1)
+Requirement already satisfied: oschmod&gt;=0.3.12 in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from openeo) (0.3.12)
+Requirement already satisfied: geopandas&gt;=0.14 in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from openeo) (1.1.4)
+Requirement already satisfied: wrapt&lt;3,&gt;=1.10 in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from deprecated&gt;=1.2.12-&gt;openeo) (2.4.0)
+Requirement already satisfied: pyogrio&gt;=0.7.2 in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from geopandas&gt;=0.14-&gt;openeo) (0.13.0)
+Requirement already satisfied: packaging in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from geopandas&gt;=0.14-&gt;openeo) (26.3)
+Requirement already satisfied: pyproj&gt;=3.5.0 in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from geopandas&gt;=0.14-&gt;openeo) (3.7.2)
+Requirement already satisfied: pywin32 in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from oschmod&gt;=0.3.12-&gt;openeo) (312)
+Requirement already satisfied: python-dateutil&gt;=2.8.2 in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from pandas&lt;3.0.0,&gt;0.20.0-&gt;openeo) (2.9.0.post0)
+Requirement already satisfied: pytz&gt;=2020.1 in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from pandas&lt;3.0.0,&gt;0.20.0-&gt;openeo) (2026.3.post1)
+Requirement already satisfied: tzdata&gt;=2022.7 in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from pandas&lt;3.0.0,&gt;0.20.0-&gt;openeo) (2026.3)
+Requirement already satisfied: pystac-core&lt;2,&gt;=1.15.0 in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from pystac&gt;=1.5.0-&gt;openeo) (1.15.2)
+Requirement already satisfied: pystac-ext-classification in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from pystac&gt;=1.5.0-&gt;openeo) (2.0.1)
+Requirement already satisfied: pystac-ext-datacube in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from pystac&gt;=1.5.0-&gt;openeo) (2.2.1)
+Requirement already satisfied: pystac-ext-eo in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from pystac&gt;=1.5.0-&gt;openeo) (1.1.1)
+Requirement already satisfied: pystac-ext-file in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from pystac&gt;=1.5.0-&gt;openeo) (2.1.1)
+Requirement already satisfied: pystac-ext-grid in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from pystac&gt;=1.5.0-&gt;openeo) (1.1.1)
+Requirement already satisfied: pystac-ext-item-assets in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from pystac&gt;=1.5.0-&gt;openeo) (1.0.1)
+Requirement already satisfied: pystac-ext-label in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from pystac&gt;=1.5.0-&gt;openeo) (1.0.2)
+Requirement already satisfied: pystac-ext-mgrs in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from pystac&gt;=1.5.0-&gt;openeo) (1.0.1)
+Requirement already satisfied: pystac-ext-mlm in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from pystac&gt;=1.5.0-&gt;openeo) (1.4.1)
+Requirement already satisfied: pystac-ext-pointcloud in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from pystac&gt;=1.5.0-&gt;openeo) (1.0.1)
+Requirement already satisfied: pystac-ext-projection in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from pystac&gt;=1.5.0-&gt;openeo) (2.0.1)
+Requirement already satisfied: pystac-ext-raster in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from pystac&gt;=1.5.0-&gt;openeo) (1.1.1)
+Requirement already satisfied: pystac-ext-render in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from pystac&gt;=1.5.0-&gt;openeo) (2.0.0)
+Requirement already satisfied: pystac-ext-sar in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from pystac&gt;=1.5.0-&gt;openeo) (1.0.1)
+Requirement already satisfied: pystac-ext-sat in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from pystac&gt;=1.5.0-&gt;openeo) (1.0.1)
+Requirement already satisfied: pystac-ext-scientific in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from pystac&gt;=1.5.0-&gt;openeo) (1.0.1)
+Requirement already satisfied: pystac-ext-storage in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from pystac&gt;=1.5.0-&gt;openeo) (2.0.1)
+Requirement already satisfied: pystac-ext-table in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from pystac&gt;=1.5.0-&gt;openeo) (1.2.1)
+Requirement already satisfied: pystac-ext-timestamps in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from pystac&gt;=1.5.0-&gt;openeo) (1.1.1)
+Requirement already satisfied: pystac-ext-version in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from pystac&gt;=1.5.0-&gt;openeo) (1.2.1)
+Requirement already satisfied: pystac-ext-view in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from pystac&gt;=1.5.0-&gt;openeo) (1.0.1)
+Requirement already satisfied: pystac-ext-xarray-assets in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from pystac&gt;=1.5.0-&gt;openeo) (1.0.1)
+Requirement already satisfied: charset_normalizer&lt;4,&gt;=2 in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from requests&gt;=2.26.0-&gt;openeo) (3.5.1)
+Requirement already satisfied: idna&lt;4,&gt;=2.5 in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from requests&gt;=2.26.0-&gt;openeo) (3.19)
+Requirement already satisfied: certifi&gt;=2023.5.7 in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from requests&gt;=2.26.0-&gt;openeo) (2026.7.22)
+Requirement already satisfied: six&gt;=1.5 in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from python-dateutil&gt;=2.8.2-&gt;pandas&lt;3.0.0,&gt;0.20.0-&gt;openeo) (1.17.0)
+Note: you may need to restart the kernel to use updated packages.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[notice] A new release of pip is available: 24.2 -&gt; 26.2.1
+[notice] To update, run: python.exe -m pip install --upgrade pip
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">pip</span> install scikit-learn
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: scikit-learn in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (1.9.0)
+Requirement already satisfied: numpy&gt;=1.24.1 in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from scikit-learn) (2.5.2)
+Requirement already satisfied: scipy&gt;=1.10.0 in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from scikit-learn) (1.18.1)
+Requirement already satisfied: joblib&gt;=1.4.0 in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from scikit-learn) (1.5.3)
+Requirement already satisfied: narwhals&gt;=2.0.1 in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from scikit-learn) (2.25.0)
+Requirement already satisfied: threadpoolctl&gt;=3.5.0 in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from scikit-learn) (3.6.0)
+Note: you may need to restart the kernel to use updated packages.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[notice] A new release of pip is available: 24.2 -&gt; 26.2.1
+[notice] To update, run: python.exe -m pip install --upgrade pip
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">rasterio</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting rasterio
+  Downloading rasterio-1.5.2-cp312-cp312-win_amd64.whl.metadata (8.9 kB)
+Collecting affine (from rasterio)
+  Downloading affine-3.0.1-py3-none-any.whl.metadata (4.5 kB)
+Requirement already satisfied: attrs in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from rasterio) (26.1.0)
+Requirement already satisfied: certifi in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from rasterio) (2026.7.22)
+Collecting click!=8.2.*,&gt;=4.0 (from rasterio)
+  Downloading click-8.5.0-py3-none-any.whl.metadata (2.6 kB)
+Requirement already satisfied: numpy&gt;=2 in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from rasterio) (2.5.2)
+Requirement already satisfied: pyparsing&gt;=3.0 in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from rasterio) (3.3.2)
+Downloading rasterio-1.5.2-cp312-cp312-win_amd64.whl (30.7 MB)
+   ---------------------------------------- 0.0/30.7 MB ? eta -:--:--
+   - -------------------------------------- 1.0/30.7 MB 8.4 MB/s eta 0:00:04
+   --- ------------------------------------ 2.9/30.7 MB 7.6 MB/s eta 0:00:04
+   ----- ---------------------------------- 4.2/30.7 MB 7.4 MB/s eta 0:00:04
+   ------- -------------------------------- 6.0/30.7 MB 7.5 MB/s eta 0:00:04
+   --------- ------------------------------ 7.3/30.7 MB 7.4 MB/s eta 0:00:04
+   ----------- ---------------------------- 8.9/30.7 MB 7.4 MB/s eta 0:00:03
+   ------------- -------------------------- 10.2/30.7 MB 7.2 MB/s eta 0:00:03
+   --------------- ------------------------ 11.5/30.7 MB 7.1 MB/s eta 0:00:03
+   ---------------- ----------------------- 12.8/30.7 MB 6.9 MB/s eta 0:00:03
+   ----------------- ---------------------- 13.6/30.7 MB 6.8 MB/s eta 0:00:03
+   ------------------- -------------------- 14.9/30.7 MB 6.7 MB/s eta 0:00:03
+   --------------------- ------------------ 16.3/30.7 MB 6.6 MB/s eta 0:00:03
+   ---------------------- ----------------- 17.3/30.7 MB 6.5 MB/s eta 0:00:03
+   ------------------------ --------------- 18.6/30.7 MB 6.5 MB/s eta 0:00:02
+   -------------------------- ------------- 20.2/30.7 MB 6.5 MB/s eta 0:00:02
+   ---------------------------- ----------- 21.8/30.7 MB 6.6 MB/s eta 0:00:02
+   ------------------------------ --------- 23.3/30.7 MB 6.6 MB/s eta 0:00:02
+   -------------------------------- ------- 25.2/30.7 MB 6.8 MB/s eta 0:00:01
+   ----------------------------------- ---- 27.0/30.7 MB 6.8 MB/s eta 0:00:01
+   ------------------------------------- -- 28.8/30.7 MB 6.9 MB/s eta 0:00:01
+   ---------------------------------------  30.1/30.7 MB 7.0 MB/s eta 0:00:01
+   ---------------------------------------- 30.7/30.7 MB 6.9 MB/s eta 0:00:00
+Downloading click-8.5.0-py3-none-any.whl (125 kB)
+Downloading affine-3.0.1-py3-none-any.whl (10 kB)
+Installing collected packages: click, affine, rasterio
+Successfully installed affine-3.0.1 click-8.5.0 rasterio-1.5.2
+Note: you may need to restart the kernel to use updated packages.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[notice] A new release of pip is available: 24.2 -&gt; 26.2.1
+[notice] To update, run: python.exe -m pip install --upgrade pip
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="desain-pengambilan-sampel-ground-truth">
+<h2>1. Desain Pengambilan Sampel (Ground Truth)<a class="headerlink" href="#desain-pengambilan-sampel-ground-truth" title="Link to this heading">#</a></h2>
+<p>Pengambilan sampel dilakukan secara spasial dengan membagi objek pengamatan ke dalam dua kelas seimbang (<em>balanced dataset</em>) dalam format vektor (<code class="docutils literal notranslate"><span class="pre">Shapefile</span></code> / <code class="docutils literal notranslate"><span class="pre">GeoJSON</span></code>):</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Kelas Target</p></th>
+<th class="head text-center"><p>Kode Label</p></th>
+<th class="head text-center"><p>Jumlah Sampel</p></th>
+<th class="head text-left"><p>Karakteristik Objek</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><strong>Sawah</strong></p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td class="text-center"><p>50 Sampel</p></td>
+<td class="text-left"><p>Petak lahan pertanian padi aktif (fase vegetatif, genangan air/tanam, maupun pematangan)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>Non-Sawah</strong></p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td class="text-center"><p>50 Sampel</p></td>
+<td class="text-left"><p>Permukiman/bangunan, jalan raya, badan air permanen, dan vegetasi non-pertanian</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>Total</strong></p></td>
+<td class="text-center"><p>—</p></td>
+<td class="text-center"><p><strong>100 Sampel</strong></p></td>
+<td class="text-left"><p>Digabungkan menjadi satu <em>GeoDataFrame</em> berproyeksi <code class="docutils literal notranslate"><span class="pre">EPSG:4326</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+<span class="kn">import</span> <span class="nn">openeo</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="c1"># ==============================================================================</span>
+<span class="c1"># 1. BACA KEDUA FILE ZIP (SAWAH &amp; NON-SAWAH) DAN BERI LABEL OTOMATIS</span>
+<span class="c1"># ==============================================================================</span>
+<span class="c1"># Sesuaikan nama file zip non-sawah milikmu di baris kedua</span>
+<span class="n">gdf_sawah</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s2">&quot;mystorage/sawah.zip&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="s2">&quot;EPSG:4326&quot;</span><span class="p">)</span>
+<span class="n">gdf_nonsawah</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s2">&quot;mystorage/non-sawah.zip&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="s2">&quot;EPSG:4326&quot;</span><span class="p">)</span>
+
+<span class="c1"># Beri kolom label secara otomatis</span>
+<span class="n">gdf_sawah</span><span class="p">[</span><span class="s2">&quot;label_teks&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Sawah&quot;</span>
+<span class="n">gdf_sawah</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="n">gdf_nonsawah</span><span class="p">[</span><span class="s2">&quot;label_teks&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Non-Sawah&quot;</span>
+<span class="n">gdf_nonsawah</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="c1"># Gabungkan keduanya menjadi 1 GeoDataFrame (50 + 50 = 100 sampel)</span>
+<span class="n">gdf_gabungan</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span>
+    <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">gdf_sawah</span><span class="p">,</span> <span class="n">gdf_nonsawah</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">crs</span><span class="o">=</span><span class="s2">&quot;EPSG:4326&quot;</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Jumlah sampel Sawah     : </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">gdf_sawah</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Jumlah sampel Non-Sawah : </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">gdf_nonsawah</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total sampel gabungan   : </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">gdf_gabungan</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># ==============================================================================</span>
+<span class="c1"># 2. AMBIL BATAS KOORDINAT GABUNGAN (BOUNDING BOX) UNTUK OPENEO</span>
+<span class="c1"># ==============================================================================</span>
+<span class="n">minx</span><span class="p">,</span> <span class="n">miny</span><span class="p">,</span> <span class="n">maxx</span><span class="p">,</span> <span class="n">maxy</span> <span class="o">=</span> <span class="n">gdf_gabungan</span><span class="o">.</span><span class="n">total_bounds</span>
+<span class="n">buffer_deg</span> <span class="o">=</span> <span class="mf">0.005</span>  <span class="c1"># Tambahan margin ~500 meter agar titik di tepi tetap masuk</span>
+
+<span class="n">bbox</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;west&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">minx</span> <span class="o">-</span> <span class="n">buffer_deg</span><span class="p">),</span>
+    <span class="s2">&quot;south&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">miny</span> <span class="o">-</span> <span class="n">buffer_deg</span><span class="p">),</span>
+    <span class="s2">&quot;east&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">maxx</span> <span class="o">+</span> <span class="n">buffer_deg</span><span class="p">),</span>
+    <span class="s2">&quot;north&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">maxy</span> <span class="o">+</span> <span class="n">buffer_deg</span><span class="p">),</span>
+<span class="p">}</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Bounding Box Gabungan:&quot;</span><span class="p">,</span> <span class="n">bbox</span><span class="p">)</span>
+
+<span class="c1"># ==============================================================================</span>
+<span class="c1"># 3. KONEKSI KE OPENEO &amp; UNDUH SENTINEL-2A FORMAT GEOTIFF (.tif)</span>
+<span class="c1"># ==============================================================================</span>
+<span class="n">conn</span> <span class="o">=</span> <span class="n">openeo</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;openeo.dataspace.copernicus.eu&quot;</span><span class="p">)</span>
+<span class="n">conn</span><span class="o">.</span><span class="n">authenticate_oidc</span><span class="p">()</span>
+
+<span class="n">datacube</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">load_collection</span><span class="p">(</span>
+    <span class="s2">&quot;SENTINEL2_L2A&quot;</span><span class="p">,</span>
+    <span class="n">spatial_extent</span><span class="o">=</span><span class="n">bbox</span><span class="p">,</span>
+    <span class="n">temporal_extent</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;2026-05-01&quot;</span><span class="p">,</span> <span class="s2">&quot;2026-09-30&quot;</span><span class="p">],</span>  <span class="c1"># Rentang waktu minim awan</span>
+    <span class="n">bands</span><span class="o">=</span><span class="p">[</span>
+        <span class="s2">&quot;B02&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;B03&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;B04&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;B08&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;B11&quot;</span><span class="p">,</span>
+    <span class="p">],</span>  <span class="c1"># Blue, Green, Red, NIR, SWIR</span>
+    <span class="n">max_cloud_cover</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Ambil median waktu agar bebas tutupan awan</span>
+<span class="n">composite_s2</span> <span class="o">=</span> <span class="n">datacube</span><span class="o">.</span><span class="n">median_time</span><span class="p">()</span>
+
+<span class="c1"># Unduh menjadi file GeoTIFF (.tif)</span>
+<span class="n">nama_tif</span> <span class="o">=</span> <span class="s2">&quot;sentinel2_sawah_nonsawah.tif&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mengunduh citra Sentinel-2A (.tif)...&quot;</span><span class="p">)</span>
+<span class="n">composite_s2</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">nama_tif</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;GTiff&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Berhasil diunduh: </span><span class="si">{</span><span class="n">nama_tif</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Jumlah sampel Sawah     : 50
+Jumlah sampel Non-Sawah : 50
+Total sampel gabungan   : 100
+Bounding Box Gabungan: {&#39;west&#39;: 111.20113620000001, &#39;south&#39;: -7.4654688, &#39;east&#39;: 111.21793389999999, &#39;north&#39;: -7.450084}
+Authenticated using refresh token.
+Mengunduh citra Sentinel-2A (.tif)...
+Berhasil diunduh: sentinel2_sawah_nonsawah.tif
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="akuisisi-citra-sentinel-2a-tif-via-openeo-dan-ekstraksi-fitur">
+<h2>2. Akuisisi Citra Sentinel-2A (<code class="docutils literal notranslate"><span class="pre">.tif</span></code>) via openEO dan Ekstraksi Fitur<a class="headerlink" href="#akuisisi-citra-sentinel-2a-tif-via-openeo-dan-ekstraksi-fitur" title="Link to this heading">#</a></h2>
+<p>Akuisisi citra dilakukan menggunakan <em>bounding box</em> gabungan dari ke-100 titik sampel pada koleksi <strong><code class="docutils literal notranslate"><span class="pre">SENTINEL2_L2A</span></code></strong> (<em>Bottom-of-Atmosphere Reflectance</em>) dengan batas tutupan awan maksimum <code class="docutils literal notranslate"><span class="pre">&lt;</span> <span class="pre">10%</span></code> dan agregasi temporal <code class="docutils literal notranslate"><span class="pre">median_time()</span></code> untuk menghasilkan komposit citra bebas awan berformat <strong>GeoTIFF (<code class="docutils literal notranslate"><span class="pre">.tif</span></code>)</strong>.</p>
+<section id="fitur-spektral-dan-indeks-turunan-yang-diekstrak">
+<h3>Fitur Spektral dan Indeks Turunan yang Diekstrak:<a class="headerlink" href="#fitur-spektral-dan-indeks-turunan-yang-diekstrak" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p><strong>Band Spektral Utama:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">B02</span></code> (<em>Blue</em> - 490 nm), <code class="docutils literal notranslate"><span class="pre">B03</span></code> (<em>Green</em> - 560 nm), <code class="docutils literal notranslate"><span class="pre">B04</span></code> (<em>Red</em> - 665 nm) dengan resolusi spasial 10 meter.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">B08</span></code> (<em>Near Infrared / NIR</em> - 842 nm) untuk mendeteksi pantulan klorofil tanaman padi.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">B11</span></code> (<em>Short-Wave Infrared / SWIR</em> - 1610 nm) untuk mendeteksi kelembapan tanah dan genangan air.</p></li>
+</ul>
+</li>
+<li><p><strong>Normalized Difference Vegetation Index (NDVI):</strong></p>
+<div class="math notranslate nohighlight">
+\[\text{NDVI} = \frac{B08 - B04}{B08 + B04}\]</div>
+</li>
+<li><p><strong>Normalized Difference Water Index (NDWI):</strong></p>
+<div class="math notranslate nohighlight">
+\[\text{NDWI} = \frac{B03 - B08}{B03 + B08}\]</div>
+</li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">rasterio</span>
+<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">classification_report</span><span class="p">,</span> <span class="n">confusion_matrix</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+
+<span class="c1"># 1. Buka file .tif Sentinel-2A dan samakan proyeksi koordinat (CRS)</span>
+<span class="k">with</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;sentinel2_sawah_nonsawah.tif&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">src</span><span class="p">:</span>
+  <span class="n">gdf_projected</span> <span class="o">=</span> <span class="n">gdf_gabungan</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="n">src</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span>
+
+  <span class="c1"># Ambil titik tengah (centroid) dari tiap sampel (mendukung Point maupun Polygon)</span>
+  <span class="n">koordinat_sampel</span> <span class="o">=</span> <span class="p">[</span>
+      <span class="p">(</span><span class="n">geom</span><span class="o">.</span><span class="n">centroid</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">geom</span><span class="o">.</span><span class="n">centroid</span><span class="o">.</span><span class="n">y</span><span class="p">)</span> <span class="k">for</span> <span class="n">geom</span> <span class="ow">in</span> <span class="n">gdf_projected</span><span class="o">.</span><span class="n">geometry</span>
+  <span class="p">]</span>
+
+  <span class="c1"># Ekstrak nilai piksel dari kelima band Sentinel-2A</span>
+  <span class="n">nilai_band</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">src</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">koordinat_sampel</span><span class="p">))</span>
+
+<span class="c1"># 2. Buat tabel DataFrame Fitur</span>
+<span class="n">df_dataset</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">nilai_band</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;B02&quot;</span><span class="p">,</span> <span class="s2">&quot;B03&quot;</span><span class="p">,</span> <span class="s2">&quot;B04&quot;</span><span class="p">,</span> <span class="s2">&quot;B08&quot;</span><span class="p">,</span> <span class="s2">&quot;B11&quot;</span><span class="p">])</span>
+
+<span class="c1"># 3. Tambahkan fitur indeks vegetasi (NDVI) &amp; indeks air (NDWI)</span>
+<span class="n">df_dataset</span><span class="p">[</span><span class="s2">&quot;NDVI&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df_dataset</span><span class="p">[</span><span class="s2">&quot;B08&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df_dataset</span><span class="p">[</span><span class="s2">&quot;B04&quot;</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span>
+    <span class="n">df_dataset</span><span class="p">[</span><span class="s2">&quot;B08&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">df_dataset</span><span class="p">[</span><span class="s2">&quot;B04&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="mf">1e-6</span>
+<span class="p">)</span>
+<span class="n">df_dataset</span><span class="p">[</span><span class="s2">&quot;NDWI&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df_dataset</span><span class="p">[</span><span class="s2">&quot;B03&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df_dataset</span><span class="p">[</span><span class="s2">&quot;B08&quot;</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span>
+    <span class="n">df_dataset</span><span class="p">[</span><span class="s2">&quot;B03&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">df_dataset</span><span class="p">[</span><span class="s2">&quot;B08&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="mf">1e-6</span>
+<span class="p">)</span>
+
+<span class="c1"># 4. Masukkan Koordinat &amp; Label Kelas (Sawah = 1, Non-Sawah = 0)</span>
+<span class="n">df_dataset</span><span class="p">[</span><span class="s2">&quot;Longitude&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gdf_gabungan</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">centroid</span><span class="o">.</span><span class="n">x</span>
+<span class="n">df_dataset</span><span class="p">[</span><span class="s2">&quot;Latitude&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gdf_gabungan</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">centroid</span><span class="o">.</span><span class="n">y</span>
+<span class="n">df_dataset</span><span class="p">[</span><span class="s2">&quot;Kelas&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gdf_gabungan</span><span class="p">[</span><span class="s2">&quot;label_teks&quot;</span><span class="p">]</span>
+<span class="n">df_dataset</span><span class="p">[</span><span class="s2">&quot;Target&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gdf_gabungan</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">]</span>
+
+<span class="c1"># Simpan ke CSV (bisa dipakai juga kalau mau diolah di KNIME)</span>
+<span class="n">df_dataset</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;dataset_100sampel_sawah_nonsawah.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Dataset berhasil disimpan ke &#39;dataset_100sampel_sawah_nonsawah.csv&#39;&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">df_dataset</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+
+<span class="c1"># ==============================================================================</span>
+<span class="c1"># 5. PROSES KLASIFIKASI 2 KELAS (SAWAH VS NON-SAWAH)</span>
+<span class="c1"># ==============================================================================</span>
+<span class="n">fitur_kolom</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;B02&quot;</span><span class="p">,</span> <span class="s2">&quot;B03&quot;</span><span class="p">,</span> <span class="s2">&quot;B04&quot;</span><span class="p">,</span> <span class="s2">&quot;B08&quot;</span><span class="p">,</span> <span class="s2">&quot;B11&quot;</span><span class="p">,</span> <span class="s2">&quot;NDVI&quot;</span><span class="p">,</span> <span class="s2">&quot;NDWI&quot;</span><span class="p">]</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">df_dataset</span><span class="p">[</span><span class="n">fitur_kolom</span><span class="p">]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df_dataset</span><span class="p">[</span><span class="s2">&quot;Kelas&quot;</span><span class="p">]</span>
+
+<span class="c1"># Split 80% Training (40 Sawah + 40 Non-Sawah) &amp; 20% Testing (10 Sawah + 10 Non-Sawah)</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+    <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">y</span>
+<span class="p">)</span>
+
+<span class="c1"># Latih model Random Forest</span>
+<span class="n">model_rf</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">model_rf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="c1"># Evaluasi pada data uji</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">model_rf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== HASIL EVALUASI KLASIFIKASI 2 KELAS ===&quot;</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Akurasi Testing : </span><span class="si">{</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span><span class="w"> </span><span class="n">y_pred</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Confusion Matrix:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Classification Report:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Dataset berhasil disimpan ke &#39;dataset_100sampel_sawah_nonsawah.csv&#39;
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\ACER\AppData\Local\Temp\ipykernel_2028\276632000.py:31: UserWarning: Geometry is in a geographic CRS. Results from &#39;centroid&#39; are likely incorrect. Use &#39;GeoSeries.to_crs()&#39; to re-project geometries to a projected CRS before this operation.
+
+  df_dataset[&quot;Longitude&quot;] = gdf_gabungan.geometry.centroid.x
+C:\Users\ACER\AppData\Local\Temp\ipykernel_2028\276632000.py:32: UserWarning: Geometry is in a geographic CRS. Results from &#39;centroid&#39; are likely incorrect. Use &#39;GeoSeries.to_crs()&#39; to re-project geometries to a projected CRS before this operation.
+
+  df_dataset[&quot;Latitude&quot;] = gdf_gabungan.geometry.centroid.y
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>B02</th>
+      <th>B03</th>
+      <th>B04</th>
+      <th>B08</th>
+      <th>B11</th>
+      <th>NDVI</th>
+      <th>NDWI</th>
+      <th>Longitude</th>
+      <th>Latitude</th>
+      <th>Kelas</th>
+      <th>Target</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>423</td>
+      <td>604</td>
+      <td>489</td>
+      <td>2177</td>
+      <td>1229</td>
+      <td>0.633158</td>
+      <td>-0.565624</td>
+      <td>111.206536</td>
+      <td>-7.460265</td>
+      <td>Sawah</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>470</td>
+      <td>652</td>
+      <td>652</td>
+      <td>1725</td>
+      <td>1278</td>
+      <td>0.451409</td>
+      <td>-0.451409</td>
+      <td>111.206624</td>
+      <td>-7.459974</td>
+      <td>Sawah</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>480</td>
+      <td>659</td>
+      <td>566</td>
+      <td>1725</td>
+      <td>1436</td>
+      <td>0.505893</td>
+      <td>-0.447148</td>
+      <td>111.206650</td>
+      <td>-7.459746</td>
+      <td>Sawah</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>456</td>
+      <td>655</td>
+      <td>622</td>
+      <td>1757</td>
+      <td>1334</td>
+      <td>0.477091</td>
+      <td>-0.456882</td>
+      <td>111.206738</td>
+      <td>-7.459553</td>
+      <td>Sawah</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>438</td>
+      <td>640</td>
+      <td>617</td>
+      <td>1879</td>
+      <td>1206</td>
+      <td>0.505609</td>
+      <td>-0.491862</td>
+      <td>111.206660</td>
+      <td>-7.459376</td>
+      <td>Sawah</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== HASIL EVALUASI KLASIFIKASI 2 KELAS ===
+Akurasi Testing : 90.00%
+
+Confusion Matrix:
+ [[10  0]
+ [ 2  8]]
+
+Classification Report:
+               precision    recall  f1-score   support
+
+   Non-Sawah       0.83      1.00      0.91        10
+       Sawah       1.00      0.80      0.89        10
+
+    accuracy                           0.90        20
+   macro avg       0.92      0.90      0.90        20
+weighted avg       0.92      0.90      0.90        20
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">seaborn</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting seaborn
+  Downloading seaborn-0.13.2-py3-none-any.whl.metadata (5.4 kB)
+Requirement already satisfied: numpy!=1.24.0,&gt;=1.20 in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from seaborn) (2.5.2)
+Requirement already satisfied: pandas&gt;=1.2 in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from seaborn) (2.3.3)
+Requirement already satisfied: matplotlib!=3.6.1,&gt;=3.4 in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from seaborn) (3.11.1)
+Requirement already satisfied: contourpy&gt;=1.0.1 in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from matplotlib!=3.6.1,&gt;=3.4-&gt;seaborn) (1.3.3)
+Requirement already satisfied: cycler&gt;=0.10 in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from matplotlib!=3.6.1,&gt;=3.4-&gt;seaborn) (0.12.1)
+Requirement already satisfied: fonttools&gt;=4.28.2 in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from matplotlib!=3.6.1,&gt;=3.4-&gt;seaborn) (4.63.0)
+Requirement already satisfied: kiwisolver&gt;=1.3.1 in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from matplotlib!=3.6.1,&gt;=3.4-&gt;seaborn) (1.5.1)
+Requirement already satisfied: packaging&gt;=20.0 in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from matplotlib!=3.6.1,&gt;=3.4-&gt;seaborn) (26.3)
+Requirement already satisfied: pillow&gt;=9 in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from matplotlib!=3.6.1,&gt;=3.4-&gt;seaborn) (12.3.0)
+Requirement already satisfied: pyparsing&gt;=3 in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from matplotlib!=3.6.1,&gt;=3.4-&gt;seaborn) (3.3.2)
+Requirement already satisfied: python-dateutil&gt;=2.7 in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from matplotlib!=3.6.1,&gt;=3.4-&gt;seaborn) (2.9.0.post0)
+Requirement already satisfied: pytz&gt;=2020.1 in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from pandas&gt;=1.2-&gt;seaborn) (2026.3.post1)
+Requirement already satisfied: tzdata&gt;=2022.7 in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from pandas&gt;=1.2-&gt;seaborn) (2026.3)
+Requirement already satisfied: six&gt;=1.5 in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from python-dateutil&gt;=2.7-&gt;matplotlib!=3.6.1,&gt;=3.4-&gt;seaborn) (1.17.0)
+Downloading seaborn-0.13.2-py3-none-any.whl (294 kB)
+Installing collected packages: seaborn
+Successfully installed seaborn-0.13.2
+Note: you may need to restart the kernel to use updated packages.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[notice] A new release of pip is available: 24.2 -&gt; 26.2.1
+[notice] To update, run: python.exe -m pip install --upgrade pip
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="hasil-evaluasi-klasifikasi-2-kelas-random-forest">
+<h2>3. Hasil Evaluasi Klasifikasi 2 Kelas (Random Forest)<a class="headerlink" href="#hasil-evaluasi-klasifikasi-2-kelas-random-forest" title="Link to this heading">#</a></h2>
+<p>Dataset 100 sampel dibagi menggunakan skema <em>Stratified Train-Test Split</em> dengan proporsi <strong>80% Data Latih (80 sampel: 40 Sawah, 40 Non-Sawah)</strong> dan <strong>20% Data Uji (20 sampel: 10 Sawah, 10 Non-Sawah)</strong>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.colors</span> <span class="k">as</span> <span class="nn">mcolors</span>
+<span class="kn">import</span> <span class="nn">matplotlib.patches</span> <span class="k">as</span> <span class="nn">mpatches</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">rasterio</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">ConfusionMatrixDisplay</span>
+
+<span class="c1"># ==============================================================================</span>
+<span class="c1"># A. VISUALISASI CONFUSION MATRIX &amp; FEATURE IMPORTANCE</span>
+<span class="c1"># ==============================================================================</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">))</span>
+
+<span class="c1"># 1. Plot Confusion Matrix</span>
+<span class="n">ConfusionMatrixDisplay</span><span class="o">.</span><span class="n">from_predictions</span><span class="p">(</span>
+    <span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;Greens&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">colorbar</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Confusion Matrix (Data Uji 20 Sampel)&quot;</span><span class="p">)</span>
+
+<span class="c1"># 2. Plot Tingkat Kepentingan Fitur (Band &amp; Indeks Spektral)</span>
+<span class="n">importances</span> <span class="o">=</span> <span class="n">model_rf</span><span class="o">.</span><span class="n">feature_importances_</span>
+<span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">importances</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span>
+    <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">indices</span><span class="p">)),</span>
+    <span class="n">importances</span><span class="p">[</span><span class="n">indices</span><span class="p">],</span>
+    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#2ecc71&quot;</span><span class="p">,</span>
+    <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">indices</span><span class="p">)))</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">([</span><span class="n">fitur_kolom</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">])</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Nilai Kepentingan (Importance)&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Kontribusi Fitur Spektral Sentinel-2A&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;evaluasi_klasifikasi_sawah.png&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># ==============================================================================</span>
+<span class="c1"># B. KLASIFIKASI SELURUH PIKSEL CITRA (.TIF) MENJADI PETA SAWAH VS NON-SAWAH</span>
+<span class="c1"># ==============================================================================</span>
+<span class="k">with</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;sentinel2_sawah_nonsawah.tif&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">src</span><span class="p">:</span>
+  <span class="n">img</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>  <span class="c1"># Shape: (5 bands, height, width)</span>
+  <span class="n">profil_raster</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">profile</span>
+  <span class="n">bounds</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">bounds</span>
+
+<span class="c1"># Ambil masing-masing band (B02, B03, B04, B08, B11)</span>
+<span class="n">b02</span><span class="p">,</span> <span class="n">b03</span><span class="p">,</span> <span class="n">b04</span><span class="p">,</span> <span class="n">b08</span><span class="p">,</span> <span class="n">b11</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">img</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">),</span>
+    <span class="n">img</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">),</span>
+    <span class="n">img</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">),</span>
+    <span class="n">img</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">),</span>
+    <span class="n">img</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Hitung NDVI dan NDWI untuk seluruh piksel di citra .tif</span>
+<span class="n">ndvi_map</span> <span class="o">=</span> <span class="p">(</span><span class="n">b08</span> <span class="o">-</span> <span class="n">b04</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">b08</span> <span class="o">+</span> <span class="n">b04</span> <span class="o">+</span> <span class="mf">1e-6</span><span class="p">)</span>
+<span class="n">ndwi_map</span> <span class="o">=</span> <span class="p">(</span><span class="n">b03</span> <span class="o">-</span> <span class="n">b08</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">b03</span> <span class="o">+</span> <span class="n">b08</span> <span class="o">+</span> <span class="mf">1e-6</span><span class="p">)</span>
+
+<span class="c1"># Susun seluruh piksel menjadi matriks 2D (baris = piksel, kolom = 7 fitur)</span>
+<span class="n">stack_fitur</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="n">b02</span><span class="p">,</span> <span class="n">b03</span><span class="p">,</span> <span class="n">b04</span><span class="p">,</span> <span class="n">b08</span><span class="p">,</span> <span class="n">b11</span><span class="p">,</span> <span class="n">ndvi_map</span><span class="p">,</span> <span class="n">ndwi_map</span><span class="p">],</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">stack_fitur</span><span class="o">.</span><span class="n">shape</span>
+<span class="n">piksel_2d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan_to_num</span><span class="p">(</span><span class="n">stack_fitur</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">c</span><span class="p">),</span> <span class="n">nan</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+
+<span class="c1"># Prediksi seluruh piksel menggunakan model Random Forest yang sudah dilatih</span>
+<span class="n">prediksi_label</span> <span class="o">=</span> <span class="n">model_rf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">piksel_2d</span><span class="p">)</span>
+
+<span class="c1"># Ubah hasil prediksi (&#39;Sawah&#39; -&gt; 1, &#39;Non-Sawah&#39; -&gt; 0) kembali ke ukuran gambar 2D (h, w)</span>
+<span class="n">peta_biner</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">prediksi_label</span> <span class="o">==</span> <span class="s2">&quot;Sawah&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
+
+<span class="c1"># Tampilkan Peta Hasil Klasifikasi Spasial</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="n">cmap_sawah</span> <span class="o">=</span> <span class="n">mcolors</span><span class="o">.</span><span class="n">ListedColormap</span><span class="p">([</span><span class="s2">&quot;#e74c3c&quot;</span><span class="p">,</span> <span class="s2">&quot;#2ecc71&quot;</span><span class="p">])</span>  <span class="c1"># Merah &amp; Hijau</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span>
+    <span class="n">peta_biner</span><span class="p">,</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="n">cmap_sawah</span><span class="p">,</span>
+    <span class="n">extent</span><span class="o">=</span><span class="p">[</span><span class="n">bounds</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="n">bounds</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="n">bounds</span><span class="o">.</span><span class="n">bottom</span><span class="p">,</span> <span class="n">bounds</span><span class="o">.</span><span class="n">top</span><span class="p">],</span>
+<span class="p">)</span>
+
+<span class="c1"># Legenda Peta</span>
+<span class="n">patch_sawah</span> <span class="o">=</span> <span class="n">mpatches</span><span class="o">.</span><span class="n">Patch</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;#2ecc71&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Kelas 1: Sawah&quot;</span><span class="p">)</span>
+<span class="n">patch_nonsawah</span> <span class="o">=</span> <span class="n">mpatches</span><span class="o">.</span><span class="n">Patch</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;#e74c3c&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Kelas 0: Non-Sawah&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="o">=</span><span class="p">[</span><span class="n">patch_sawah</span><span class="p">,</span> <span class="n">patch_nonsawah</span><span class="p">],</span> <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper right&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span>
+    <span class="s2">&quot;Peta Klasifikasi Spasial Lahan Sawah vs Non-Sawah (Sentinel-2A)&quot;</span><span class="p">,</span>
+    <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
+    <span class="n">fontweight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Koordinat X / Longitude&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Koordinat Y / Latitude&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;peta_klasifikasi_raster_sawah.png&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/efd6cf3949eaf7a4a00ed979853de7f9d18d2996be8f3b60eaf511241388fb3b.png" src="../_images/efd6cf3949eaf7a4a00ed979853de7f9d18d2996be8f3b60eaf511241388fb3b.png" />
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>d:\tugas psd\website-jupyterbook\.venv\Lib\site-packages\sklearn\utils\validation.py:2827: UserWarning: X does not have valid feature names, but RandomForestClassifier was fitted with feature names
+  warnings.warn(
+</pre></div>
+</div>
+<img alt="../_images/081c5dd92c05e2721e7ab110c336e133926f67f02e8ec9caddb61caa66b5bb5e.png" src="../_images/081c5dd92c05e2721e7ab110c336e133926f67f02e8ec9caddb61caa66b5bb5e.png" />
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./klasifikasi"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Klasfikasi Sawah dan Non-Sawah</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instalasi-library-yang-digunakan">Instalasi Library Yang Digunakan</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#desain-pengambilan-sampel-ground-truth">1. Desain Pengambilan Sampel (Ground Truth)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#akuisisi-citra-sentinel-2a-tif-via-openeo-dan-ekstraksi-fitur">2. Akuisisi Citra Sentinel-2A (<code class="docutils literal notranslate"><span class="pre">.tif</span></code>) via openEO dan Ekstraksi Fitur</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fitur-spektral-dan-indeks-turunan-yang-diekstrak">Fitur Spektral dan Indeks Turunan yang Diekstrak:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hasil-evaluasi-klasifikasi-2-kelas-random-forest">3. Hasil Evaluasi Klasifikasi 2 Kelas (Random Forest)</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Deo Candra Saputra
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -65,7 +65,6 @@
     <link rel="icon" href="../_static/logo.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="PreProcessing: Deteksi Outlier &amp; Imputasi Missing Value serta Ekstraksi Fitur Pada Polutan(No2,So2,co)" href="ekstraksi-fitur.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -167,6 +166,8 @@
       
       
       
+        
+      
       <dialog id="pst-primary-sidebar-modal"></dialog>
       <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
@@ -219,7 +220,7 @@
                 </a>
             </li>
         </ul>
-        <ul class="current nav bd-sidenav">
+        <ul class="nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../pages/polutan/polutan.html">Polutan di Kabupaten Ngawi</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../pages/polutan/bussiness-understanding.html">Business Understanding</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../pages/polutan/data-understanding.html">Data Understanding</a></li>
@@ -227,17 +228,16 @@
 
 </ul>
 </details></li>
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Daerah Kecamatan Widodaren</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l1 has-children"><a class="reference internal" href="index.html">Daerah Kecamatan Widodaren</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="polutan-Ngawi.html">Kolekting Data: Kualitas Polusi Udara di Kecamatan Widodaren, Ngawi</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ekstraksi-fitur.html">PreProcessing: Deteksi Outlier &amp; Imputasi Missing Value serta Ekstraksi Fitur Pada Polutan(No2,So2,co)</a></li>
-
-
-
-
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">K-Means Clustering</a></li>
-
-
-
+<li class="toctree-l2"><a class="reference internal" href="tsfel.html">Penjelasan Domain TSFEL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interpolasi-linear.html">Data Preprocessing dan Ekstraksi Fitur (Interpolasi Linear)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interpolasi-polynomial.html">Data Preprocessing dan Ekstraksi Fitur (Interpolasi Polinomial)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="k-meansCPolinomial.html">K-Means Clustering (Linier)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../klasifikasi/index.html">Klasfikasi Sawah dan Non-Sawah</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../klasifikasi/klasifikasi-sawah.html">Klasifikasi Spasial Lahan Sawah dan Non-Sawah Menggunakan Citra Sentinel-2A</a></li>
 </ul>
 </details></li>
 </ul>
@@ -606,17 +606,73 @@ PCA dapat membantu mempertahankan informasi utama dari data dan mengurangi penga
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Inertia: 660.2141
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">FileNotFoundError</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">25</span>
+<span class="g g-Whitespace">     </span><span class="mi">22</span> <span class="n">GUNAKAN_SCALING</span> <span class="o">=</span> <span class="kc">True</span>                    
+<span class="g g-Whitespace">     </span><span class="mi">24</span> <span class="c1"># 1. Baca data</span>
+<span class="ne">---&gt; </span><span class="mi">25</span> <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">CSV_PATH</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">26</span> <span class="n">data</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="n">KOLOM_FITUR</span><span class="p">)</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="g g-Whitespace">     </span><span class="mi">28</span> <span class="c1"># 2. Standarisasi (opsional)</span>
 
-Jumlah data per cluster:
-cluster_label
-cluster_0     1
-cluster_1    35
-cluster_2     1
-Name: count, dtype: int64
+<span class="nn">File ~\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\io\parsers\readers.py:1026,</span> in <span class="ni">read_csv</span><span class="nt">(filepath_or_buffer, sep, delimiter, header, names, index_col, usecols, dtype, engine, converters, true_values, false_values, skipinitialspace, skiprows, skipfooter, nrows, na_values, keep_default_na, na_filter, verbose, skip_blank_lines, parse_dates, infer_datetime_format, keep_date_col, date_parser, date_format, dayfirst, cache_dates, iterator, chunksize, compression, thousands, decimal, lineterminator, quotechar, quoting, doublequote, escapechar, comment, encoding, encoding_errors, dialect, on_bad_lines, delim_whitespace, low_memory, memory_map, float_precision, storage_options, dtype_backend)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1013</span> <span class="n">kwds_defaults</span> <span class="o">=</span> <span class="n">_refine_defaults_read</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1014</span>     <span class="n">dialect</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1015</span>     <span class="n">delimiter</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1022</span>     <span class="n">dtype_backend</span><span class="o">=</span><span class="n">dtype_backend</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1023</span> <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1024</span> <span class="n">kwds</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwds_defaults</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">1026</span> <span class="k">return</span> <span class="n">_read</span><span class="p">(</span><span class="n">filepath_or_buffer</span><span class="p">,</span> <span class="n">kwds</span><span class="p">)</span>
+
+<span class="nn">File ~\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\io\parsers\readers.py:620,</span> in <span class="ni">_read</span><span class="nt">(filepath_or_buffer, kwds)</span>
+<span class="g g-Whitespace">    </span><span class="mi">617</span> <span class="n">_validate_names</span><span class="p">(</span><span class="n">kwds</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;names&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
+<span class="g g-Whitespace">    </span><span class="mi">619</span> <span class="c1"># Create the parser.</span>
+<span class="ne">--&gt; </span><span class="mi">620</span> <span class="n">parser</span> <span class="o">=</span> <span class="n">TextFileReader</span><span class="p">(</span><span class="n">filepath_or_buffer</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">622</span> <span class="k">if</span> <span class="n">chunksize</span> <span class="ow">or</span> <span class="n">iterator</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">623</span>     <span class="k">return</span> <span class="n">parser</span>
+
+<span class="nn">File ~\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\io\parsers\readers.py:1620,</span> in <span class="ni">TextFileReader.__init__</span><span class="nt">(self, f, engine, **kwds)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1617</span>     <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s2">&quot;has_index_names&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwds</span><span class="p">[</span><span class="s2">&quot;has_index_names&quot;</span><span class="p">]</span>
+<span class="g g-Whitespace">   </span><span class="mi">1619</span> <span class="bp">self</span><span class="o">.</span><span class="n">handles</span><span class="p">:</span> <span class="n">IOHandles</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="ne">-&gt; </span><span class="mi">1620</span> <span class="bp">self</span><span class="o">.</span><span class="n">_engine</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_engine</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="p">)</span>
+
+<span class="nn">File ~\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\io\parsers\readers.py:1880,</span> in <span class="ni">TextFileReader._make_engine</span><span class="nt">(self, f, engine)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1878</span>     <span class="k">if</span> <span class="s2">&quot;b&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">mode</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1879</span>         <span class="n">mode</span> <span class="o">+=</span> <span class="s2">&quot;b&quot;</span>
+<span class="ne">-&gt; </span><span class="mi">1880</span> <span class="bp">self</span><span class="o">.</span><span class="n">handles</span> <span class="o">=</span> <span class="n">get_handle</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1881</span>     <span class="n">f</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1882</span>     <span class="n">mode</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1883</span>     <span class="n">encoding</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;encoding&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+<span class="g g-Whitespace">   </span><span class="mi">1884</span>     <span class="n">compression</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;compression&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+<span class="g g-Whitespace">   </span><span class="mi">1885</span>     <span class="n">memory_map</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;memory_map&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+<span class="g g-Whitespace">   </span><span class="mi">1886</span>     <span class="n">is_text</span><span class="o">=</span><span class="n">is_text</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1887</span>     <span class="n">errors</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;encoding_errors&quot;</span><span class="p">,</span> <span class="s2">&quot;strict&quot;</span><span class="p">),</span>
+<span class="g g-Whitespace">   </span><span class="mi">1888</span>     <span class="n">storage_options</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;storage_options&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+<span class="g g-Whitespace">   </span><span class="mi">1889</span> <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1890</span> <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">handles</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+<span class="g g-Whitespace">   </span><span class="mi">1891</span> <span class="n">f</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">handles</span><span class="o">.</span><span class="n">handle</span>
+
+<span class="nn">File ~\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\io\common.py:873,</span> in <span class="ni">get_handle</span><span class="nt">(path_or_buf, mode, encoding, compression, memory_map, is_text, errors, storage_options)</span>
+<span class="g g-Whitespace">    </span><span class="mi">868</span> <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">869</span>     <span class="c1"># Check whether the filename is to be opened in binary mode.</span>
+<span class="g g-Whitespace">    </span><span class="mi">870</span>     <span class="c1"># Binary mode does not support &#39;encoding&#39; and &#39;newline&#39;.</span>
+<span class="g g-Whitespace">    </span><span class="mi">871</span>     <span class="k">if</span> <span class="n">ioargs</span><span class="o">.</span><span class="n">encoding</span> <span class="ow">and</span> <span class="s2">&quot;b&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ioargs</span><span class="o">.</span><span class="n">mode</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">872</span>         <span class="c1"># Encoding</span>
+<span class="ne">--&gt; </span><span class="mi">873</span>         <span class="n">handle</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">874</span>             <span class="n">handle</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">875</span>             <span class="n">ioargs</span><span class="o">.</span><span class="n">mode</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">876</span>             <span class="n">encoding</span><span class="o">=</span><span class="n">ioargs</span><span class="o">.</span><span class="n">encoding</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">877</span>             <span class="n">errors</span><span class="o">=</span><span class="n">errors</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">878</span>             <span class="n">newline</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">879</span>         <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">880</span>     <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">881</span>         <span class="c1"># Binary mode</span>
+<span class="g g-Whitespace">    </span><span class="mi">882</span>         <span class="n">handle</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="n">ioargs</span><span class="o">.</span><span class="n">mode</span><span class="p">)</span>
+
+<span class="ne">FileNotFoundError</span>: [Errno 2] No such file or directory: &#39;ekstraksi_fitur_co.csv&#39;
 </pre></div>
 </div>
-<img alt="../_images/26c78b6aa7a7305972c70bb23b3922c6f63cf927ebd668500d8af94e9885fdad.png" src="../_images/26c78b6aa7a7305972c70bb23b3922c6f63cf927ebd668500d8af94e9885fdad.png" />
 </div>
 </div>
 </section>
@@ -942,6 +998,325 @@ Name: count, dtype: int64
 <p>Penggunaan <strong>PCA (Principal Component Analysis)</strong> berhasil mereduksi dimensi data secara signifikan, yaitu dari <strong>68 fitur awal menjadi 37 komponen utama</strong>.</p>
 <p>Reduksi dimensi ini dapat mengurangi kompleksitas data dan jumlah perhitungan yang dilakukan dalam proses klasterisasi. Selain itu, PCA membantu mengurangi permasalahan <strong>curse of dimensionality</strong> pada data dengan jumlah fitur yang cukup banyak.</p>
 <p>Berdasarkan hasil eksperimen, penggunaan PCA tetap dapat mempertahankan informasi penting yang diperlukan oleh algoritma K-Means dalam membentuk klaster. Dengan demikian, PCA dapat digunakan sebagai tahap reduksi dimensi sebelum proses klasterisasi tanpa menghilangkan seluruh informasi penting dari data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">folium</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting folium
+  Downloading folium-0.20.0-py2.py3-none-any.whl.metadata (4.2 kB)
+Collecting branca&gt;=0.6.0 (from folium)
+  Downloading branca-0.8.2-py3-none-any.whl.metadata (1.7 kB)
+Requirement already satisfied: jinja2&gt;=2.9 in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from folium) (3.1.6)
+Requirement already satisfied: numpy in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from folium) (2.5.2)
+Requirement already satisfied: requests in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from folium) (2.34.2)
+Collecting xyzservices (from folium)
+  Downloading xyzservices-2026.9.1-py3-none-any.whl.metadata (4.1 kB)
+Requirement already satisfied: MarkupSafe&gt;=2.0 in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from jinja2&gt;=2.9-&gt;folium) (3.0.3)
+Requirement already satisfied: charset_normalizer&lt;4,&gt;=2 in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from requests-&gt;folium) (3.5.1)
+Requirement already satisfied: idna&lt;4,&gt;=2.5 in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from requests-&gt;folium) (3.19)
+Requirement already satisfied: urllib3&lt;3,&gt;=1.26 in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from requests-&gt;folium) (2.7.0)
+Requirement already satisfied: certifi&gt;=2023.5.7 in d:\tugas psd\website-jupyterbook\.venv\lib\site-packages (from requests-&gt;folium) (2026.7.22)
+Downloading folium-0.20.0-py2.py3-none-any.whl (113 kB)
+Downloading branca-0.8.2-py3-none-any.whl (26 kB)
+Downloading xyzservices-2026.9.1-py3-none-any.whl (98 kB)
+Installing collected packages: xyzservices, branca, folium
+Successfully installed branca-0.8.2 folium-0.20.0 xyzservices-2026.9.1
+Note: you may need to restart the kernel to use updated packages.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[notice] A new release of pip is available: 24.2 -&gt; 26.2.1
+[notice] To update, run: python.exe -m pip install --upgrade pip
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">geopy</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting geopy
+  Downloading geopy-2.5.0-py3-none-any.whl.metadata (7.1 kB)
+Collecting geographiclib&lt;3,&gt;=1.52 (from geopy)
+  Downloading geographiclib-2.1-py3-none-any.whl.metadata (1.6 kB)
+Downloading geopy-2.5.0-py3-none-any.whl (114 kB)
+Downloading geographiclib-2.1-py3-none-any.whl (40 kB)
+Installing collected packages: geographiclib, geopy
+Successfully installed geographiclib-2.1 geopy-2.5.0
+Note: you may need to restart the kernel to use updated packages.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[notice] A new release of pip is available: 24.2 -&gt; 26.2.1
+[notice] To update, run: python.exe -m pip install --upgrade pip
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">folium</span>
+<span class="kn">from</span> <span class="nn">folium.plugins</span> <span class="kn">import</span> <span class="n">MarkerCluster</span>
+<span class="kn">from</span> <span class="nn">geopy.geocoders</span> <span class="kn">import</span> <span class="n">Nominatim</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="c1"># Membaca CSV</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;ekstraksi_fitur_no2_psd-a.csv&quot;</span><span class="p">)</span>
+
+<span class="c1"># Membuat geocoder</span>
+<span class="n">geolocator</span> <span class="o">=</span> <span class="n">Nominatim</span><span class="p">(</span>
+    <span class="n">user_agent</span><span class="o">=</span><span class="s2">&quot;peta_penelitian_no2&quot;</span>
+<span class="p">)</span>
+
+<span class="c1"># Fungsi mencari koordinat</span>
+<span class="k">def</span> <span class="nf">cari_koordinat</span><span class="p">(</span><span class="n">daerah</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">lokasi</span> <span class="o">=</span> <span class="n">geolocator</span><span class="o">.</span><span class="n">geocode</span><span class="p">(</span>
+            <span class="n">daerah</span> <span class="o">+</span> <span class="s2">&quot;, Indonesia&quot;</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">lokasi</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">lokasi</span><span class="o">.</span><span class="n">latitude</span><span class="p">,</span> <span class="n">lokasi</span><span class="o">.</span><span class="n">longitude</span>
+
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error:&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+
+
+<span class="c1"># Mencari koordinat berdasarkan kolom daerah</span>
+<span class="n">koordinat</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">daerah</span> <span class="ow">in</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;daerah&quot;</span><span class="p">]:</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mencari:&quot;</span><span class="p">,</span> <span class="n">daerah</span><span class="p">)</span>
+
+    <span class="n">lat</span><span class="p">,</span> <span class="n">lon</span> <span class="o">=</span> <span class="n">cari_koordinat</span><span class="p">(</span><span class="n">daerah</span><span class="p">)</span>
+
+    <span class="n">koordinat</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">lat</span><span class="p">,</span> <span class="n">lon</span><span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Memberikan jeda agar tidak terlalu banyak</span>
+    <span class="c1"># permintaan ke server</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+
+<span class="c1"># Memasukkan hasil ke dataframe</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;latitude&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">koordinat</span>
+<span class="p">]</span>
+
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;longitude&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">koordinat</span>
+<span class="p">]</span>
+
+
+<span class="c1"># Melihat hasil</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">[[</span>
+    <span class="s2">&quot;nama&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;daerah&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;latitude&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;longitude&quot;</span>
+<span class="p">]])</span>
+
+
+<span class="c1"># Membuat peta Indonesia</span>
+<span class="n">peta</span> <span class="o">=</span> <span class="n">folium</span><span class="o">.</span><span class="n">Map</span><span class="p">(</span>
+    <span class="n">location</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mf">2.5</span><span class="p">,</span> <span class="mi">118</span><span class="p">],</span>
+    <span class="n">zoom_start</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+    <span class="n">tiles</span><span class="o">=</span><span class="s2">&quot;OpenStreetMap&quot;</span>
+<span class="p">)</span>
+
+
+<span class="c1"># Mengelompokkan marker</span>
+<span class="n">marker_cluster</span> <span class="o">=</span> <span class="n">MarkerCluster</span><span class="p">()</span><span class="o">.</span><span class="n">add_to</span><span class="p">(</span><span class="n">peta</span><span class="p">)</span>
+
+
+<span class="c1"># Menambahkan marker dari CSV</span>
+<span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+
+    <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">notna</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s2">&quot;latitude&quot;</span><span class="p">])</span> <span class="ow">and</span> <span class="n">pd</span><span class="o">.</span><span class="n">notna</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s2">&quot;longitude&quot;</span><span class="p">]):</span>
+
+        <span class="n">popup</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;b&gt;Nama:&lt;/b&gt; </span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;nama&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&lt;br&gt;</span>
+<span class="s2">        &lt;b&gt;Daerah:&lt;/b&gt; </span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;daerah&#39;</span><span class="p">]</span><span class="si">}</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+
+        <span class="n">folium</span><span class="o">.</span><span class="n">Marker</span><span class="p">(</span>
+            <span class="n">location</span><span class="o">=</span><span class="p">[</span>
+                <span class="n">row</span><span class="p">[</span><span class="s2">&quot;latitude&quot;</span><span class="p">],</span>
+                <span class="n">row</span><span class="p">[</span><span class="s2">&quot;longitude&quot;</span><span class="p">]</span>
+            <span class="p">],</span>
+            <span class="n">popup</span><span class="o">=</span><span class="n">folium</span><span class="o">.</span><span class="n">Popup</span><span class="p">(</span>
+                <span class="n">popup</span><span class="p">,</span>
+                <span class="n">max_width</span><span class="o">=</span><span class="mi">300</span>
+            <span class="p">),</span>
+            <span class="n">tooltip</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="s2">&quot;daerah&quot;</span><span class="p">]</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">add_to</span><span class="p">(</span><span class="n">marker_cluster</span><span class="p">)</span>
+
+
+<span class="c1"># Menyimpan peta</span>
+<span class="n">peta</span><span class="o">.</span><span class="n">save</span><span class="p">(</span>
+    <span class="s2">&quot;peta_indonesia_no2.html&quot;</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Peta berhasil dibuat.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mencari: Baron, Nganjuk
+Mencari: Kalitengah Lamongan
+Mencari: Manyar
+Mencari: Jabon
+Mencari: Kedungpring Lamongan
+Mencari: Jogoroto, Jombang
+Mencari: Kamal, Bangkalan
+Mencari: sambeng lamongan
+Mencari: Gresik Kota, Gresik
+Mencari: Kerek Tuban
+Mencari: Waru, Pamekasan
+Mencari: Tikala, Manado
+Mencari: Bangkalan Kota,Bangkalan
+Mencari: Socah, Bangkalan
+Mencari: Nunukan
+Mencari: Bandarkedungmulyo
+Mencari: Widang Tuban
+Mencari: Kamal, Bangkalan
+Mencari: Cerme, Gresik
+Mencari: Kec.Kwanyar , Kab.Bangkalan
+Mencari: Kamal, Banyuajuh
+Mencari: Pilangkenceng, Madiun
+Mencari: Kota Sumenep, Sumenep
+Mencari: Asemrowo, Surabaya
+Mencari: Sreseh, Sampang
+Mencari: Wonoayu
+Mencari: Warudoyong, Kota Sukabumi
+Mencari: Dukun, Gresik
+Mencari: Widodaren, Ngawi
+Mencari: Kec. Bangkalan, Kab. Bangkalan
+Mencari: Tanah Merah, Bangkalan
+Mencari: Wonokromo, Surabaya
+Mencari: Kwanyar, Bangkalan
+Mencari: Banyu Ajuh, Perumnas, Kamal
+Mencari: Menganti Gresik
+Mencari: Labang, Bangkalan
+Mencari: Kec. Kalianget, Sumenep
+                                   nama                          daerah  \
+0                 Muhammad Ali Murtadho                  Baron, Nganjuk   
+1             Ahmad Dafi Zidni Alfarisi             Kalitengah Lamongan   
+2               Okan Syailendra wahyudi                          Manyar   
+3                      Rahardian Ananta                           Jabon   
+4              Triswanti Jannatul Ma&#39;wa            Kedungpring Lamongan   
+5                          Muhammad Isa               Jogoroto, Jombang   
+6                       Laila Maghfiroh                Kamal, Bangkalan   
+7                          Dedy Nurohim                sambeng lamongan   
+8                 Ahmad Syahrul Farihin             Gresik Kota, Gresik   
+9                     Nurhabibatul Umah                     Kerek Tuban   
+10                         Rian Renaldy                 Waru, Pamekasan   
+11              Rachelia Andini Tendean                  Tikala, Manado   
+12                    Moh Rafie Nazar J        Bangkalan Kota,Bangkalan   
+13                     Lailatul Hasanah                Socah, Bangkalan   
+14                     Ainur Raftuzzaki                         Nunukan   
+15                  Ahmad Maulana Ishaq               Bandarkedungmulyo   
+16              Mochammad Zaenal Abidin                    Widang Tuban   
+17           Muhammad Zaidan Nabil Rafi                Kamal, Bangkalan   
+18            Robbaniyah Umdatun Ni&#39;mah                   Cerme, Gresik   
+19                       Fahdimas Akmal     Kec.Kwanyar , Kab.Bangkalan   
+20                          Dewi Geizya                Kamal, Banyuajuh   
+21            Magdalena Jovita Hatuopar           Pilangkenceng, Madiun   
+22              Alifah Sayyidaturrhohma           Kota Sumenep, Sumenep   
+23             Riska Nana Nuril Fadilah              Asemrowo, Surabaya   
+24                  M. Hendrik Purwanto                 Sreseh, Sampang   
+25           Alghifari Amar Mukhasyafah                         Wonoayu   
+26                    Fathan Ruhul Alam       Warudoyong, Kota Sukabumi   
+27                Fathul Aziz Saifuddin                   Dukun, Gresik   
+28                   Deo Candra Saputra                Widodaren, Ngawi   
+29                     Rifqi Fairurrafi  Kec. Bangkalan, Kab. Bangkalan   
+30                Mohammad Aziz Huzaini          Tanah Merah, Bangkalan   
+31           Muhammad izzul Millah Aqil             Wonokromo, Surabaya   
+32                      M. Fatihul Umam              Kwanyar, Bangkalan   
+33  A.Choiril Anwar El-Asfihani Risydan     Banyu Ajuh, Perumnas, Kamal   
+34      Verdi Setyawan Ardiansyah Putra                 Menganti Gresik   
+35                 Kurnia Maulinda Sari               Labang, Bangkalan   
+36                Marshella Aulia Putri         Kec. Kalianget, Sumenep   
+
+    latitude   longitude  
+0  -7.602829  112.039384  
+1  -6.995196  112.401006  
+2  -7.062865  112.249275  
+3  -7.535107  112.810693  
+4  -7.184395  112.198296  
+5  -7.591892  112.267644  
+6  -7.170282  112.728856  
+7  -7.297267  112.270859  
+8  -7.206313  112.638691  
+9  -6.863120  111.917048  
+10 -6.941817  113.551512  
+11  1.467980  124.862466  
+12       NaN         NaN  
+13 -7.090936  112.705530  
+14  3.907456  117.042351  
+15 -7.560910  112.153974  
+16 -7.085111  112.170846  
+17 -7.170282  112.728856  
+18 -7.224250  112.570795  
+19       NaN         NaN  
+20       NaN         NaN  
+21 -7.499596  111.644255  
+22 -7.006745  113.859867  
+23 -7.241740  112.688802  
+24 -7.219002  113.132860  
+25 -7.428111  112.627755  
+26 -6.934076  106.920945  
+27 -7.008750  112.510376  
+28 -7.402855  111.223853  
+29       NaN         NaN  
+30 -7.088275  112.885340  
+31 -7.302055  112.739222  
+32 -7.163871  112.850963  
+33       NaN         NaN  
+34 -7.268467  112.562483  
+35 -7.139610  112.773094  
+36       NaN         NaN  
+Peta berhasil dibuat.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">IFrame</span>
+
+<span class="n">IFrame</span><span class="p">(</span>
+    <span class="n">src</span><span class="o">=</span><span class="s2">&quot;peta_indonesia_no2.html&quot;</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="s2">&quot;100%&quot;</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="s2">&quot;600&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s2">&quot;peta_indonesia_no2.html&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>d:\tugas psd\website-jupyterbook\widodaren\peta_indonesia_no2.html
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 </section>
 
@@ -975,15 +1350,6 @@ Name: count, dtype: int64
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
-    <a class="left-prev"
-       href="ekstraksi-fitur.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">PreProcessing: Deteksi Outlier &amp; Imputasi Missing Value serta Ekstraksi Fitur Pada Polutan(No2,So2,co)</p>
-      </div>
-    </a>
 </div>
                 </footer>
               

@@ -67,8 +67,6 @@
     <link rel="icon" href="../_static/logo.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="K-Means Clustering" href="K-Means%20Clustering.html" />
-    <link rel="prev" title="Kolekting Data: Kualitas Polusi Udara di Kecamatan Widodaren, Ngawi" href="polutan-Ngawi.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -170,6 +168,8 @@
       
       
       
+        
+      
       <dialog id="pst-primary-sidebar-modal"></dialog>
       <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
@@ -222,7 +222,7 @@
                 </a>
             </li>
         </ul>
-        <ul class="current nav bd-sidenav">
+        <ul class="nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../pages/polutan/polutan.html">Polutan di Kabupaten Ngawi</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../pages/polutan/bussiness-understanding.html">Business Understanding</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../pages/polutan/data-understanding.html">Data Understanding</a></li>
@@ -230,17 +230,16 @@
 
 </ul>
 </details></li>
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Daerah Kecamatan Widodaren</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l1 has-children"><a class="reference internal" href="index.html">Daerah Kecamatan Widodaren</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="polutan-Ngawi.html">Kolekting Data: Kualitas Polusi Udara di Kecamatan Widodaren, Ngawi</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">PreProcessing: Deteksi Outlier &amp; Imputasi Missing Value serta Ekstraksi Fitur Pada Polutan(No2,So2,co)</a></li>
-
-
-
-
-<li class="toctree-l2"><a class="reference internal" href="K-Means%20Clustering.html">K-Means Clustering</a></li>
-
-
-
+<li class="toctree-l2"><a class="reference internal" href="tsfel.html">Penjelasan Domain TSFEL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interpolasi-linear.html">Data Preprocessing dan Ekstraksi Fitur (Interpolasi Linear)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interpolasi-polynomial.html">Data Preprocessing dan Ekstraksi Fitur (Interpolasi Polinomial)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="k-meansCPolinomial.html">K-Means Clustering (Linier)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../klasifikasi/index.html">Klasfikasi Sawah dan Non-Sawah</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../klasifikasi/klasifikasi-sawah.html">Klasifikasi Spasial Lahan Sawah dan Non-Sawah Menggunakan Citra Sentinel-2A</a></li>
 </ul>
 </details></li>
 </ul>
@@ -479,7 +478,7 @@
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;KualitasUdaraWidodaren.csv&quot;</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;csv/KualitasUdaraWidodaren.csv&quot;</span><span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>  
 
 <span class="n">fitur_polutan</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;CO&#39;</span><span class="p">,</span> <span class="s1">&#39;NO2&#39;</span><span class="p">,</span> <span class="s1">&#39;SO2&#39;</span><span class="p">]</span>
@@ -540,10 +539,10 @@ IQR : 0.004994
 Batas bawah : 0.019618
 Batas atas  : 0.039593
 Jumlah Outlier : 3
-                         date        CO
-38   2025-10-07T00:00:00.000Z  0.041322
-68   2025-11-06T00:00:00.000Z  0.019267
-363  2026-08-28T00:00:00.000Z  0.040650
+                          date        CO
+38   2025-10-07 00:00:00+00:00  0.041322
+68   2025-11-06 00:00:00+00:00  0.019267
+363  2026-08-28 00:00:00+00:00  0.040650
 -&gt; Outlier pada kolom &#39;CO&#39; sudah diubah menjadi NaN.
 
 -----------------------------------
@@ -555,12 +554,12 @@ IQR : 0.000009
 Batas bawah : 0.000006
 Batas atas  : 0.000041
 Jumlah Outlier : 9
-                         date           NO2
-4    2025-09-03T00:00:00.000Z  4.200000e-05
-62   2025-10-31T00:00:00.000Z  3.980000e-06
-132  2026-01-09T00:00:00.000Z  4.290000e-05
-147  2026-01-24T00:00:00.000Z -4.950000e-06
-232  2026-04-19T00:00:00.000Z  3.770000e-07
+                          date           NO2
+4    2025-09-03 00:00:00+00:00  4.200000e-05
+62   2025-10-31 00:00:00+00:00  3.980000e-06
+132  2026-01-09 00:00:00+00:00  4.290000e-05
+147  2026-01-24 00:00:00+00:00 -4.950000e-06
+232  2026-04-19 00:00:00+00:00  3.770000e-07
 -&gt; Outlier pada kolom &#39;NO2&#39; sudah diubah menjadi NaN.
 
 -----------------------------------
@@ -572,12 +571,12 @@ IQR : 0.000127
 Batas bawah : -0.000226
 Batas atas  : 0.000282
 Jumlah Outlier : 13
-                         date       SO2
-2    2025-09-01T00:00:00.000Z  0.000569
-38   2025-10-07T00:00:00.000Z -0.000231
-55   2025-10-24T00:00:00.000Z -0.000260
-81   2025-11-19T00:00:00.000Z -0.001029
-147  2026-01-24T00:00:00.000Z  0.000351
+                          date       SO2
+2    2025-09-01 00:00:00+00:00  0.000569
+38   2025-10-07 00:00:00+00:00 -0.000231
+55   2025-10-24 00:00:00+00:00 -0.000260
+81   2025-11-19 00:00:00+00:00 -0.001029
+147  2026-01-24 00:00:00+00:00  0.000351
 -&gt; Outlier pada kolom &#39;SO2&#39; sudah diubah menjadi NaN.
 
 -----------------------------------
@@ -596,7 +595,7 @@ File hasil disimpan  : KualitasUdaraWidodaren_NoOutlier.csv
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
 <span class="c1"># Membaca file CSV</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;NO2InWidodaren.csv&quot;</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;csv/NO2InWidodaren.csv&quot;</span><span class="p">)</span>
 
 <span class="c1"># Mengubah date menjadi format tanggal</span>
 <span class="n">df</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">])</span>
@@ -674,7 +673,7 @@ File hasil disimpan  : KualitasUdaraWidodaren_NoOutlier.csv
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
 <span class="c1"># Membaca file CSV</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;SO2InWidodaren.csv&quot;</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;csv/SO2InWidodaren.csv&quot;</span><span class="p">)</span>
 
 <span class="c1"># Mengubah date menjadi format tanggal</span>
 <span class="n">df</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">])</span>
@@ -752,7 +751,7 @@ File hasil disimpan  : KualitasUdaraWidodaren_NoOutlier.csv
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
 <span class="c1"># Membaca file CSV</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;COInWidodaren.csv&quot;</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;csv/COInWidodaren.csv&quot;</span><span class="p">)</span>
 
 <span class="c1"># Mengubah date menjadi format tanggal</span>
 <span class="n">df</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">])</span>
@@ -831,7 +830,7 @@ File hasil disimpan  : KualitasUdaraWidodaren_NoOutlier.csv
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;SO2InWidodaren.csv&quot;</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;csv/SO2InWidodaren.csv&quot;</span><span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>  
 <span class="n">fitur_polutan</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;SO2&#39;</span><span class="p">]</span>
 
@@ -917,7 +916,7 @@ File hasil disimpan  : SO2Widodaren_NoOutlier.csv
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;NO2InWidodaren.csv&quot;</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;csv/NO2InWidodaren.csv&quot;</span><span class="p">)</span>
 <span class="n">df</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">])</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;date&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;date&#39;</span><span class="p">)</span>
 
@@ -957,9 +956,9 @@ File hasil disimpan  : SO2Widodaren_NoOutlier.csv
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
 <span class="c1"># Memuat data yang telah diproses</span>
-<span class="n">df_co</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;COInWidodaren.csv&quot;</span><span class="p">)</span>
-<span class="n">df_so2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;SO2InWidodaren.csv&quot;</span><span class="p">)</span>
-<span class="n">df_no2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;NO2InWidodaren.csv&quot;</span><span class="p">)</span>
+<span class="n">df_co</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;csv/COInWidodaren.csv&quot;</span><span class="p">)</span>
+<span class="n">df_so2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;csv/SO2InWidodaren.csv&quot;</span><span class="p">)</span>
+<span class="n">df_no2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;csv/NO2InWidodaren.csv&quot;</span><span class="p">)</span>
 
 <span class="n">df_co</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df_co</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">])</span>
 <span class="n">df_so2</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df_so2</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">])</span>
@@ -1046,7 +1045,7 @@ File hasil disimpan  : SO2Widodaren_NoOutlier.csv
 <span class="kn">import</span> <span class="nn">tsfel.feature_extraction.features</span> <span class="k">as</span> <span class="nn">tsfel_features</span>
 
 <span class="c1"># ---------- 1. Muat dan bersihkan data ----------</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;NO2-Widodaren-Clean.csv&#39;</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;csv/NO2-Widodaren-Clean.csv&#39;</span><span class="p">)</span>
 <span class="n">df</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">])</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;date&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
@@ -1131,7 +1130,7 @@ Berhasil! Jumlah fitur yang dihasilkan untuk NO2: 68
 <p>Contoh cuplikan hasil ekstraksi fitur NO2:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_features</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;NO2-Widodaren-TSFEL.csv&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_features</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;csv/NO2-Widodaren-TSFEL.csv&quot;</span><span class="p">)</span>
 <span class="n">df_features</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1211,7 +1210,7 @@ Berhasil! Jumlah fitur yang dihasilkan untuk NO2: 68
 <p>Contoh cuplikan hasil ekstraksi fitur SO2:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_features</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;SO2-Widodaren-TSFEL.csv&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_features</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;csv/SO2-Widodaren-TSFEL.csv&quot;</span><span class="p">)</span>
 <span class="n">df_features</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1291,7 +1290,7 @@ Berhasil! Jumlah fitur yang dihasilkan untuk NO2: 68
 <p>Contoh cuplikan hasil ekstraksi fitur CO:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_features</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;CO-Widodaren-TSFEL.csv&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_features</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;csv/CO-Widodaren-TSFEL.csv&quot;</span><span class="p">)</span>
 <span class="n">df_features</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1376,7 +1375,7 @@ Berhasil! Jumlah fitur yang dihasilkan untuk NO2: 68
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
 <span class="c1"># ---------- 1. Muat hasil ekstraksi TSFEL ----------</span>
-<span class="n">df_features</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;NO2-Widodaren-TSFEL.csv&#39;</span><span class="p">)</span>
+<span class="n">df_features</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;csv/NO2-Widodaren-TSFEL.csv&#39;</span><span class="p">)</span>
 
 <span class="c1"># ---------- 2. Mapping resmi fitur -&gt; domain (sesuai features.json TSFEL) ----------</span>
 <span class="n">FEATURE_DOMAIN_MAP</span> <span class="o">=</span> <span class="p">{</span>
@@ -3333,24 +3332,6 @@ k=0,\dots,B-1
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
-    <a class="left-prev"
-       href="polutan-Ngawi.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Kolekting Data: Kualitas Polusi Udara di Kecamatan Widodaren, Ngawi</p>
-      </div>
-    </a>
-    <a class="right-next"
-       href="K-Means%20Clustering.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">K-Means Clustering</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
 </div>
                 </footer>
               

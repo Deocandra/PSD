@@ -37,6 +37,6 @@ nbclient.exceptions.CellTimeoutError: A cell timed out while it was being execut
 The message was: Cell execution timed out.
 Here is a preview of the cell contents:
 -------------------
-job = s5p_co_aoi.execute_batch(title="Polutan CO in Widodaren", outputfile="COInWidodaren.csv")
+job = s5p_co_aoi.execute_batch(title="Polutan CO in Widodaren", outputfile="csv/COInWidodaren.csv")
 -------------------
 
