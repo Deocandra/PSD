@@ -1,0 +1,12 @@
+              precision    recall  f1-score   support
+
+    1: Sawah     0.7143    0.8333    0.7692        12
+ 2: Bangunan     0.8000    1.0000    0.8889        12
+    3: Hutan     1.0000    0.6667    0.8000        12
+    4: Danau     0.9231    1.0000    0.9600        12
+     5: Laut     1.0000    1.0000    1.0000        12
+ 6: Mangrove     1.0000    0.8333    0.9091        12
+
+    accuracy                         0.8889        72
+   macro avg     0.9062    0.8889    0.8879        72
+weighted avg     0.9062    0.8889    0.8879        72

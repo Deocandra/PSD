@@ -1,0 +1,9 @@
+metrik,nilai
+Akurasi,88.88888888888889
+Macro F1,0.8878684278684279
+Weighted F1,0.8878684278684279
+Total Poligon,357.0
+Poligon Latih,285.0
+Poligon Uji,72.0
+Uji Benar,64.0
+Uji Salah,8.0

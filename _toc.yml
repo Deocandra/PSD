@@ -19,4 +19,14 @@ chapters:
 - file: klasifikasi/index
   sections:
   - file: klasifikasi/klasifikasi-sawah
-
+- file: UTS/index
+  sections: 
+  - file: UTS/01_business_understanding
+  - file: UTS/02_data_understanding
+  - file: UTS/03_data_preparation
+  - file: UTS/04_modeling_evaluasi_svm
+  - file: UTS/05_visualisasi_peta_folium
+  - file: UTS/06_visualisasi_prediksi_model
+  - file: UTS/07_visualisasi_prediksi_raster_jatim
+  - file: UTS/08_streamlit_app
+  - file: UTS/09_kesimpulan
