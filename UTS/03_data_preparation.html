@@ -1,0 +1,918 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>03. Data Preparation: Agregasi Centroid Poligon &amp; Stratified Split &#8212; Website PSD</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'UTS/03_data_preparation';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="icon" href="../_static/logo.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="04. Modeling &amp; Evaluasi: Support Vector Machine (SVM)" href="04_modeling_evaluasi_svm.html" />
+    <link rel="prev" title="02. Data Understanding: Eksplorasi Dataset Piksel Sentinel-2A" href="02_data_understanding.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Website PSD - Home"/>
+    <img src="../_static/logo.png" class="logo__image only-dark pst-js-only" alt="Website PSD - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Profile
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../pages/polutan/polutan.html">Polutan di Kabupaten Ngawi</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../pages/polutan/bussiness-understanding.html">Business Understanding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pages/polutan/data-understanding.html">Data Understanding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pages/polutan/metrik-statistika.html">Memahami Angka-Angka di Balik Statistika Deskriptif</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../widodaren/index.html">Daerah Kecamatan Widodaren</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../widodaren/polutan-Ngawi.html">Kolekting Data: Kualitas Polusi Udara di Kecamatan Widodaren, Ngawi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../widodaren/tsfel.html">Penjelasan Domain TSFEL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../widodaren/interpolasi-linear.html">Data Preprocessing dan Ekstraksi Fitur (Interpolasi Linear)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../widodaren/interpolasi-polynomial.html">Data Preprocessing dan Ekstraksi Fitur (Interpolasi Polinomial)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../widodaren/k-meansCPolinomial.html">K-Means Clustering (Linier)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../klasifikasi/index.html">Klasfikasi Sawah dan Non-Sawah</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../klasifikasi/klasifikasi-sawah.html">Klasifikasi Spasial Lahan Sawah dan Non-Sawah Menggunakan Citra Sentinel-2A</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">LULC</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="01_business_understanding.html">01. Business Understanding &amp; Problem Framing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02_data_understanding.html">02. Data Understanding: Eksplorasi Dataset Piksel Sentinel-2A</a></li>
+
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">03. Data Preparation: Agregasi Centroid Poligon &amp; Stratified Split</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04_modeling_evaluasi_svm.html">04. Modeling &amp; Evaluasi: Support Vector Machine (SVM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05_visualisasi_peta_folium.html">05. Visualisasi Spasial Folium: Peta Ground Truth Aktual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06_visualisasi_prediksi_model.html">06. Visualisasi Spasial Evaluasi Prediksi Model SVM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="07_visualisasi_prediksi_raster_jatim.html">07. Visualisasi Prediksi Menyeluruh: Skala Raster Jawa Timur</a></li>
+<li class="toctree-l2"><a class="reference internal" href="08_streamlit_app.html">08. Deployment Aplikasi Web Dashboard: Streamlit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="09_kesimpulan.html">09. Kesimpulan &amp; Rekomendasi Ilmiah</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/UTS/03_data_preparation.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>03. Data Preparation: Agregasi Centroid Poligon & Stratified Split</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mitigasi-kebocoran-data-spasial-spatial-data-leakage">Mitigasi Kebocoran Data Spasial (<em>Spatial Data Leakage</em>)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#agregasi-tingkat-poligon-centroid-aggregation">1. Agregasi Tingkat Poligon (<em>Centroid Aggregation</em>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pembagian-data-latih-dan-data-uji-stratified-split-80-20">2. Pembagian Data Latih dan Data Uji (Stratified Split 80:20)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ekspor-data-poligon-terpisah-ke-direktori-output">3. Ekspor Data Poligon Terpisah ke Direktori Output</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="data-preparation-agregasi-centroid-poligon-stratified-split">
+<h1>03. Data Preparation: Agregasi Centroid Poligon &amp; Stratified Split<a class="headerlink" href="#data-preparation-agregasi-centroid-poligon-stratified-split" title="Link to this heading">#</a></h1>
+<section id="mitigasi-kebocoran-data-spasial-spatial-data-leakage">
+<h2>Mitigasi Kebocoran Data Spasial (<em>Spatial Data Leakage</em>)<a class="headerlink" href="#mitigasi-kebocoran-data-spasial-spatial-data-leakage" title="Link to this heading">#</a></h2>
+<p>Piksel-piksel yang berada di dalam satu poligon sampel memiliki autokorelasi spasial (<em>spatial autocorrelation</em>) yang sangat tinggi. Jika data dibagi (<em>split</em>) acak pada level piksel, model akan menghafal koordinat/lokasi poligon (akurasi semu <span class="math notranslate nohighlight">\(&gt;99\%\)</span>).
+Oleh karena itu, pada notebook ini dilakukan:</p>
+<ol class="arabic simple">
+<li><p><strong>Agregasi Centroid per <code class="docutils literal notranslate"><span class="pre">poligon_id</span></code></strong>: Menghitung nilai rata-rata dari 9 fitur spektral untuk setiap poligon unik.</p></li>
+<li><p><strong>Stratified Train-Test Split (80:20)</strong>: Membagi 357 poligon menjadi 285 poligon latih dan 72 poligon uji dengan proporsi seimbang untuk 6 kelas (<code class="docutils literal notranslate"><span class="pre">random_state=42</span></code>).</p></li>
+<li><p>Menyimpan hasil pembagian ke <code class="docutils literal notranslate"><span class="pre">output/df_poligon_split.csv</span></code>.</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+
+<span class="n">BASE_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span>
+<span class="n">DATA_DIR</span> <span class="o">=</span> <span class="n">BASE_DIR</span> <span class="o">/</span> <span class="s2">&quot;data&quot;</span>
+<span class="n">OUT_DIR</span> <span class="o">=</span> <span class="n">BASE_DIR</span> <span class="o">/</span> <span class="s2">&quot;output&quot;</span>
+<span class="n">OUT_DIR</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">DATA_FILE</span> <span class="o">=</span> <span class="n">DATA_DIR</span> <span class="o">/</span> <span class="s2">&quot;piksel_s2.csv&quot;</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">DATA_FILE</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+    <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;File </span><span class="si">{</span><span class="n">DATA_FILE</span><span class="si">}</span><span class="s2"> tidak ditemukan! Pastikan file &#39;piksel_s2.csv&#39; tersedia di folder data/.&quot;</span>
+    <span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Membaca </span><span class="si">{</span><span class="n">DATA_FILE</span><span class="si">}</span><span class="s2"> ...&quot;</span><span class="p">)</span>
+<span class="n">df_raw</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">DATA_FILE</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total piksel mentah: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df_raw</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Membaca D:\tugas psd\website-jupyterbook\UTS\data\piksel_s2.csv ...
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Total piksel mentah: 613,282
+</pre></div>
+</div>
+</div>
+</div>
+<section id="agregasi-tingkat-poligon-centroid-aggregation">
+<h3>1. Agregasi Tingkat Poligon (<em>Centroid Aggregation</em>)<a class="headerlink" href="#agregasi-tingkat-poligon-centroid-aggregation" title="Link to this heading">#</a></h3>
+<p>Menghilangkan nilai infinite/NaN jika ada, kemudian menghitung nilai mean fitur spektral per <code class="docutils literal notranslate"><span class="pre">poligon_id</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">FITUR_SPEKTRAL</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;B02&#39;</span><span class="p">,</span> <span class="s1">&#39;B03&#39;</span><span class="p">,</span> <span class="s1">&#39;B04&#39;</span><span class="p">,</span> <span class="s1">&#39;B08&#39;</span><span class="p">,</span> <span class="s1">&#39;B11&#39;</span><span class="p">,</span> <span class="s1">&#39;NDVI&#39;</span><span class="p">,</span> <span class="s1">&#39;NDWI&#39;</span><span class="p">,</span> <span class="s1">&#39;MNDWI&#39;</span><span class="p">,</span> <span class="s1">&#39;NDBI&#39;</span><span class="p">]</span>
+
+<span class="c1"># Bersihkan nilai invalid</span>
+<span class="n">df_clean</span> <span class="o">=</span> <span class="n">df_raw</span><span class="o">.</span><span class="n">replace</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="n">FITUR_SPEKTRAL</span><span class="p">)</span>
+
+<span class="c1"># Agregasi per poligon</span>
+<span class="n">df_poligon</span> <span class="o">=</span> <span class="n">df_clean</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;poligon_id&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">({</span>
+    <span class="s1">&#39;poligon_no&#39;</span><span class="p">:</span> <span class="s1">&#39;first&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;sampel_id&#39;</span><span class="p">:</span> <span class="s1">&#39;first&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;tile_id&#39;</span><span class="p">:</span> <span class="s1">&#39;first&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;first&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;label_teks&#39;</span><span class="p">:</span> <span class="s1">&#39;first&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;lon&#39;</span><span class="p">:</span> <span class="s1">&#39;mean&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;lat&#39;</span><span class="p">:</span> <span class="s1">&#39;mean&#39;</span><span class="p">,</span>
+    <span class="o">**</span><span class="p">{</span><span class="n">f</span><span class="p">:</span> <span class="s1">&#39;mean&#39;</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">FITUR_SPEKTRAL</span><span class="p">}</span>
+<span class="p">})</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Hasil agregasi poligon: </span><span class="si">{</span><span class="n">df_poligon</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> poligon unik x </span><span class="si">{</span><span class="n">df_poligon</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> kolom&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Distribusi Poligon per Kelas Tutupan Lahan:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_poligon</span><span class="p">[</span><span class="s1">&#39;label_teks&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">())</span>
+<span class="n">display</span><span class="p">(</span><span class="n">df_poligon</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Hasil agregasi poligon: 357 poligon unik x 17 kolom
+
+Distribusi Poligon per Kelas Tutupan Lahan:
+label_teks
+Bangunan    60
+Danau       60
+Hutan       60
+Mangrove    60
+Laut        59
+Sawah       58
+Name: count, dtype: int64
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>poligon_id</th>
+      <th>poligon_no</th>
+      <th>sampel_id</th>
+      <th>tile_id</th>
+      <th>label</th>
+      <th>label_teks</th>
+      <th>lon</th>
+      <th>lat</th>
+      <th>B02</th>
+      <th>B03</th>
+      <th>B04</th>
+      <th>B08</th>
+      <th>B11</th>
+      <th>NDVI</th>
+      <th>NDWI</th>
+      <th>MNDWI</th>
+      <th>NDBI</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Bangunan_0000</td>
+      <td>0</td>
+      <td>58</td>
+      <td>x556_y-38</td>
+      <td>2</td>
+      <td>Bangunan</td>
+      <td>111.208307</td>
+      <td>-7.457741</td>
+      <td>709.684615</td>
+      <td>882.915385</td>
+      <td>917.838462</td>
+      <td>2455.284615</td>
+      <td>2480.357692</td>
+      <td>0.452892</td>
+      <td>-0.468145</td>
+      <td>-0.476165</td>
+      <td>0.007976</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Bangunan_0001</td>
+      <td>1</td>
+      <td>59</td>
+      <td>x556_y-38</td>
+      <td>2</td>
+      <td>Bangunan</td>
+      <td>111.203330</td>
+      <td>-7.455503</td>
+      <td>683.794340</td>
+      <td>860.856604</td>
+      <td>962.190566</td>
+      <td>2475.658491</td>
+      <td>2655.532075</td>
+      <td>0.437712</td>
+      <td>-0.479927</td>
+      <td>-0.514773</td>
+      <td>0.039699</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Bangunan_0002</td>
+      <td>2</td>
+      <td>60</td>
+      <td>x556_y-38</td>
+      <td>2</td>
+      <td>Bangunan</td>
+      <td>111.208395</td>
+      <td>-7.452758</td>
+      <td>713.092979</td>
+      <td>895.746679</td>
+      <td>949.420304</td>
+      <td>2549.561670</td>
+      <td>2566.597723</td>
+      <td>0.454925</td>
+      <td>-0.476062</td>
+      <td>-0.488206</td>
+      <td>0.008582</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Bangunan_0003</td>
+      <td>3</td>
+      <td>61</td>
+      <td>x556_y-38</td>
+      <td>2</td>
+      <td>Bangunan</td>
+      <td>111.205926</td>
+      <td>-7.462115</td>
+      <td>820.887010</td>
+      <td>1000.555726</td>
+      <td>1093.528824</td>
+      <td>2421.211376</td>
+      <td>2585.983090</td>
+      <td>0.382561</td>
+      <td>-0.417816</td>
+      <td>-0.451327</td>
+      <td>0.036246</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Bangunan_0004</td>
+      <td>4</td>
+      <td>62</td>
+      <td>x556_y-38</td>
+      <td>2</td>
+      <td>Bangunan</td>
+      <td>111.198358</td>
+      <td>-7.479653</td>
+      <td>575.022034</td>
+      <td>740.664972</td>
+      <td>789.594915</td>
+      <td>2492.803390</td>
+      <td>2345.640678</td>
+      <td>0.512376</td>
+      <td>-0.534572</td>
+      <td>-0.523829</td>
+      <td>-0.022646</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="pembagian-data-latih-dan-data-uji-stratified-split-80-20">
+<h3>2. Pembagian Data Latih dan Data Uji (Stratified Split 80:20)<a class="headerlink" href="#pembagian-data-latih-dan-data-uji-stratified-split-80-20" title="Link to this heading">#</a></h3>
+<p>Data poligon dibagi dengan <code class="docutils literal notranslate"><span class="pre">test_size=0.2</span></code>, <code class="docutils literal notranslate"><span class="pre">random_state=42</span></code>, dan <code class="docutils literal notranslate"><span class="pre">stratify=df_poligon['label']</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Stratified Split 80:20</span>
+<span class="n">train_idx</span><span class="p">,</span> <span class="n">test_idx</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+    <span class="n">df_poligon</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
+    <span class="n">test_size</span><span class="o">=</span><span class="mf">0.20</span><span class="p">,</span>
+    <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span>
+    <span class="n">stratify</span><span class="o">=</span><span class="n">df_poligon</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span>
+<span class="p">)</span>
+
+<span class="n">df_poligon</span><span class="p">[</span><span class="s1">&#39;split&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Train&#39;</span>
+<span class="n">df_poligon</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">test_idx</span><span class="p">,</span> <span class="s1">&#39;split&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Test&#39;</span>
+
+<span class="n">split_summary</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">crosstab</span><span class="p">(</span><span class="n">df_poligon</span><span class="p">[</span><span class="s1">&#39;label_teks&#39;</span><span class="p">],</span> <span class="n">df_poligon</span><span class="p">[</span><span class="s1">&#39;split&#39;</span><span class="p">],</span> <span class="n">margins</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=== TABEL DISTRIBUSI SPLIT TRAIN-TEST ===&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">split_summary</span><span class="p">)</span>
+
+<span class="n">n_train</span> <span class="o">=</span> <span class="p">(</span><span class="n">df_poligon</span><span class="p">[</span><span class="s1">&#39;split&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Train&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">n_test</span> <span class="o">=</span> <span class="p">(</span><span class="n">df_poligon</span><span class="p">[</span><span class="s1">&#39;split&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Test&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total Poligon Latih (Train): </span><span class="si">{</span><span class="n">n_train</span><span class="si">}</span><span class="s2"> poligon (</span><span class="si">{</span><span class="n">n_train</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">df_poligon</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">%)&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total Poligon Uji (Test)   : </span><span class="si">{</span><span class="n">n_test</span><span class="si">}</span><span class="s2"> poligon (</span><span class="si">{</span><span class="n">n_test</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">df_poligon</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">%)&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== TABEL DISTRIBUSI SPLIT TRAIN-TEST ===
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>split</th>
+      <th>Test</th>
+      <th>Train</th>
+      <th>All</th>
+    </tr>
+    <tr>
+      <th>label_teks</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Bangunan</th>
+      <td>12</td>
+      <td>48</td>
+      <td>60</td>
+    </tr>
+    <tr>
+      <th>Danau</th>
+      <td>12</td>
+      <td>48</td>
+      <td>60</td>
+    </tr>
+    <tr>
+      <th>Hutan</th>
+      <td>12</td>
+      <td>48</td>
+      <td>60</td>
+    </tr>
+    <tr>
+      <th>Laut</th>
+      <td>12</td>
+      <td>47</td>
+      <td>59</td>
+    </tr>
+    <tr>
+      <th>Mangrove</th>
+      <td>12</td>
+      <td>48</td>
+      <td>60</td>
+    </tr>
+    <tr>
+      <th>Sawah</th>
+      <td>12</td>
+      <td>46</td>
+      <td>58</td>
+    </tr>
+    <tr>
+      <th>All</th>
+      <td>72</td>
+      <td>285</td>
+      <td>357</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Total Poligon Latih (Train): 285 poligon (79.8%)
+Total Poligon Uji (Test)   : 72 poligon (20.2%)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="ekspor-data-poligon-terpisah-ke-direktori-output">
+<h3>3. Ekspor Data Poligon Terpisah ke Direktori Output<a class="headerlink" href="#ekspor-data-poligon-terpisah-ke-direktori-output" title="Link to this heading">#</a></h3>
+<p>Menyimpan dataset poligon lengkap dengan kolom <code class="docutils literal notranslate"><span class="pre">split</span></code> (‘Train’ / ‘Test’) ke <code class="docutils literal notranslate"><span class="pre">output/df_poligon_split.csv</span></code> sebagai jembatan data bagi notebook selanjutnya.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">berkas_split</span> <span class="o">=</span> <span class="n">OUT_DIR</span> <span class="o">/</span> <span class="s2">&quot;df_poligon_split.csv&quot;</span>
+<span class="n">df_poligon</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">berkas_split</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Dataset poligon dengan label split tersimpan di: </span><span class="si">{</span><span class="n">berkas_split</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Ukuran berkas: </span><span class="si">{</span><span class="n">berkas_split</span><span class="o">.</span><span class="n">stat</span><span class="p">()</span><span class="o">.</span><span class="n">st_size</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> bytes&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=== DAFTAR BERKAS KELUARAN NOTEBOOK 03 ===&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;- </span><span class="si">{</span><span class="n">berkas_split</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Dataset poligon dengan label split tersimpan di: D:\tugas psd\website-jupyterbook\UTS\output\df_poligon_split.csv
+Ukuran berkas: 82,310 bytes
+=== DAFTAR BERKAS KELUARAN NOTEBOOK 03 ===
+- df_poligon_split.csv
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./UTS"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="02_data_understanding.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">02. Data Understanding: Eksplorasi Dataset Piksel Sentinel-2A</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="04_modeling_evaluasi_svm.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">04. Modeling &amp; Evaluasi: Support Vector Machine (SVM)</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mitigasi-kebocoran-data-spasial-spatial-data-leakage">Mitigasi Kebocoran Data Spasial (<em>Spatial Data Leakage</em>)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#agregasi-tingkat-poligon-centroid-aggregation">1. Agregasi Tingkat Poligon (<em>Centroid Aggregation</em>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pembagian-data-latih-dan-data-uji-stratified-split-80-20">2. Pembagian Data Latih dan Data Uji (Stratified Split 80:20)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ekspor-data-poligon-terpisah-ke-direktori-output">3. Ekspor Data Poligon Terpisah ke Direktori Output</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Deo Candra Saputra
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

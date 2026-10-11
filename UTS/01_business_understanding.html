@@ -1,0 +1,804 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>01. Business Understanding &amp; Problem Framing &#8212; Website PSD</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'UTS/01_business_understanding';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="icon" href="../_static/logo.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="02. Data Understanding: Eksplorasi Dataset Piksel Sentinel-2A" href="02_data_understanding.html" />
+    <link rel="prev" title="LULC" href="index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Website PSD - Home"/>
+    <img src="../_static/logo.png" class="logo__image only-dark pst-js-only" alt="Website PSD - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Profile
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../pages/polutan/polutan.html">Polutan di Kabupaten Ngawi</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../pages/polutan/bussiness-understanding.html">Business Understanding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pages/polutan/data-understanding.html">Data Understanding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pages/polutan/metrik-statistika.html">Memahami Angka-Angka di Balik Statistika Deskriptif</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../widodaren/index.html">Daerah Kecamatan Widodaren</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../widodaren/polutan-Ngawi.html">Kolekting Data: Kualitas Polusi Udara di Kecamatan Widodaren, Ngawi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../widodaren/tsfel.html">Penjelasan Domain TSFEL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../widodaren/interpolasi-linear.html">Data Preprocessing dan Ekstraksi Fitur (Interpolasi Linear)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../widodaren/interpolasi-polynomial.html">Data Preprocessing dan Ekstraksi Fitur (Interpolasi Polinomial)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../widodaren/k-meansCPolinomial.html">K-Means Clustering (Linier)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../klasifikasi/index.html">Klasfikasi Sawah dan Non-Sawah</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../klasifikasi/klasifikasi-sawah.html">Klasifikasi Spasial Lahan Sawah dan Non-Sawah Menggunakan Citra Sentinel-2A</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">LULC</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">01. Business Understanding &amp; Problem Framing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02_data_understanding.html">02. Data Understanding: Eksplorasi Dataset Piksel Sentinel-2A</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="03_data_preparation.html">03. Data Preparation: Agregasi Centroid Poligon &amp; Stratified Split</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04_modeling_evaluasi_svm.html">04. Modeling &amp; Evaluasi: Support Vector Machine (SVM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05_visualisasi_peta_folium.html">05. Visualisasi Spasial Folium: Peta Ground Truth Aktual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06_visualisasi_prediksi_model.html">06. Visualisasi Spasial Evaluasi Prediksi Model SVM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="07_visualisasi_prediksi_raster_jatim.html">07. Visualisasi Prediksi Menyeluruh: Skala Raster Jawa Timur</a></li>
+<li class="toctree-l2"><a class="reference internal" href="08_streamlit_app.html">08. Deployment Aplikasi Web Dashboard: Streamlit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="09_kesimpulan.html">09. Kesimpulan &amp; Rekomendasi Ilmiah</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/UTS/01_business_understanding.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>01. Business Understanding & Problem Framing</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jupytext-text-representation-extension-md-format-name-myst-format-version-0-13-jupytext-version-1-14-1-kernelspec-display-name-python-3-language-python-name-python3">jupytext:
+text_representation:
+extension: .md
+format_name: myst
+format_version: 0.13
+jupytext_version: 1.14.1
+kernelspec:
+display_name: Python 3
+language: python
+name: python3</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#latar-belakang">Latar Belakang</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rumusan-masalah">2. Rumusan Masalah</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tujuan-bisnis-dan-tujuan-data-science">3. Tujuan Bisnis dan Tujuan Data Science</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#a-tujuan-bisnis-business-objectives">A. Tujuan Bisnis (<em>Business Objectives</em>)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#b-tujuan-data-science-data-science-objectives">B. Tujuan Data Science (<em>Data Science Objectives</em>)</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pemangku-kepentingan-dan-pengguna-hasil-stakeholders">4. Pemangku Kepentingan dan Pengguna Hasil (<em>Stakeholders</em>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kriteria-keberhasilan-success-criteria">5. Kriteria Keberhasilan (<em>Success Criteria</em>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ruang-lingkup-dan-asumsi-scope-assumptions">6. Ruang Lingkup dan Asumsi (<em>Scope &amp; Assumptions</em>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#batasan-dan-risiko-constraints-risks">7. Batasan dan Risiko (<em>Constraints &amp; Risks</em>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gambaran-alur-proyek-end-to-end-pipeline">8. Gambaran Alur Proyek (<em>End-to-End Pipeline</em>)</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="business-understanding-problem-framing">
+<h1>01. Business Understanding &amp; Problem Framing<a class="headerlink" href="#business-understanding-problem-framing" title="Link to this heading">#</a></h1>
+<hr class="docutils" />
+<section id="jupytext-text-representation-extension-md-format-name-myst-format-version-0-13-jupytext-version-1-14-1-kernelspec-display-name-python-3-language-python-name-python3">
+<h2>jupytext:
+text_representation:
+extension: .md
+format_name: myst
+format_version: 0.13
+jupytext_version: 1.14.1
+kernelspec:
+display_name: Python 3
+language: python
+name: python3<a class="headerlink" href="#jupytext-text-representation-extension-md-format-name-myst-format-version-0-13-jupytext-version-1-14-1-kernelspec-display-name-python-3-language-python-name-python3" title="Link to this heading">#</a></h2>
+</section>
+<section id="latar-belakang">
+<h2>Latar Belakang<a class="headerlink" href="#latar-belakang" title="Link to this heading">#</a></h2>
+<p>Pemerintah pusat maupun daerah memiliki kewajiban untuk merumuskan kebijakan tata ruang yang presisi, seperti Rencana Tata Ruang Wilayah (RTRW) dan pengawasan Rencana Detail Tata Ruang (RDTR). Kebijakan ini sangat bergantung pada pemutakhiran data tutupan dan penggunaan lahan (LULC). Sayangnya, instansi pemerintahan sering kali menghadapi kendala keterlambatan data karena audit lapangan secara manual memakan waktu berbulan-bulan dan menghabiskan anggaran negara yang besar. Akibatnya, pelanggaran zonasi—seperti konversi lahan sawah produktif menjadi perumahan atau deforestasi mangrove ilegal—sering terlambat ditindak.</p>
+<p>Dari kacamata seorang programmer atau data engineer di sektor gov-tech, ketersediaan citra satelit berkala seperti Sentinel-2A merupakan sumber data mentah (raw data) bervolume raksasa yang tidak bisa lagi diproses secara manual oleh analis manusia. Tantangan utamanya adalah bagaimana membangun sebuah sistem otomasi yang dapat menarik (ingest) data satelit, memproses piksel-piksel tersebut secara komputasional, dan mendistribusikan hasil klasifikasinya kepada para pemangku kebijakan dalam bentuk dashboard atau API yang terintegrasi dengan sistem informasi geografis (GIS) pemerintah.</p>
+<p>Tujuan Bisnis</p>
+<p>Proyek ini bertujuan untuk menjembatani kebutuhan analitik pemerintah dengan solusi rekayasa perangkat lunak melalui penerapan Machine Learning. Secara spesifik, tujuan ini dibagi menjadi dua dimensi utama:</p>
+<p>Dimensi Kebijakan Publik (Dampak Sosio-Ekonomi):</p>
+<p>Memberikan landasan data yang mutakhir dan real-time bagi pemerintah untuk mengambil keputusan strategis. Dengan memetakan lahan ke dalam 6 kelas utama (Sawah, Bangunan, Mangrove, Hutan, Laut, dan Danau), pemerintah dapat secara otomatis memantau ketahanan pangan (luas sawah), laju urbanisasi (ekspansi bangunan), pelestarian lingkungan (mangrove dan hutan), serta batas sumber daya air. Hal ini mempercepat audit tata ruang dari hitungan bulan menjadi hitungan jam.</p>
+<p>Dimensi Pengembangan Perangkat Lunak (Teknis &amp; Operasional):</p>
+<p>Membangun pipeline pemrosesan data geospasial yang skalabel dan efisien. Sebagai programmer, tujuan teknisnya adalah merancang eksperimen untuk membandingkan performa algoritma Naive Bayes dan K-Nearest Neighbors (KNN). Evaluasi tidak hanya berfokus pada akurasi klasifikasi kelas lahan, tetapi juga pada efisiensi komputasi (waktu training dan inference), sehingga model yang terpilih dapat di-deploy ke dalam arsitektur peladen (server) pemerintah tanpa membebani infrastruktur secara berlebihan.</p>
+<p>Kriteria Keberhasilan (Success Criteria)</p>
+<p>Keberhasilan Teknis: Model Machine Learning yang terpilih (antara Naive Bayes atau KNN) mampu mengklasifikasikan 6 kelas LULC dengan metrik akurasi (misalnya F1-Score) di atas batas ambang yang disepakati, dan script pipeline dapat berjalan secara otomatis tanpa intervensi manual.</p>
+<p>Keberhasilan Bisnis/Kebijakan: Terciptanya purwarupa aplikasi atau layanan API yang memampukan analis tata ruang pemerintah untuk melihat perubahan lahan secara interaktif, yang berujung pada efisiensi waktu operasional survei lapangan hingga lebih dari 60%.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Markdown</span><span class="p">,</span> <span class="n">display</span>
+
+<span class="n">BASE_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span>
+<span class="n">INDEX_FILE</span> <span class="o">=</span> <span class="n">BASE_DIR</span> <span class="o">/</span> <span class="s2">&quot;index.md&quot;</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">INDEX_FILE</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+    <span class="c1"># Jika dijalankan dari subfolder atau path lain</span>
+    <span class="n">INDEX_FILE</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;index.md&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">INDEX_FILE</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">INDEX_FILE</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">isi_index</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">Markdown</span><span class="p">(</span><span class="n">isi_index</span><span class="p">))</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Peringatan: Berkas </span><span class="si">{</span><span class="n">INDEX_FILE</span><span class="si">}</span><span class="s2"> tidak ditemukan.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<h1 class="rubric" id="lulc">LULC</h1>
+<p>LULC adalah singkatan dari Land Use and Land Cover (Penggunaan Lahan dan Tutupan Lahan). Informasi mengenai tutupan dan penggunaan lahan sangat penting dalam perencanaan wilayah, manajemen sumber daya alam, hingga memantau perubahan iklim. Pendataan lahan secara manual dengan terjun langsung ke lapangan memakan waktu dan biaya operasional yang sangat besar. Untungnya, satelit observasi bumi seperti Sentinel-2A mengorbit dan mengambil citra bumi secara berkala. Namun, membedakan mana Sawah, Danau, atau Hutan dari citra satelit mentah tetap memerlukan pengamatan khusus dari tenaga ahli.</p>
+</div>
+</div>
+<section id="rumusan-masalah">
+<h3>2. Rumusan Masalah<a class="headerlink" href="#rumusan-masalah" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Biaya dan Waktu Survei Manual</strong>: Pendataan lahan secara manual dengan survei lapangan (terestrial) di wilayah seluas Provinsi Jawa Timur (~48.000 km²) membutuhkan waktu berbulan-bulan dan anggaran operasional yang sangat besar.</p></li>
+<li><p><strong>Kompleksitas Citra Satelit Mentah</strong>: Citra satelit Sentinel-2A mentah memiliki multi-saluran panjang gelombang yang tidak dapat diinterpretasi langsung secara cepat oleh pengambil kebijakan tanpa keahlian khusus penginderaan jauh (<em>remote sensing</em>).</p></li>
+<li><p><strong>Kebutuhan Otomatisasi Klasifikasi Spasial</strong>: Diperlukan sebuah sistem pembelajaran mesin (<em>Machine Learning</em>) yang mampu mengklasifikasikan piksel citra satelit ke dalam 6 kelas tutupan lahan secara otomatis, cepat, akurat, dan dapat direproduksi (<em>reproducible</em>) secara berkala.</p></li>
+</ol>
+</section>
+<section id="tujuan-bisnis-dan-tujuan-data-science">
+<h3>3. Tujuan Bisnis dan Tujuan Data Science<a class="headerlink" href="#tujuan-bisnis-dan-tujuan-data-science" title="Link to this heading">#</a></h3>
+<section id="a-tujuan-bisnis-business-objectives">
+<h4>A. Tujuan Bisnis (<em>Business Objectives</em>)<a class="headerlink" href="#a-tujuan-bisnis-business-objectives" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>Penyediaan Peta Tematik</strong>: Menyediakan peta digital tutupan lahan (LULC) Provinsi Jawa Timur yang mutakhir dan akurat.</p></li>
+<li><p><strong>Dukungan Keputusan Terukur</strong>: Mendukung perencanaan tata ruang wilayah (RTRW), inventarisasi lahan pertanian pangan berkelanjutan (LP2B), pemantauan kawasan hutan dan konservasi mangrove, serta deteksi alih fungsi lahan secara periodik.</p></li>
+</ul>
+</section>
+<section id="b-tujuan-data-science-data-science-objectives">
+<h4>B. Tujuan Data Science (<em>Data Science Objectives</em>)<a class="headerlink" href="#b-tujuan-data-science-data-science-objectives" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>Pemodelan Spasial 6 Kelas</strong>: Membangun model klasifikasi mutakhir berbasis algoritma <strong>Support Vector Machine (SVM)</strong> dengan kernel Radial Basis Function (RBF) untuk membedakan 6 kelas tutupan lahan: <em>Sawah, Bangunan, Hutan, Danau, Laut, dan Mangrove</em>.</p></li>
+<li><p><strong>Mitigasi Kebocoran Data Spasial</strong>: Mengimplementasikan agregasi centroid per poligon guna mengeliminasi autokorelasi spasial (<em>spatial autocorrelation leakage</em>) saat pembagian data latih dan data uji.</p></li>
+<li><p><strong>Diseminasi Interaktif</strong>: Menyajikan hasil klasifikasi ground truth, evaluasi model, dan prediksi raster skala penuh Jawa Timur ke dalam visualisasi peta interaktif web-GIS Folium dan dashboard Streamlit.</p></li>
+</ul>
+</section>
+</section>
+<section id="pemangku-kepentingan-dan-pengguna-hasil-stakeholders">
+<h3>4. Pemangku Kepentingan dan Pengguna Hasil (<em>Stakeholders</em>)<a class="headerlink" href="#pemangku-kepentingan-dan-pengguna-hasil-stakeholders" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Badan Perencanaan Pembangunan Wilayah</strong>: Menggunakan peta LULC sebagai acuan zonasi spasial dan evaluasi pola ruang wilayah.</p></li>
+<li><p><strong>Dinas Lingkungan Hidup &amp; Kehutanan</strong>: Memonitor keutuhan tutupan vegetasi hutan lindung, sebaran mangrove pesisir, dan perubahan badan air alami.</p></li>
+<li><p><strong>Dinas Pertanian &amp; Ketahanan Pangan</strong>: Mengestimasi luasan sawah produktif dan mendeteksi alih fungsi lahan sawah ke pemukiman/bangunan.</p></li>
+<li><p><strong>Peneliti &amp; Mahasiswa Akademik</strong>: Memanfaatkan metodologi openEO, mitigasi spatial leakage, dan klasifikasi raster multispektral sebagai referensi riset data science spasial.</p></li>
+</ul>
+</section>
+<section id="kriteria-keberhasilan-success-criteria">
+<h3>5. Kriteria Keberhasilan (<em>Success Criteria</em>)<a class="headerlink" href="#kriteria-keberhasilan-success-criteria" title="Link to this heading">#</a></h3>
+<p>Kriteria keberhasilan ditetapkan sebagai target objektif sebelum pemodelan dilakukan:</p>
+<ul class="simple">
+<li><p><strong>Target Akurasi &amp; Macro F1 Data Uji</strong>: Model SVM ditargetkan mencapai Akurasi minimum <span class="math notranslate nohighlight">\(\ge 85\%\)</span> dan skor Macro F1 <span class="math notranslate nohighlight">\(\ge 0.85\)</span> pada data uji poligon yang belum pernah dilihat saat pelatihan (<em>unseen test data</em>).</p></li>
+<li><p><strong>Integritas Metodologi Spasial</strong>: Evaluasi bebas dari kebocoran data spasial dengan pembagian data pada tingkat poligon (<em>polygon-level stratified train-test split</em>).</p></li>
+<li><p><strong>Fungsionalitas Sistem &amp; Peta</strong>: Terbentuknya peta web interaktif bebas blokir untuk data ground truth, komparasi spasial prediksi SVM, dan prediksi raster skala penuh Provinsi Jawa Timur, serta tersedianya dashboard Streamlit yang stabil tanpa galat.</p></li>
+</ul>
+</section>
+<section id="ruang-lingkup-dan-asumsi-scope-assumptions">
+<h3>6. Ruang Lingkup dan Asumsi (<em>Scope &amp; Assumptions</em>)<a class="headerlink" href="#ruang-lingkup-dan-asumsi-scope-assumptions" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Wilayah Studi</strong>: Seluruh daratan dan perairan Provinsi Jawa Timur, termasuk gugusan pulau terluar seperti Kepulauan Kangean.</p></li>
+<li><p><strong>Kelas LULC (6 Kelas)</strong>: 1: Sawah, 2: Bangunan, 3: Hutan, 4: Danau, 5: Laut, 6: Mangrove.</p></li>
+<li><p><strong>Sumber Citra</strong>: Sentinel-2A Level-2A (Bottom of Atmosphere / BOA Reflectance) yang diunduh dan diproses melalui platform openEO (Copernicus Data Space Ecosystem / CDSE).</p></li>
+<li><p><strong>Periode Waktu</strong>: Komposit citra musim kemarau (<em>dry season</em>, Agustus 2024) untuk meminimalisir tutupan awan persisten dan menjaga konsistensi pantulan spektral.</p></li>
+<li><p><strong>Metode Pembelajaran</strong>: Menggunakan metode tunggal terstandarisasi: <strong>Support Vector Machine (SVM)</strong> dengan RBF kernel (<span class="math notranslate nohighlight">\(C=10, \gamma=	ext{'scale'}\)</span>) dalam <code class="docutils literal notranslate"><span class="pre">Pipeline</span></code> bersama <code class="docutils literal notranslate"><span class="pre">StandardScaler</span></code>.</p></li>
+</ul>
+</section>
+<section id="batasan-dan-risiko-constraints-risks">
+<h3>7. Batasan dan Risiko (<em>Constraints &amp; Risks</em>)<a class="headerlink" href="#batasan-dan-risiko-constraints-risks" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Tutupan Awan dan Bayangan</strong>: Area tropis sering mengalami tutupan awan kumulus; pemilihan citra dengan <em>cloud cover</em> <span class="math notranslate nohighlight">\(&lt;30\%\)</span> dan agregasi median temporal diterapkan untuk mitigasi.</p></li>
+<li><p><strong>Efek Piksel Campuran (<em>Mixed Pixel</em>)</strong>: Citra raster regional Jawa Timur diunduh pada resolusi spasial ~250 m per piksel untuk efisiensi komputasi, sementara sampel poligon berasal dari piksel 10–20 m. Hal ini berpotensi memicu <em>domain shift</em> dan ketidakpastian klasifikasi pada batas-batas objek sempit (misal sempadan sungai atau mangrove tepi pantai).</p></li>
+<li><p><strong>Dominasi Wilayah Laut</strong>: Area laut Jawa Timur sangat luas dibandingkan daratan sehingga inferensi raster penuh memerlukan pengelolaan memori batch agar tidak terjadi kehabisan RAM.</p></li>
+<li><p><strong>Ukuran Sampel Poligon Terbatas</strong>: Terdapat 357 poligon sampel ground truth terverifikasi, sehingga data uji independen berjumlah 72 poligon. Oleh karena itu, <em>stratified split</em> wajib dijaga agar tiap kelas terwakili secara proporsional.</p></li>
+</ul>
+</section>
+<section id="gambaran-alur-proyek-end-to-end-pipeline">
+<h3>8. Gambaran Alur Proyek (<em>End-to-End Pipeline</em>)<a class="headerlink" href="#gambaran-alur-proyek-end-to-end-pipeline" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>No</p></th>
+<th class="head"><p>Tahapan Notebook</p></th>
+<th class="head"><p>Deskripsi Utama</p></th>
+<th class="head"><p>Keluaran Utama</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>01</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">01_business_understanding.ipynb</span></code></p></td>
+<td><p>Perumusan masalah bisnis, tujuan data science, dan kriteria keberhasilan</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">output/01_business_understanding.md</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>02</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">02_data_understanding.ipynb</span></code></p></td>
+<td><p>Eksplorasi dataset piksel Sentinel-2A, distribusi kelas, dan respons spektral</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">output/02_distribusi_kelas_piksel.csv</span></code>, <code class="docutils literal notranslate"><span class="pre">output/02_*.png</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>03</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">03_data_preparation.ipynb</span></code></p></td>
+<td><p>Centroid aggregation poligon (mitigasi spatial leakage) dan stratified 80:20 split</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">output/df_poligon_split.csv</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>04</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">04_modeling_evaluasi_svm.ipynb</span></code></p></td>
+<td><p>Pelatihan Pipeline StandardScaler + SVM (RBF) dan evaluasi komprehensif</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">output/model_svm.joblib</span></code>, <code class="docutils literal notranslate"><span class="pre">output/df_poligon_pred_svm.csv</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>05</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">05_visualisasi_peta_folium.ipynb</span></code></p></td>
+<td><p>Peta interaktif poligon data aktual (ground truth) per kelas</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">output/peta_aktual_lulc.html</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>06</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">06_visualisasi_prediksi_model.ipynb</span></code></p></td>
+<td><p>Peta interaktif evaluasi prediksi SVM (benar vs salah pada data uji)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">output/peta_prediksi_svm.html</span></code>, <code class="docutils literal notranslate"><span class="pre">output/06_*.png</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>07</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">07_visualisasi_prediksi_raster_jatim.ipynb</span></code></p></td>
+<td><p>Inferensi batch SVM pada citra raster Sentinel-2 Jawa Timur (~250 m)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">output/prediksi_lulc_jatim_svm.tif</span></code>, <code class="docutils literal notranslate"><span class="pre">output/peta_prediksi_raster_jatim.html</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>08</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">08_streamlit_app.ipynb</span></code></p></td>
+<td><p>Penulisan modul web dashboard Streamlit interaktif (<code class="docutils literal notranslate"><span class="pre">app.py</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code>)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">app.py</span></code>, <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>09</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">09_kesimpulan.ipynb</span></code></p></td>
+<td><p>Sintesis temuan ilmiah, capaian metrik, dan rekomendasi operasional</p></td>
+<td><p>Ringkasan eksekutif proyek</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Menyimpan ringkasan Business Understanding ke output/01_business_understanding.md</span>
+<span class="n">ringkasan_md</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;# Ringkasan Business Understanding: LULC Jawa Timur (Sentinel-2A &amp; SVM)</span>
+
+<span class="s1">## 1. Tujuan Bisnis</span>
+<span class="s1">Menyediakan peta tematik klasifikasi Land Use Land Cover (LULC) Provinsi Jawa Timur 6 kelas yang akurat dan dapat diperbarui secara berkala untuk mendukung perencanaan tata ruang wilayah (RTRW), perlindungan lahan pertanian (LP2B), dan pemantauan kelestarian lingkungan pesisir serta hutan.</span>
+
+<span class="s1">## 2. Tujuan Data Science</span>
+<span class="s1">Membangun model klasifikasi 6 kelas (Sawah, Bangunan, Hutan, Danau, Laut, Mangrove) berbasis Support Vector Machine (SVC kernel RBF, C=10, gamma=&#39;scale&#39;) dengan fitur 5 band spektral (B02, B03, B04, B08, B11) dan 4 indeks spektral (NDVI, NDWI, MNDWI, NDBI). Evaluasi dilakukan pada tingkat agregasi poligon untuk mencegah kebocoran spasial.</span>
+
+<span class="s1">## 3. Kriteria Keberhasilan</span>
+<span class="s1">- Akurasi pengujian &gt;= 85</span><span class="si">% d</span><span class="s1">an Macro F1 &gt;= 0.85 pada data uji independen.</span>
+<span class="s1">- Tidak terjadi spatial data leakage (pembagian data berbasis poligon).</span>
+<span class="s1">- Sistem visualisasi Web-GIS interaktif dan dashboard Streamlit berfungsi penuh tanpa galat.</span>
+
+<span class="s1">## 4. Ruang Lingkup dan Batasan</span>
+<span class="s1">- Wilayah studi: Provinsi Jawa Timur (termasuk Kepulauan Kangean).</span>
+<span class="s1">- Citra satelit: Sentinel-2A Level-2A dari openEO CDSE (komposit Agustus 2024).</span>
+<span class="s1">- Metode tunggal: Pipeline StandardScaler + SVM (SVC RBF).</span>
+<span class="s1">- Resolusi data latih: 10-20 m (agregasi poligon ground truth); Resolusi raster regional: ~250 m.</span>
+<span class="s1">&#39;&#39;&#39;</span>
+
+<span class="n">OUT_DIR</span> <span class="o">=</span> <span class="n">BASE_DIR</span> <span class="o">/</span> <span class="s2">&quot;output&quot;</span>
+<span class="n">OUT_DIR</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">berkas_keluaran</span> <span class="o">=</span> <span class="n">OUT_DIR</span> <span class="o">/</span> <span class="s2">&quot;01_business_understanding.md&quot;</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">berkas_keluaran</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">ringkasan_md</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;File tersimpan: </span><span class="si">{</span><span class="n">berkas_keluaran</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Ukuran berkas: </span><span class="si">{</span><span class="n">berkas_keluaran</span><span class="o">.</span><span class="n">stat</span><span class="p">()</span><span class="o">.</span><span class="n">st_size</span><span class="si">}</span><span class="s2"> bytes&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>File tersimpan: D:\tugas psd\website-jupyterbook\UTS\output\01_business_understanding.md
+Ukuran berkas: 1373 bytes
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./UTS"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">LULC</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="02_data_understanding.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">02. Data Understanding: Eksplorasi Dataset Piksel Sentinel-2A</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jupytext-text-representation-extension-md-format-name-myst-format-version-0-13-jupytext-version-1-14-1-kernelspec-display-name-python-3-language-python-name-python3">jupytext:
+text_representation:
+extension: .md
+format_name: myst
+format_version: 0.13
+jupytext_version: 1.14.1
+kernelspec:
+display_name: Python 3
+language: python
+name: python3</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#latar-belakang">Latar Belakang</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rumusan-masalah">2. Rumusan Masalah</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tujuan-bisnis-dan-tujuan-data-science">3. Tujuan Bisnis dan Tujuan Data Science</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#a-tujuan-bisnis-business-objectives">A. Tujuan Bisnis (<em>Business Objectives</em>)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#b-tujuan-data-science-data-science-objectives">B. Tujuan Data Science (<em>Data Science Objectives</em>)</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pemangku-kepentingan-dan-pengguna-hasil-stakeholders">4. Pemangku Kepentingan dan Pengguna Hasil (<em>Stakeholders</em>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kriteria-keberhasilan-success-criteria">5. Kriteria Keberhasilan (<em>Success Criteria</em>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ruang-lingkup-dan-asumsi-scope-assumptions">6. Ruang Lingkup dan Asumsi (<em>Scope &amp; Assumptions</em>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#batasan-dan-risiko-constraints-risks">7. Batasan dan Risiko (<em>Constraints &amp; Risks</em>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gambaran-alur-proyek-end-to-end-pipeline">8. Gambaran Alur Proyek (<em>End-to-End Pipeline</em>)</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Deo Candra Saputra
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

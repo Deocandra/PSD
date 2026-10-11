@@ -1,0 +1,1363 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>02. Data Understanding: Eksplorasi Dataset Piksel Sentinel-2A &#8212; Website PSD</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'UTS/02_data_understanding';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="icon" href="../_static/logo.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="03. Data Preparation: Agregasi Centroid Poligon &amp; Stratified Split" href="03_data_preparation.html" />
+    <link rel="prev" title="01. Business Understanding &amp; Problem Framing" href="01_business_understanding.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Website PSD - Home"/>
+    <img src="../_static/logo.png" class="logo__image only-dark pst-js-only" alt="Website PSD - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Profile
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../pages/polutan/polutan.html">Polutan di Kabupaten Ngawi</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../pages/polutan/bussiness-understanding.html">Business Understanding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pages/polutan/data-understanding.html">Data Understanding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pages/polutan/metrik-statistika.html">Memahami Angka-Angka di Balik Statistika Deskriptif</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../widodaren/index.html">Daerah Kecamatan Widodaren</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../widodaren/polutan-Ngawi.html">Kolekting Data: Kualitas Polusi Udara di Kecamatan Widodaren, Ngawi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../widodaren/tsfel.html">Penjelasan Domain TSFEL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../widodaren/interpolasi-linear.html">Data Preprocessing dan Ekstraksi Fitur (Interpolasi Linear)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../widodaren/interpolasi-polynomial.html">Data Preprocessing dan Ekstraksi Fitur (Interpolasi Polinomial)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../widodaren/k-meansCPolinomial.html">K-Means Clustering (Linier)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../klasifikasi/index.html">Klasfikasi Sawah dan Non-Sawah</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../klasifikasi/klasifikasi-sawah.html">Klasifikasi Spasial Lahan Sawah dan Non-Sawah Menggunakan Citra Sentinel-2A</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">LULC</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="01_business_understanding.html">01. Business Understanding &amp; Problem Framing</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">02. Data Understanding: Eksplorasi Dataset Piksel Sentinel-2A</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="03_data_preparation.html">03. Data Preparation: Agregasi Centroid Poligon &amp; Stratified Split</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04_modeling_evaluasi_svm.html">04. Modeling &amp; Evaluasi: Support Vector Machine (SVM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05_visualisasi_peta_folium.html">05. Visualisasi Spasial Folium: Peta Ground Truth Aktual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06_visualisasi_prediksi_model.html">06. Visualisasi Spasial Evaluasi Prediksi Model SVM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="07_visualisasi_prediksi_raster_jatim.html">07. Visualisasi Prediksi Menyeluruh: Skala Raster Jawa Timur</a></li>
+<li class="toctree-l2"><a class="reference internal" href="08_streamlit_app.html">08. Deployment Aplikasi Web Dashboard: Streamlit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="09_kesimpulan.html">09. Kesimpulan &amp; Rekomendasi Ilmiah</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/UTS/02_data_understanding.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>02. Data Understanding: Eksplorasi Dataset Piksel Sentinel-2A</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">02. Data Understanding: Eksplorasi Dataset Piksel Sentinel-2A</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#karakteristik-data-spektral-dan-profil-tutupan-lahan-jawa-timur">Karakteristik Data Spektral dan Profil Tutupan Lahan Jawa Timur</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jupytext-text-representation-extension-md-format-name-myst-format-version-0-13-jupytext-version-1-14-1-kernelspec-display-name-python-3-language-python-name-python3">jupytext:
+text_representation:
+extension: .md
+format_name: myst
+format_version: 0.13
+jupytext_version: 1.14.1
+kernelspec:
+display_name: Python 3
+language: python
+name: python3</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#data-understanding-karakteristik-data-spasial">2. Data Understanding &amp; Karakteristik Data Spasial</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definisi-domain-dan-6-kelas-tutupan-lahan">2.1. Definisi Domain dan 6 Kelas Tutupan Lahan</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#karakteristik-citra-satelit-sentinel-2a-level-2a">2.2. Karakteristik Citra Satelit Sentinel-2A Level-2A</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rekayasa-fitur-indeks-spektral-spectral-indices">2.3. Rekayasa Fitur Indeks Spektral (Spectral Indices)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sebaran-data-ground-truth-dan-hasil-ekstraksi">2.4. Sebaran Data Ground Truth dan Hasil Ekstraksi</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#struktur-data-pengecekan-missing-value">1. Struktur Data &amp; Pengecekan Missing Value</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-kelas-tutupan-lahan-data-mentah-piksel">2. Distribusi Kelas Tutupan Lahan (Data Mentah Piksel)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#profil-karakteristik-spektral-spectral-signatures">3. Profil Karakteristik Spektral (<em>Spectral Signatures</em>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matriks-korelasi-pearson-fitur-spektral">4. Matriks Korelasi Pearson Fitur Spektral</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="data-understanding-eksplorasi-dataset-piksel-sentinel-2a">
+<h1>02. Data Understanding: Eksplorasi Dataset Piksel Sentinel-2A<a class="headerlink" href="#data-understanding-eksplorasi-dataset-piksel-sentinel-2a" title="Link to this heading">#</a></h1>
+<section id="karakteristik-data-spektral-dan-profil-tutupan-lahan-jawa-timur">
+<h2>Karakteristik Data Spektral dan Profil Tutupan Lahan Jawa Timur<a class="headerlink" href="#karakteristik-data-spektral-dan-profil-tutupan-lahan-jawa-timur" title="Link to this heading">#</a></h2>
+</section>
+<hr class="docutils" />
+<section id="jupytext-text-representation-extension-md-format-name-myst-format-version-0-13-jupytext-version-1-14-1-kernelspec-display-name-python-3-language-python-name-python3">
+<h2>jupytext:
+text_representation:
+extension: .md
+format_name: myst
+format_version: 0.13
+jupytext_version: 1.14.1
+kernelspec:
+display_name: Python 3
+language: python
+name: python3<a class="headerlink" href="#jupytext-text-representation-extension-md-format-name-myst-format-version-0-13-jupytext-version-1-14-1-kernelspec-display-name-python-3-language-python-name-python3" title="Link to this heading">#</a></h2>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="data-understanding-karakteristik-data-spasial">
+<h1>2. Data Understanding &amp; Karakteristik Data Spasial<a class="headerlink" href="#data-understanding-karakteristik-data-spasial" title="Link to this heading">#</a></h1>
+<section id="definisi-domain-dan-6-kelas-tutupan-lahan">
+<h2>2.1. Definisi Domain dan 6 Kelas Tutupan Lahan<a class="headerlink" href="#definisi-domain-dan-6-kelas-tutupan-lahan" title="Link to this heading">#</a></h2>
+<p>Area of Interest (AOI) mencakup seluruh wilayah daratan dan perairan pesisir Provinsi Jawa Timur. Objek permukaan bumi dikelompokkan ke dalam 6 kelas tutupan lahan utama:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>No</p></th>
+<th class="head"><p>Nama Kelas</p></th>
+<th class="head"><p>Kode Label</p></th>
+<th class="head"><p>Definisi &amp; Karakteristik Objek</p></th>
+<th class="head"><p>Respon Spektral Utama</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>Sawah</p></td>
+<td><p>1</p></td>
+<td><p>Lahan pertanian padi basah berpetak. Kondisi bervariasi dari genangan air awal tanam, fase vegetatif hijau pekat, hingga fase pematangan/panen.</p></td>
+<td><p>Pantulan NIR sedang-tinggi pada fase vegetatif; nilai SWIR meningkat pada lahan bera/kering.</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>Bangunan</p></td>
+<td><p>2</p></td>
+<td><p>Kawasan terbangun perkotaan, permukiman, jalan aspal/beton, dan atap bangunan (genteng/seng).</p></td>
+<td><p>Pantulan tinggi pada band SWIR (B11) dan Red (B04); nilai NDBI positif tinggi; NDVI rendah.</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>Hutan (Lahan Hijau)</p></td>
+<td><p>3</p></td>
+<td><p>Vegetasi alami kanopi pohon lebat, hutan pegunungan, perbukitan hijau, dan perkebunan tahunan rapat.</p></td>
+<td><p>Pantulan sangat tinggi pada NIR (B08) akibat struktur sel daun; serapan kuat pada Red (B04); NDVI sangat tinggi.</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p>Danau</p></td>
+<td><p>4</p></td>
+<td><p>Badan air tawar pedalaman (danau alami, waduk, telaga, bendungan) berarus tenang.</p></td>
+<td><p>Penyerapan kuat pada inframerah (NIR dan SWIR); nilai NDWI dan MNDWI sangat positif; NDVI negatif.</p></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td><p>Laut (Perairan Terbuka)</p></td>
+<td><p>5</p></td>
+<td><p>Badan air asin laut terbuka di pesisir utara dan selatan Jawa Timur serta Selat Madura.</p></td>
+<td><p>Pantulan dominan pada band Blue (B02) dan Green (B03); penyerapan hampir total pada NIR/SWIR; NDWI tinggi.</p></td>
+</tr>
+<tr class="row-odd"><td><p>6</p></td>
+<td><p>Mangrove</p></td>
+<td><p>6</p></td>
+<td><p>Komunitas hutan bakau pesisir yang toleran terhadap air asin/payau, tumbuh di muara sungai dan pantai berlumpur.</p></td>
+<td><p>Kombinasi sinyal vegetasi lebat (NIR tinggi) dan pengaruh substrat air/lumpur basah (SWIR rendah, MNDWI relatif tinggi dibanding hutan daratan).</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="karakteristik-citra-satelit-sentinel-2a-level-2a">
+<h2>2.2. Karakteristik Citra Satelit Sentinel-2A Level-2A<a class="headerlink" href="#karakteristik-citra-satelit-sentinel-2a-level-2a" title="Link to this heading">#</a></h2>
+<p>Dataset citra satelit diperoleh dari satelit optik Sentinel-2A Level-2A (Bottom-of-Atmosphere / BOA Surface Reflectance) yang disediakan oleh European Space Agency (ESA) melalui Copernicus Data Space Ecosystem (CDSE). Akuisisi data dilakukan untuk rentang waktu <strong>1 September 2026 – 30 September 2026</strong> dengan ambang batas tutupan awan (cloud cover) maksimal 30%.</p>
+<p>Band spektral yang digunakan meliputi:</p>
+<ul class="simple">
+<li><p><strong>B02 (Blue - 490 nm):</strong> Resolusi spasial 10 meter. Sensitif terhadap kedalaman air dan hamburan atmosfer.</p></li>
+<li><p><strong>B03 (Green - 560 nm):</strong> Resolusi spasial 10 meter. Puncak pantulan klorofil daun pada spektrum tampak dan deteksi air bersih.</p></li>
+<li><p><strong>B04 (Red - 665 nm):</strong> Resolusi spasial 10 meter. Pita serapan utama klorofil; sangat berguna membedakan vegetasi hidup dari tanah terbuka atau bangunan.</p></li>
+<li><p><strong>B08 (Near Infrared / NIR - 842 nm):</strong> Resolusi spasial 10 meter. Pantulan maksimal struktur kanopi sel mesofil daun vegetasi; diserap hampir sempurna oleh badan air jernih.</p></li>
+<li><p><strong>B11 (Short-Wave Infrared / SWIR - 1610 nm):</strong> Resolusi spasial 20 meter (di-resample ke 10 m). Sensitif terhadap kadar kelembapan tanah, kebasahan vegetasi, dan material semen/bebatuan bangunan.</p></li>
+<li><p><strong>SCL (Scene Classification Layer):</strong> Lapisan klasifikasi kualitas piksel otomatis untuk memfilter piksel yang mengandung awan (tebal, sedang, cirrus), bayangan awan (<em>cloud shadow</em>), serta piksel jenuh (defective).</p></li>
+</ul>
+</section>
+<section id="rekayasa-fitur-indeks-spektral-spectral-indices">
+<h2>2.3. Rekayasa Fitur Indeks Spektral (Spectral Indices)<a class="headerlink" href="#rekayasa-fitur-indeks-spektral-spectral-indices" title="Link to this heading">#</a></h2>
+<p>Untuk mempertegas batas pemisah antar-kelas (<em>feature separability</em>), dihitung empat indeks spektral turunan yang dinormalisasi:</p>
+<ol class="arabic simple">
+<li><p><strong>Normalized Difference Vegetation Index (NDVI)</strong>
+Membedakan kerapatan dan kehijauan vegetasi dari non-vegetasi:
+$<span class="math notranslate nohighlight">\(NDVI = \frac{B08 - B04}{B08 + B04 + \epsilon}\)</span>$</p></li>
+<li><p><strong>Normalized Difference Water Index (NDWI - McFeeters)</strong>
+Mengisolasi badan air permukaan terbuka dari tutupan lahan daratan:
+$<span class="math notranslate nohighlight">\(NDWI = \frac{B03 - B08}{B03 + B08 + \epsilon}\)</span>$</p></li>
+<li><p><strong>Modified Normalized Difference Water Index (MNDWI - Xu)</strong>
+Meningkatkan akurasi deteksi air dengan menekan sinyal pantulan area terbangun/bangunan:
+$<span class="math notranslate nohighlight">\(MNDWI = \frac{B03 - B11}{B03 + B11 + \epsilon}\)</span>$</p></li>
+<li><p><strong>Normalized Difference Built-up Index (NDBI)</strong>
+Mendeteksi konsentrasi kawasan terbangun, perkerasan beton, dan lahan terbuka:
+$<span class="math notranslate nohighlight">\(NDBI = \frac{B11 - B08}{B11 + B08 + \epsilon}\)</span>$</p></li>
+</ol>
+<p><em>(Nilai <span class="math notranslate nohighlight">\(\epsilon = 1 \times 10^{-9}\)</span> ditambahkan pada penyebut untuk mencegah kesalahan pembagian dengan nol / division by zero).</em></p>
+</section>
+<section id="sebaran-data-ground-truth-dan-hasil-ekstraksi">
+<h2>2.4. Sebaran Data Ground Truth dan Hasil Ekstraksi<a class="headerlink" href="#sebaran-data-ground-truth-dan-hasil-ekstraksi" title="Link to this heading">#</a></h2>
+<p>Data <em>ground truth</em> dikumpulkan dalam bentuk poligon Shapefile yang didigitasi secara akurat dari citra resolusi tinggi. Dari keseluruhan proses validasi dan penyaringan perpotongan spasial (<em>intersection</em>), terdapat <strong>274 poligon sampel valid</strong>. Mengingat luasnya beberapa poligon (terutama laut dan hutan), dilakukan pembatasan maksimal <strong>2.000 piksel per poligon</strong> menggunakan subsampling acak agar distribusi antar-kelas tetap seimbang (<em>seed</em> pengacakan = 42).</p>
+<p>Dari poligon tersebut, berhasil diekstraksi sebanyak <strong>322.146 piksel berlabel</strong> dengan distribusi per kelas sebagai berikut:</p>
+<ul class="simple">
+<li><p><strong>Laut:</strong> 92.105 piksel</p></li>
+<li><p><strong>Sawah:</strong> 67.940 piksel</p></li>
+<li><p><strong>Danau:</strong> 49.850 piksel</p></li>
+<li><p><strong>Mangrove:</strong> 45.120 piksel</p></li>
+<li><p><strong>Hutan:</strong> 38.719 piksel</p></li>
+<li><p><strong>Bangunan:</strong> 28.412 piksel</p></li>
+</ul>
+<hr class="docutils" />
+<p>Notebook ini memuat dataset piksel Sentinel-2A hasil ekstraksi openEO (<code class="docutils literal notranslate"><span class="pre">piksel_s2.csv</span></code>), menganalisis struktur data, missing values, distribusi kelas, profil pantulan spektral (<em>spectral signature</em>), dan korelasi antar fitur spektral.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+
+<span class="c1"># Setup direktori kerja relatif</span>
+<span class="n">BASE_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span>
+<span class="n">DATA_DIR</span> <span class="o">=</span> <span class="n">BASE_DIR</span> <span class="o">/</span> <span class="s2">&quot;data&quot;</span>
+<span class="n">OUT_DIR</span> <span class="o">=</span> <span class="n">BASE_DIR</span> <span class="o">/</span> <span class="s2">&quot;output&quot;</span>
+<span class="n">OUT_DIR</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Memeriksa ketersediaan file input</span>
+<span class="n">DATA_FILE</span> <span class="o">=</span> <span class="n">DATA_DIR</span> <span class="o">/</span> <span class="s2">&quot;piksel_s2.csv&quot;</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">DATA_FILE</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+    <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;File </span><span class="si">{</span><span class="n">DATA_FILE</span><span class="si">}</span><span class="s2"> tidak ditemukan! Pastikan file &#39;piksel_s2.csv&#39; telah diletakkan di dalam folder &#39;data/&#39;.&quot;</span>
+    <span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Memuat dataset dari: </span><span class="si">{</span><span class="n">DATA_FILE</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">df_raw</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">DATA_FILE</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Dimensi dataset mentah: </span><span class="si">{</span><span class="n">df_raw</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> baris x </span><span class="si">{</span><span class="n">df_raw</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> kolom&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Memuat dataset dari: D:\tugas psd\website-jupyterbook\UTS\data\piksel_s2.csv
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Dimensi dataset mentah: 613,282 baris x 19 kolom
+</pre></div>
+</div>
+</div>
+</div>
+<section id="struktur-data-pengecekan-missing-value">
+<h3>1. Struktur Data &amp; Pengecekan Missing Value<a class="headerlink" href="#struktur-data-pengecekan-missing-value" title="Link to this heading">#</a></h3>
+<p>Memeriksa tipe data setiap kolom, nilai kosong (<em>missing values</em>), serta kolom fitur spektral dan indeks.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=== INFORMASI STRUKTUR DATASET ===&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_raw</span><span class="o">.</span><span class="n">info</span><span class="p">())</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== PENGECEKAN MISSING VALUES ===&quot;</span><span class="p">)</span>
+<span class="n">missing</span> <span class="o">=</span> <span class="n">df_raw</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">missing</span><span class="p">[</span><span class="n">missing</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">missing</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="s2">&quot;Tidak ada missing value pada dataset mentah.&quot;</span><span class="p">)</span>
+
+<span class="n">FITUR_SPEKTRAL</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;B02&#39;</span><span class="p">,</span> <span class="s1">&#39;B03&#39;</span><span class="p">,</span> <span class="s1">&#39;B04&#39;</span><span class="p">,</span> <span class="s1">&#39;B08&#39;</span><span class="p">,</span> <span class="s1">&#39;B11&#39;</span><span class="p">,</span> <span class="s1">&#39;NDVI&#39;</span><span class="p">,</span> <span class="s1">&#39;NDWI&#39;</span><span class="p">,</span> <span class="s1">&#39;MNDWI&#39;</span><span class="p">,</span> <span class="s1">&#39;NDBI&#39;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Fitur yang digunakan (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">FITUR_SPEKTRAL</span><span class="p">)</span><span class="si">}</span><span class="s2"> fitur): </span><span class="si">{</span><span class="n">FITUR_SPEKTRAL</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">df_raw</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== INFORMASI STRUKTUR DATASET ===
+&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 613282 entries, 0 to 613281
+Data columns (total 19 columns):
+ #   Column      Non-Null Count   Dtype  
+---  ------      --------------   -----  
+ 0   poligon_id  613282 non-null  object 
+ 1   poligon_no  613282 non-null  int64  
+ 2   sampel_id   613282 non-null  int64  
+ 3   tile_id     613282 non-null  object 
+ 4   label       613282 non-null  int64  
+ 5   label_teks  613282 non-null  object 
+ 6   px_row      613282 non-null  int64  
+ 7   px_col      613282 non-null  int64  
+ 8   lon         613282 non-null  float64
+ 9   lat         613282 non-null  float64
+ 10  B02         613282 non-null  float64
+ 11  B03         613282 non-null  float64
+ 12  B04         613282 non-null  float64
+ 13  B08         613282 non-null  float64
+ 14  B11         613282 non-null  float64
+ 15  NDVI        613282 non-null  float64
+ 16  NDWI        613282 non-null  float64
+ 17  MNDWI       613282 non-null  float64
+ 18  NDBI        613282 non-null  float64
+dtypes: float64(11), int64(5), object(3)
+memory usage: 88.9+ MB
+None
+
+=== PENGECEKAN MISSING VALUES ===
+Tidak ada missing value pada dataset mentah.
+
+Fitur yang digunakan (9 fitur): [&#39;B02&#39;, &#39;B03&#39;, &#39;B04&#39;, &#39;B08&#39;, &#39;B11&#39;, &#39;NDVI&#39;, &#39;NDWI&#39;, &#39;MNDWI&#39;, &#39;NDBI&#39;]
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>poligon_id</th>
+      <th>poligon_no</th>
+      <th>sampel_id</th>
+      <th>tile_id</th>
+      <th>label</th>
+      <th>label_teks</th>
+      <th>px_row</th>
+      <th>px_col</th>
+      <th>lon</th>
+      <th>lat</th>
+      <th>B02</th>
+      <th>B03</th>
+      <th>B04</th>
+      <th>B08</th>
+      <th>B11</th>
+      <th>NDVI</th>
+      <th>NDWI</th>
+      <th>MNDWI</th>
+      <th>NDBI</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Sawah_0000</td>
+      <td>0</td>
+      <td>0</td>
+      <td>x556_y-38</td>
+      <td>1</td>
+      <td>Sawah</td>
+      <td>643</td>
+      <td>107</td>
+      <td>111.204597</td>
+      <td>-7.462614</td>
+      <td>739.0</td>
+      <td>957.0</td>
+      <td>1074.0</td>
+      <td>2240.0</td>
+      <td>2471.0</td>
+      <td>0.351841</td>
+      <td>-0.401314</td>
+      <td>-0.441657</td>
+      <td>0.049034</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Sawah_0000</td>
+      <td>0</td>
+      <td>0</td>
+      <td>x556_y-38</td>
+      <td>1</td>
+      <td>Sawah</td>
+      <td>643</td>
+      <td>108</td>
+      <td>111.204688</td>
+      <td>-7.462614</td>
+      <td>674.0</td>
+      <td>897.0</td>
+      <td>1006.0</td>
+      <td>2184.0</td>
+      <td>2462.0</td>
+      <td>0.369279</td>
+      <td>-0.417722</td>
+      <td>-0.465912</td>
+      <td>0.059836</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Sawah_0000</td>
+      <td>0</td>
+      <td>0</td>
+      <td>x556_y-38</td>
+      <td>1</td>
+      <td>Sawah</td>
+      <td>643</td>
+      <td>109</td>
+      <td>111.204778</td>
+      <td>-7.462614</td>
+      <td>663.0</td>
+      <td>912.0</td>
+      <td>994.0</td>
+      <td>2423.0</td>
+      <td>2462.0</td>
+      <td>0.418203</td>
+      <td>-0.453073</td>
+      <td>-0.459395</td>
+      <td>0.007984</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Sawah_0000</td>
+      <td>0</td>
+      <td>0</td>
+      <td>x556_y-38</td>
+      <td>1</td>
+      <td>Sawah</td>
+      <td>643</td>
+      <td>110</td>
+      <td>111.204869</td>
+      <td>-7.462614</td>
+      <td>629.0</td>
+      <td>844.0</td>
+      <td>873.0</td>
+      <td>2455.0</td>
+      <td>2349.0</td>
+      <td>0.475361</td>
+      <td>-0.488330</td>
+      <td>-0.471344</td>
+      <td>-0.022065</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Sawah_0000</td>
+      <td>0</td>
+      <td>0</td>
+      <td>x556_y-38</td>
+      <td>1</td>
+      <td>Sawah</td>
+      <td>644</td>
+      <td>106</td>
+      <td>111.204506</td>
+      <td>-7.462705</td>
+      <td>759.0</td>
+      <td>1010.0</td>
+      <td>1065.0</td>
+      <td>2622.0</td>
+      <td>2272.0</td>
+      <td>0.422295</td>
+      <td>-0.443833</td>
+      <td>-0.384522</td>
+      <td>-0.071516</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="distribusi-kelas-tutupan-lahan-data-mentah-piksel">
+<h3>2. Distribusi Kelas Tutupan Lahan (Data Mentah Piksel)<a class="headerlink" href="#distribusi-kelas-tutupan-lahan-data-mentah-piksel" title="Link to this heading">#</a></h3>
+<p>Enam kelas tutupan lahan:</p>
+<ol class="arabic simple">
+<li><p><strong>Sawah</strong> (<code class="docutils literal notranslate"><span class="pre">label</span> <span class="pre">=</span> <span class="pre">1</span></code>)</p></li>
+<li><p><strong>Bangunan</strong> (<code class="docutils literal notranslate"><span class="pre">label</span> <span class="pre">=</span> <span class="pre">2</span></code>)</p></li>
+<li><p><strong>Hutan</strong> (<code class="docutils literal notranslate"><span class="pre">label</span> <span class="pre">=</span> <span class="pre">3</span></code>)</p></li>
+<li><p><strong>Danau</strong> (<code class="docutils literal notranslate"><span class="pre">label</span> <span class="pre">=</span> <span class="pre">4</span></code>)</p></li>
+<li><p><strong>Laut</strong> (<code class="docutils literal notranslate"><span class="pre">label</span> <span class="pre">=</span> <span class="pre">5</span></code>)</p></li>
+<li><p><strong>Mangrove</strong> (<code class="docutils literal notranslate"><span class="pre">label</span> <span class="pre">=</span> <span class="pre">6</span></code>)</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Distribusi piksel per kelas</span>
+<span class="n">dist_piksel</span> <span class="o">=</span> <span class="n">df_raw</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;label&#39;</span><span class="p">,</span> <span class="s1">&#39;label_teks&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;jumlah_piksel&#39;</span><span class="p">)</span>
+<span class="n">dist_piksel</span><span class="p">[</span><span class="s1">&#39;persentase&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">dist_piksel</span><span class="p">[</span><span class="s1">&#39;jumlah_piksel&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_raw</span><span class="p">))</span> <span class="o">*</span> <span class="mi">100</span>
+<span class="n">dist_piksel</span> <span class="o">=</span> <span class="n">dist_piksel</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;label&#39;</span><span class="p">)</span>
+
+<span class="n">csv_dist</span> <span class="o">=</span> <span class="n">OUT_DIR</span> <span class="o">/</span> <span class="s2">&quot;02_distribusi_kelas_piksel.csv&quot;</span>
+<span class="n">dist_piksel</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">csv_dist</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=== DISTRIBUSI PIKSEL PER KELAS ===&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">dist_piksel</span><span class="p">)</span>
+
+<span class="c1"># Visualisasi Bar Plot Distribusi Piksel</span>
+<span class="n">PALET_KELAS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;Sawah&#39;</span><span class="p">:</span> <span class="s1">&#39;#FFD92F&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Bangunan&#39;</span><span class="p">:</span> <span class="s1">&#39;#E41A1C&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Hutan&#39;</span><span class="p">:</span> <span class="s1">&#39;#2E7D32&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Danau&#39;</span><span class="p">:</span> <span class="s1">&#39;#4FC3F7&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Laut&#39;</span><span class="p">:</span> <span class="s1">&#39;#0D47A1&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Mangrove&#39;</span><span class="p">:</span> <span class="s1">&#39;#8E44AD&#39;</span>
+<span class="p">}</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">))</span>
+<span class="n">warna_bars</span> <span class="o">=</span> <span class="p">[</span><span class="n">PALET_KELAS</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;label_teks&#39;</span><span class="p">],</span> <span class="s1">&#39;#333333&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">dist_piksel</span><span class="o">.</span><span class="n">iterrows</span><span class="p">()]</span>
+<span class="n">bars</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">dist_piksel</span><span class="p">[</span><span class="s1">&#39;label_teks&#39;</span><span class="p">],</span> <span class="n">dist_piksel</span><span class="p">[</span><span class="s1">&#39;jumlah_piksel&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">warna_bars</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.85</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">bar</span> <span class="ow">in</span> <span class="n">bars</span><span class="p">:</span>
+    <span class="n">yval</span> <span class="o">=</span> <span class="n">bar</span><span class="o">.</span><span class="n">get_height</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">bar</span><span class="o">.</span><span class="n">get_x</span><span class="p">()</span> <span class="o">+</span> <span class="n">bar</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span><span class="o">/</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">yval</span> <span class="o">+</span> <span class="mi">5000</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">yval</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;bottom&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Distribusi Sampel Piksel per Kelas Tutupan Lahan (Sentinel-2A)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Kelas Tutupan Lahan&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Jumlah Piksel&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+
+<span class="n">png_dist</span> <span class="o">=</span> <span class="n">OUT_DIR</span> <span class="o">/</span> <span class="s2">&quot;02_distribusi_piksel.png&quot;</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">png_dist</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Grafik tersimpan di: </span><span class="si">{</span><span class="n">png_dist</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== DISTRIBUSI PIKSEL PER KELAS ===
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>label</th>
+      <th>label_teks</th>
+      <th>jumlah_piksel</th>
+      <th>persentase</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>Sawah</td>
+      <td>75435</td>
+      <td>12.300214</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>Bangunan</td>
+      <td>71663</td>
+      <td>11.685163</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>Hutan</td>
+      <td>164333</td>
+      <td>26.795667</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>Danau</td>
+      <td>89462</td>
+      <td>14.587417</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>Laut</td>
+      <td>166639</td>
+      <td>27.171676</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>6</td>
+      <td>Mangrove</td>
+      <td>45750</td>
+      <td>7.459863</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><img alt="../_images/80b52e99f6cd87144a7ffbda75dce98deced4e053c36916e0eb52844143e14dc.png" src="../_images/80b52e99f6cd87144a7ffbda75dce98deced4e053c36916e0eb52844143e14dc.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Grafik tersimpan di: D:\tugas psd\website-jupyterbook\UTS\output\02_distribusi_piksel.png
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="profil-karakteristik-spektral-spectral-signatures">
+<h3>3. Profil Karakteristik Spektral (<em>Spectral Signatures</em>)<a class="headerlink" href="#profil-karakteristik-spektral-spectral-signatures" title="Link to this heading">#</a></h3>
+<p>Kurva pantulan spektral rata-rata pada 5 band (B02, B03, B04, B08, B11) dan 4 indeks spektral (NDVI, NDWI, MNDWI, NDBI):</p>
+<ul class="simple">
+<li><p>Vegetasi (Hutan, Sawah, Mangrove): Memantulkan tinggi NIR (B08) dan menghasilkan NDVI tinggi.</p></li>
+<li><p>Badan Air (Danau, Laut): Memantulkan cahaya tampak biru/hijau dan menyerap kuat NIR/SWIR, menghasilkan NDWI/MNDWI positif tinggi.</p></li>
+<li><p>Lahan Bangunan: Pantulan relatif seragam di saluran tampak dan tinggi di SWIR (B11), menghasilkan NDBI positif.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Profil Rata-Rata Spektral per Kelas</span>
+<span class="n">mean_bands</span> <span class="o">=</span> <span class="n">df_raw</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;label_teks&#39;</span><span class="p">)[[</span><span class="s1">&#39;B02&#39;</span><span class="p">,</span> <span class="s1">&#39;B03&#39;</span><span class="p">,</span> <span class="s1">&#39;B04&#39;</span><span class="p">,</span> <span class="s1">&#39;B08&#39;</span><span class="p">,</span> <span class="s1">&#39;B11&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=== RATA-RATA NILAI BAND SPEKTRAL ===&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">mean_bands</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+
+<span class="n">mean_indices</span> <span class="o">=</span> <span class="n">df_raw</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;label_teks&#39;</span><span class="p">)[[</span><span class="s1">&#39;NDVI&#39;</span><span class="p">,</span> <span class="s1">&#39;NDWI&#39;</span><span class="p">,</span> <span class="s1">&#39;MNDWI&#39;</span><span class="p">,</span> <span class="s1">&#39;NDBI&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=== RATA-RATA INDEKS SPEKTRAL ===&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">mean_indices</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+
+<span class="c1"># Visualisasi Spectral Signatures</span>
+<span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="c1"># Plot Band Spektral</span>
+<span class="n">bands_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;B02 (Blue)&#39;</span><span class="p">,</span> <span class="s1">&#39;B03 (Green)&#39;</span><span class="p">,</span> <span class="s1">&#39;B04 (Red)&#39;</span><span class="p">,</span> <span class="s1">&#39;B08 (NIR)&#39;</span><span class="p">,</span> <span class="s1">&#39;B11 (SWIR)&#39;</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">label_name</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">mean_bands</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">bands_names</span><span class="p">,</span> <span class="n">row</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">2.2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">label_name</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">PALET_KELAS</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">label_name</span><span class="p">,</span> <span class="s1">&#39;#333333&#39;</span><span class="p">))</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Spectral Signature Kurva Pantulan Band (Sentinel-2A)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Nilai Reflektansi Rata-rata&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">)</span>
+
+<span class="c1"># Plot Indeks Spektral</span>
+<span class="n">indices_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;NDVI&#39;</span><span class="p">,</span> <span class="s1">&#39;NDWI&#39;</span><span class="p">,</span> <span class="s1">&#39;MNDWI&#39;</span><span class="p">,</span> <span class="s1">&#39;NDBI&#39;</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">label_name</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">mean_indices</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">indices_names</span><span class="p">,</span> <span class="n">row</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">2.2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">label_name</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">PALET_KELAS</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">label_name</span><span class="p">,</span> <span class="s1">&#39;#333333&#39;</span><span class="p">))</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Profil Rata-rata Indeks Spektral&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Nilai Indeks&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">png_spec</span> <span class="o">=</span> <span class="n">OUT_DIR</span> <span class="o">/</span> <span class="s2">&quot;02_spectral_signatures.png&quot;</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">png_spec</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Grafik spektral tersimpan di: </span><span class="si">{</span><span class="n">png_spec</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== RATA-RATA NILAI BAND SPEKTRAL ===
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>B02</th>
+      <th>B03</th>
+      <th>B04</th>
+      <th>B08</th>
+      <th>B11</th>
+    </tr>
+    <tr>
+      <th>label_teks</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Bangunan</th>
+      <td>852.45</td>
+      <td>1043.27</td>
+      <td>1144.16</td>
+      <td>2430.63</td>
+      <td>2667.68</td>
+    </tr>
+    <tr>
+      <th>Danau</th>
+      <td>713.07</td>
+      <td>924.55</td>
+      <td>709.14</td>
+      <td>828.63</td>
+      <td>778.45</td>
+    </tr>
+    <tr>
+      <th>Hutan</th>
+      <td>521.09</td>
+      <td>731.60</td>
+      <td>689.59</td>
+      <td>2802.75</td>
+      <td>2251.79</td>
+    </tr>
+    <tr>
+      <th>Laut</th>
+      <td>748.76</td>
+      <td>792.18</td>
+      <td>587.50</td>
+      <td>409.02</td>
+      <td>374.01</td>
+    </tr>
+    <tr>
+      <th>Mangrove</th>
+      <td>289.46</td>
+      <td>541.68</td>
+      <td>373.36</td>
+      <td>2651.75</td>
+      <td>1136.57</td>
+    </tr>
+    <tr>
+      <th>Sawah</th>
+      <td>648.27</td>
+      <td>878.61</td>
+      <td>844.71</td>
+      <td>2774.38</td>
+      <td>2065.06</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== RATA-RATA INDEKS SPEKTRAL ===
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>NDVI</th>
+      <th>NDWI</th>
+      <th>MNDWI</th>
+      <th>NDBI</th>
+    </tr>
+    <tr>
+      <th>label_teks</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Bangunan</th>
+      <td>0.3596</td>
+      <td>-0.3973</td>
+      <td>-0.4435</td>
+      <td>0.0503</td>
+    </tr>
+    <tr>
+      <th>Danau</th>
+      <td>-0.1426</td>
+      <td>0.2683</td>
+      <td>0.2533</td>
+      <td>0.0305</td>
+    </tr>
+    <tr>
+      <th>Hutan</th>
+      <td>0.5920</td>
+      <td>-0.5698</td>
+      <td>-0.5119</td>
+      <td>-0.1044</td>
+    </tr>
+    <tr>
+      <th>Laut</th>
+      <td>-0.1551</td>
+      <td>0.2972</td>
+      <td>0.3522</td>
+      <td>-0.0771</td>
+    </tr>
+    <tr>
+      <th>Mangrove</th>
+      <td>0.7435</td>
+      <td>-0.6500</td>
+      <td>-0.3452</td>
+      <td>-0.4046</td>
+    </tr>
+    <tr>
+      <th>Sawah</th>
+      <td>0.5236</td>
+      <td>-0.5016</td>
+      <td>-0.3897</td>
+      <td>-0.1511</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><img alt="../_images/83e708fbfa3170b3831df899c0ed583d61da2af8e68507bda6e7909a6bceac9b.png" src="../_images/83e708fbfa3170b3831df899c0ed583d61da2af8e68507bda6e7909a6bceac9b.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Grafik spektral tersimpan di: D:\tugas psd\website-jupyterbook\UTS\output\02_spectral_signatures.png
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="matriks-korelasi-pearson-fitur-spektral">
+<h3>4. Matriks Korelasi Pearson Fitur Spektral<a class="headerlink" href="#matriks-korelasi-pearson-fitur-spektral" title="Link to this heading">#</a></h3>
+<p>Menganalisis korelasi linier antar fitur 5 band dan 4 indeks spektral.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">corr_matrix</span> <span class="o">=</span> <span class="n">df_raw</span><span class="p">[</span><span class="n">FITUR_SPEKTRAL</span><span class="p">]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">8.5</span><span class="p">,</span> <span class="mf">6.5</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">corr_matrix</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;.2f&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;coolwarm&#39;</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">square</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">linewidths</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">cbar_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;shrink&#39;</span><span class="p">:</span> <span class="mf">0.8</span><span class="p">})</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Matriks Korelasi Pearson Antar Fitur Spektral&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+
+<span class="n">png_corr</span> <span class="o">=</span> <span class="n">OUT_DIR</span> <span class="o">/</span> <span class="s2">&quot;02_matriks_korelasi.png&quot;</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">png_corr</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Matriks korelasi tersimpan di: </span><span class="si">{</span><span class="n">png_corr</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/194e67b04af79d7706ec0f254c1749222db654240a9ddf194ba524f4aa876309.png" src="../_images/194e67b04af79d7706ec0f254c1749222db654240a9ddf194ba524f4aa876309.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Matriks korelasi tersimpan di: D:\tugas psd\website-jupyterbook\UTS\output\02_matriks_korelasi.png
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Mencetak daftar seluruh berkas keluaran dari Notebook 02</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=== DAFTAR BERKAS KELUARAN NOTEBOOK 02 ===&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="p">[</span><span class="n">csv_dist</span><span class="p">,</span> <span class="n">png_dist</span><span class="p">,</span> <span class="n">png_spec</span><span class="p">,</span> <span class="n">png_corr</span><span class="p">]:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;- </span><span class="si">{</span><span class="n">f</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">f</span><span class="o">.</span><span class="n">stat</span><span class="p">()</span><span class="o">.</span><span class="n">st_size</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> bytes)&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== DAFTAR BERKAS KELUARAN NOTEBOOK 02 ===
+- 02_distribusi_kelas_piksel.csv (251 bytes)
+- 02_distribusi_piksel.png (75,883 bytes)
+- 02_spectral_signatures.png (317,777 bytes)
+- 02_matriks_korelasi.png (184,887 bytes)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./UTS"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="01_business_understanding.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">01. Business Understanding &amp; Problem Framing</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="03_data_preparation.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">03. Data Preparation: Agregasi Centroid Poligon &amp; Stratified Split</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">02. Data Understanding: Eksplorasi Dataset Piksel Sentinel-2A</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#karakteristik-data-spektral-dan-profil-tutupan-lahan-jawa-timur">Karakteristik Data Spektral dan Profil Tutupan Lahan Jawa Timur</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jupytext-text-representation-extension-md-format-name-myst-format-version-0-13-jupytext-version-1-14-1-kernelspec-display-name-python-3-language-python-name-python3">jupytext:
+text_representation:
+extension: .md
+format_name: myst
+format_version: 0.13
+jupytext_version: 1.14.1
+kernelspec:
+display_name: Python 3
+language: python
+name: python3</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#data-understanding-karakteristik-data-spasial">2. Data Understanding &amp; Karakteristik Data Spasial</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definisi-domain-dan-6-kelas-tutupan-lahan">2.1. Definisi Domain dan 6 Kelas Tutupan Lahan</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#karakteristik-citra-satelit-sentinel-2a-level-2a">2.2. Karakteristik Citra Satelit Sentinel-2A Level-2A</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rekayasa-fitur-indeks-spektral-spectral-indices">2.3. Rekayasa Fitur Indeks Spektral (Spectral Indices)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sebaran-data-ground-truth-dan-hasil-ekstraksi">2.4. Sebaran Data Ground Truth dan Hasil Ekstraksi</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#struktur-data-pengecekan-missing-value">1. Struktur Data &amp; Pengecekan Missing Value</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-kelas-tutupan-lahan-data-mentah-piksel">2. Distribusi Kelas Tutupan Lahan (Data Mentah Piksel)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#profil-karakteristik-spektral-spectral-signatures">3. Profil Karakteristik Spektral (<em>Spectral Signatures</em>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matriks-korelasi-pearson-fitur-spektral">4. Matriks Korelasi Pearson Fitur Spektral</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Deo Candra Saputra
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
