@@ -412,6 +412,7 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-kelas-tutupan-lahan-data-mentah-piksel">2. Distribusi Kelas Tutupan Lahan (Data Mentah Piksel)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#profil-karakteristik-spektral-spectral-signatures">3. Profil Karakteristik Spektral (<em>Spectral Signatures</em>)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matriks-korelasi-pearson-fitur-spektral">4. Matriks Korelasi Pearson Fitur Spektral</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pemeriksaan-spasial-terhadap-batas-administrasi-jawa-timur">5. Pemeriksaan Spasial terhadap Batas Administrasi Jawa Timur</a></li>
 </ul>
 </li>
 </ul>
@@ -1749,6 +1750,121 @@ Fitur yang digunakan (9 fitur): [&#39;B02&#39;, &#39;B03&#39;, &#39;B04&#39;, &#
 </div>
 </div>
 </section>
+<section id="pemeriksaan-spasial-terhadap-batas-administrasi-jawa-timur">
+<h3>5. Pemeriksaan Spasial terhadap Batas Administrasi Jawa Timur<a class="headerlink" href="#pemeriksaan-spasial-terhadap-batas-administrasi-jawa-timur" title="Link to this heading">#</a></h3>
+<p>Memeriksa apakah centroid tiap poligon sampel berada di dalam batas administrasi resmi Jawa Timur (<code class="docutils literal notranslate"><span class="pre">data/jawatimur.geojson</span></code>). Ini menggantikan pendekatan bounding box persegi sebelumnya yang memasukkan koordinat Pulau Bali.</p>
+<p><strong>Kebijakan terhadap sampel di luar batas:</strong></p>
+<ul class="simple">
+<li><p>Sampel kelas <strong>air (Laut, Danau, Mangrove)</strong> di luar batas daratan adalah <strong>wajar</strong> (geojson = batas daratan). Tidak dihapus, ditandai <code class="docutils literal notranslate"><span class="pre">dalam_jatim=False</span></code>.</p></li>
+<li><p>Sampel kelas <strong>daratan (Sawah, Bangunan, Hutan)</strong> di luar batas dicatat sebagai potensi anomali. Parameter <code class="docutils literal notranslate"><span class="pre">HAPUS_DARATAN_LUAR_BATAS</span></code> mengontrol apakah akan dihapus (default: <code class="docutils literal notranslate"><span class="pre">False</span></code>).</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="c1"># Pastikan modul wilayah dapat diimpor</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">))</span>
+<span class="kn">from</span> <span class="nn">wilayah</span> <span class="kn">import</span> <span class="n">muat_batas</span><span class="p">,</span> <span class="n">titik_di_dalam</span>
+
+<span class="c1"># ── Parameter ──────────────────────────────────────────────────────────────</span>
+<span class="c1"># Jika True, hapus sampel kelas daratan di luar batas dari pelatihan.</span>
+<span class="c1"># Default False: semua sampel tetap dipakai, kompatibel dengan versi sebelumnya.</span>
+<span class="n">HAPUS_DARATAN_LUAR_BATAS</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="c1"># ───────────────────────────────────────────────────────────────────────────</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Memuat batas administrasi Jawa Timur...&quot;</span><span class="p">)</span>
+<span class="n">gdf_batas</span> <span class="o">=</span> <span class="n">muat_batas</span><span class="p">(</span><span class="n">DATA_DIR</span> <span class="o">/</span> <span class="s2">&quot;jawatimur.geojson&quot;</span><span class="p">)</span>
+<span class="n">bbox_aktual</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;west&#39;</span><span class="p">:</span>  <span class="nb">float</span><span class="p">(</span><span class="n">gdf_batas</span><span class="o">.</span><span class="n">total_bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+    <span class="s1">&#39;south&#39;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">gdf_batas</span><span class="o">.</span><span class="n">total_bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>
+    <span class="s1">&#39;east&#39;</span><span class="p">:</span>  <span class="nb">float</span><span class="p">(</span><span class="n">gdf_batas</span><span class="o">.</span><span class="n">total_bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span>
+    <span class="s1">&#39;north&#39;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">gdf_batas</span><span class="o">.</span><span class="n">total_bounds</span><span class="p">[</span><span class="mi">3</span><span class="p">]),</span>
+<span class="p">}</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Bounds aktual dari geojson: </span><span class="si">{</span><span class="n">bbox_aktual</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;(Sebelumnya: west=110.89, south=-8.84, east=115.45, north=-6.65 -- memasukkan Bali)&quot;</span><span class="p">)</span>
+
+<span class="c1"># Hitung centroid per poligon</span>
+<span class="n">df_centroid</span> <span class="o">=</span> <span class="n">df_agg</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>  <span class="c1"># df_agg berisi rata-rata fitur per poligon</span>
+<span class="k">if</span> <span class="s1">&#39;lon&#39;</span> <span class="ow">in</span> <span class="n">df_centroid</span><span class="o">.</span><span class="n">columns</span> <span class="ow">and</span> <span class="s1">&#39;lat&#39;</span> <span class="ow">in</span> <span class="n">df_centroid</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="k">pass</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="c1"># Hitung dari df_piksel jika df_agg tidak punya lon/lat</span>
+    <span class="n">df_centroid</span> <span class="o">=</span> <span class="n">df_piksel</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;poligon_id&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span>
+        <span class="n">label_teks</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;label_teks&#39;</span><span class="p">,</span> <span class="s1">&#39;first&#39;</span><span class="p">),</span>
+        <span class="n">label</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;label&#39;</span><span class="p">,</span> <span class="s1">&#39;first&#39;</span><span class="p">),</span>
+        <span class="n">lon</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;lon&#39;</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">),</span>
+        <span class="n">lat</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">),</span>
+        <span class="n">n_piksel</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;sampel_id&#39;</span><span class="p">,</span> <span class="s1">&#39;count&#39;</span><span class="p">),</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Menguji </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df_centroid</span><span class="p">)</span><span class="si">}</span><span class="s2"> centroid poligon terhadap batas Jawa Timur...&quot;</span><span class="p">)</span>
+<span class="n">dalam_series</span> <span class="o">=</span> <span class="n">titik_di_dalam</span><span class="p">(</span><span class="n">df_centroid</span><span class="p">,</span> <span class="n">gdf_batas</span><span class="p">,</span> <span class="n">lon</span><span class="o">=</span><span class="s1">&#39;lon&#39;</span><span class="p">,</span> <span class="n">lat</span><span class="o">=</span><span class="s1">&#39;lat&#39;</span><span class="p">)</span>
+<span class="n">df_centroid</span><span class="p">[</span><span class="s1">&#39;dalam_jatim&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dalam_series</span><span class="o">.</span><span class="n">values</span>
+
+<span class="c1"># Tabel ringkasan per kelas</span>
+<span class="n">df_report</span> <span class="o">=</span> <span class="n">df_centroid</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;label_teks&#39;</span><span class="p">,</span> <span class="s1">&#39;dalam_jatim&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span>
+    <span class="n">n_poligon</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;poligon_id&#39;</span><span class="p">,</span> <span class="s1">&#39;count&#39;</span><span class="p">),</span>
+    <span class="n">n_piksel</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;n_piksel&#39;</span><span class="p">,</span> <span class="s1">&#39;sum&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="s1">&#39;n_piksel&#39;</span> <span class="ow">in</span> <span class="n">df_centroid</span><span class="o">.</span><span class="n">columns</span> <span class="k">else</span> <span class="p">(</span><span class="s1">&#39;poligon_id&#39;</span><span class="p">,</span> <span class="s1">&#39;count&#39;</span><span class="p">),</span>
+<span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">df_report</span><span class="p">[</span><span class="s1">&#39;dalam_jatim&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_report</span><span class="p">[</span><span class="s1">&#39;dalam_jatim&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="kc">True</span><span class="p">:</span> <span class="s1">&#39;Di Dalam&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">:</span> <span class="s1">&#39;Di Luar&#39;</span><span class="p">})</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== Tabel Sampel vs Batas Jawa Timur ===&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">df_report</span><span class="p">)</span>
+
+<span class="c1"># Simpan</span>
+<span class="n">df_report</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">OUT_DIR</span> <span class="o">/</span> <span class="s2">&quot;02_sampel_vs_batas.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Disimpan ke output/02_sampel_vs_batas.csv&quot;</span><span class="p">)</span>
+
+<span class="c1"># Identifikasi sampel daratan di luar batas</span>
+<span class="n">df_daratan_luar</span> <span class="o">=</span> <span class="n">df_centroid</span><span class="p">[</span>
+    <span class="p">(</span><span class="o">~</span><span class="n">df_centroid</span><span class="p">[</span><span class="s1">&#39;dalam_jatim&#39;</span><span class="p">])</span> <span class="o">&amp;</span>
+    <span class="p">(</span><span class="o">~</span><span class="n">df_centroid</span><span class="p">[</span><span class="s1">&#39;label_teks&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s1">&#39;Laut&#39;</span><span class="p">,</span> <span class="s1">&#39;Danau&#39;</span><span class="p">,</span> <span class="s1">&#39;Mangrove&#39;</span><span class="p">]))</span>
+<span class="p">]</span>
+<span class="n">df_air_luar</span> <span class="o">=</span> <span class="n">df_centroid</span><span class="p">[</span>
+    <span class="p">(</span><span class="o">~</span><span class="n">df_centroid</span><span class="p">[</span><span class="s1">&#39;dalam_jatim&#39;</span><span class="p">])</span> <span class="o">&amp;</span>
+    <span class="p">(</span><span class="n">df_centroid</span><span class="p">[</span><span class="s1">&#39;label_teks&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s1">&#39;Laut&#39;</span><span class="p">,</span> <span class="s1">&#39;Danau&#39;</span><span class="p">,</span> <span class="s1">&#39;Mangrove&#39;</span><span class="p">]))</span>
+<span class="p">]</span>
+
+<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_daratan_luar</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">[LAPORAN] </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df_daratan_luar</span><span class="p">)</span><span class="si">}</span><span class="s2"> poligon DARATAN di luar batas (potensi anomali):&quot;</span><span class="p">)</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">df_daratan_luar</span><span class="p">[[</span><span class="s1">&#39;poligon_id&#39;</span><span class="p">,</span> <span class="s1">&#39;label_teks&#39;</span><span class="p">,</span> <span class="s1">&#39;lon&#39;</span><span class="p">,</span> <span class="s1">&#39;lat&#39;</span><span class="p">]])</span>
+    <span class="k">if</span> <span class="n">HAPUS_DARATAN_LUAR_BATAS</span><span class="p">:</span>
+        <span class="n">id_hapus</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">df_daratan_luar</span><span class="p">[</span><span class="s1">&#39;poligon_id&#39;</span><span class="p">])</span>
+        <span class="n">sebelum</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_centroid</span><span class="p">)</span>
+        <span class="n">df_centroid</span> <span class="o">=</span> <span class="n">df_centroid</span><span class="p">[</span><span class="o">~</span><span class="n">df_centroid</span><span class="p">[</span><span class="s1">&#39;poligon_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">id_hapus</span><span class="p">)]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[HAPUS] HAPUS_DARATAN_LUAR_BATAS=True: </span><span class="si">{</span><span class="n">sebelum</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="n">df_centroid</span><span class="p">)</span><span class="si">}</span><span class="s2"> poligon dihapus.&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[INFO] HAPUS_DARATAN_LUAR_BATAS=False (default): semua sampel tetap dipakai.&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[INFO] Metrik model TIDAK berubah dari versi sebelumnya.&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">[OK] Tidak ada poligon kelas daratan di luar batas.&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_air_luar</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">[INFO] </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df_air_luar</span><span class="p">)</span><span class="si">}</span><span class="s2"> poligon AIR/PESISIR di luar batas -- WAJAR, tidak dihapus.&quot;</span><span class="p">)</span>
+
+<span class="c1"># Peta statis sampel dalam vs luar batas</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="n">gdf_batas</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;#2c3e50&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Batas Jawa Timur&#39;</span><span class="p">)</span>
+<span class="n">df_dalam</span> <span class="o">=</span> <span class="n">df_centroid</span><span class="p">[</span><span class="n">df_centroid</span><span class="p">[</span><span class="s1">&#39;dalam_jatim&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">True</span><span class="p">]</span>
+<span class="n">df_luar</span>  <span class="o">=</span> <span class="n">df_centroid</span><span class="p">[</span><span class="n">df_centroid</span><span class="p">[</span><span class="s1">&#39;dalam_jatim&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">False</span><span class="p">]</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">df_dalam</span><span class="p">[</span><span class="s1">&#39;lon&#39;</span><span class="p">],</span> <span class="n">df_dalam</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">],</span>
+           <span class="n">c</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Di Dalam (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df_dalam</span><span class="p">)</span><span class="si">}</span><span class="s1"> poligon)&#39;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_luar</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">df_luar</span><span class="p">[</span><span class="s1">&#39;lon&#39;</span><span class="p">],</span> <span class="n">df_luar</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">],</span>
+               <span class="n">c</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Di Luar (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df_luar</span><span class="p">)</span><span class="si">}</span><span class="s1"> poligon)&#39;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Centroid Poligon Sampel vs Batas Administrasi Jawa Timur&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Bujur (derajat BT)&#39;</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Lintang (derajat LS)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">OUT_DIR</span> <span class="o">/</span> <span class="s2">&quot;02_sampel_vs_batas_peta.png&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Peta sampel vs batas disimpan ke output/02_sampel_vs_batas_peta.png&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
 </section>
 </section>
 
@@ -1830,6 +1946,7 @@ Fitur yang digunakan (9 fitur): [&#39;B02&#39;, &#39;B03&#39;, &#39;B04&#39;, &#
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-kelas-tutupan-lahan-data-mentah-piksel">2. Distribusi Kelas Tutupan Lahan (Data Mentah Piksel)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#profil-karakteristik-spektral-spectral-signatures">3. Profil Karakteristik Spektral (<em>Spectral Signatures</em>)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matriks-korelasi-pearson-fitur-spektral">4. Matriks Korelasi Pearson Fitur Spektral</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pemeriksaan-spasial-terhadap-batas-administrasi-jawa-timur">5. Pemeriksaan Spasial terhadap Batas Administrasi Jawa Timur</a></li>
 </ul>
 </li>
 </ul>
