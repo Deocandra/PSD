@@ -156,6 +156,10 @@
   
 
   
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
 </div>
 
     </header>
@@ -373,7 +377,9 @@
 <button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
 </button>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -389,6 +395,14 @@
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aplikasi-web-interaktif-streamlit-cloud">Aplikasi Web Interaktif (Streamlit Cloud)</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -400,7 +414,14 @@
                   
   <section class="tex2jax_ignore mathjax_ignore" id="lulc">
 <h1>LULC<a class="headerlink" href="#lulc" title="Link to this heading">#</a></h1>
-<p>LULC adalah singkatan dari Land Use and Land Cover (Penggunaan Lahan dan Tutupan Lahan). Informasi mengenai tutupan dan penggunaan lahan sangat penting dalam perencanaan wilayah, manajemen sumber daya alam, hingga memantau perubahan iklim. Pendataan lahan secara manual dengan terjun langsung ke lapangan memakan waktu dan biaya operasional yang sangat besar. Untungnya, satelit observasi bumi seperti Sentinel-2A mengorbit dan mengambil citra bumi secara berkala. Namun, membedakan mana Sawah, Danau, atau Hutan dari citra satelit mentah tetap memerlukan pengamatan khusus dari tenaga ahli.</p>
+<p>LULC adalah singkatan dari <em>Land Use and Land Cover</em> (Penggunaan Lahan dan Tutupan Lahan). Informasi mengenai tutupan dan penggunaan lahan sangat penting dalam perencanaan wilayah, manajemen sumber daya alam, hingga pemantauan perubahan iklim.</p>
+<p>Pendataan lahan secara manual dengan terjun langsung ke lapangan membutuhkan waktu dan biaya operasional yang besar. Oleh karena itu, teknologi penginderaan jauh melalui satelit observasi bumi, seperti Sentinel-2A, dapat dimanfaatkan untuk memperoleh citra permukaan bumi secara berkala.</p>
+<p>Namun, membedakan objek seperti sawah, danau, dan hutan dari citra satelit mentah tetap memerlukan analisis khusus. Melalui klasifikasi <em>Land Use and Land Cover</em> (LULC), citra satelit dapat diolah untuk mengidentifikasi dan mengelompokkan berbagai jenis tutupan lahan secara lebih sistematis.</p>
+<section id="aplikasi-web-interaktif-streamlit-cloud">
+<h2>Aplikasi Web Interaktif (Streamlit Cloud)<a class="headerlink" href="#aplikasi-web-interaktif-streamlit-cloud" title="Link to this heading">#</a></h2>
+<p>Seluruh visualisasi spasial, kedua peta interaktif, dan evaluasi performa model telah di-<em>deploy</em> dan dapat diakses secara publik melalui aplikasi berikut:</p>
+<p><a class="reference external" href="https://klasifikasi-lahan-jatim.streamlit.app/"><strong>Buka Aplikasi Klasifikasi Lahan Jawa Timur di Streamlit Cloud</strong></a></p>
+</section>
 <div class="toctree-wrapper compound">
 </div>
 </section>
@@ -459,6 +480,23 @@
             </div>
             
             
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aplikasi-web-interaktif-streamlit-cloud">Aplikasi Web Interaktif (Streamlit Cloud)</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
