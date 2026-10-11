@@ -129,9 +129,9 @@ def cari_file(nama_file: str) -> Path | None:
     return None
 
 @st.cache_data
-def muat_konten_html(path_berkas: Path) -> str:
-    """Membaca isi berkas HTML peta secara ter-cache dengan encoding UTF-8."""
-    with open(path_berkas, "r", encoding="utf-8") as f:
+def muat_konten_html(path_str: str, mtime: float) -> str:
+    """Membaca isi berkas HTML peta secara ter-cache dengan validasi mtime agar otomatis segar."""
+    with open(path_str, "r", encoding="utf-8") as f:
         return f.read()
 
 @st.cache_data
@@ -404,7 +404,7 @@ with tab3:
     st.subheader("3. Visualisasi Peta Spasial Interaktif Tutupan Lahan Jawa Timur")
     
     # Kontrol Tata Letak Peta & Slider Tinggi Peta
-    c_ctrl1, c_ctrl2 = st.columns([1.6, 1])
+    c_ctrl1, c_ctrl2, c_ctrl3 = st.columns([1.6, 1, 0.6])
     with c_ctrl1:
         mode_tampilan_peta = st.radio(
             "Tata Letak Tampilan Peta:",
@@ -419,6 +419,12 @@ with tab3:
         )
     with c_ctrl2:
         tinggi_peta_pilihan = st.slider("Tinggi Tampilan Peta (px):", min_value=450, max_value=900, value=650, step=50)
+    with c_ctrl3:
+        st.write("")
+        st.write("")
+        if st.button("🔄 Muat Ulang Peta", help="Hapus cache memori peta dan muat ulang berkas terbaru"):
+            st.cache_data.clear()
+            st.rerun()
 
     st.markdown("---")
 
@@ -442,8 +448,9 @@ with tab3:
                 f"Silakan jalankan notebook `{notebook_sumber}` terlebih dahulu untuk menghasilkan peta ini."
             )
         else:
-            konten_html = muat_konten_html(path_peta)
-            components.html(konten_html, height=tinggi, scrolling=True)
+            mtime = path_peta.stat().st_mtime
+            konten_html = muat_konten_html(str(path_peta), mtime)
+            components.html(konten_html, height=tinggi, scrolling=False)
 
     # --------------------------------------------------------------------------
     # RENDER SESUAI MODE TAMPILAN
